@@ -72,8 +72,10 @@ public class GameProject {
                  playButton.setPreferredSize(new Dimension(150,70));
                  //the button initializes the game level
                  playButton.addActionListener((ActionEvent e) -> {
+                     GameFrame.setLocationRelativeTo(MainMenu);
                      GameFrame.setVisible(true);
                      MainMenu.setVisible(false);
+                     GameFrame.setEnabled(true); 
         });
                  
                  //back to menu button
@@ -98,8 +100,10 @@ public class GameProject {
                  pauseMenu.setFont(Default);
                  pauseMenu.addActionListener((ActionEvent e) -> {
                      MainMenu.setVisible(false);
+                     PauseMenu.setLocationRelativeTo(GameFrame);
                      PauseMenu.setVisible(true);
                      EndMenu.setVisible(false);
+                     GameFrame.setEnabled(false);
         });
                  //resume
                  JButton Resume = new JButton("Resume");
@@ -107,7 +111,7 @@ public class GameProject {
                  Resume.setFont(Default);
                  Resume.setPreferredSize(new Dimension(200,45));
                  Resume.addActionListener((ActionEvent e) -> {
-                    
+                 GameFrame.setEnabled(true);   
                      PauseMenu.setVisible(false);
                      
         });
@@ -148,6 +152,7 @@ public class GameProject {
                 PauseMenu.setResizable(false);
                 PauseMenu.setUndecorated(true);
                 PauseMenu.setLocationRelativeTo(null);
+                PauseMenu.setAlwaysOnTop(true);
                 
                 //End Menu settings
                 EndMenu.setSize(Smallx,Smally);
