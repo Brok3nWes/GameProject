@@ -1,6 +1,15 @@
 package gameproject;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -31,6 +40,10 @@ public class GameProject {
             int Gamex = 700;
             int Gamey = 650;
             
+            //fonts
+            Font Default = new Font("", Font.BOLD, 20);
+            Font BigButton = new Font("", Font.BOLD, 35);
+            
             //information
             String GameTitle =   "Maze Game - ";
             String Paused =      "Paused";
@@ -45,7 +58,46 @@ public class GameProject {
             GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
             //configuration of components
-            
+              //buttons
+                 //main menu play button
+                 JButton playButton = new JButton("Play!");
+                 playButton.setFont(BigButton);
+                 playButton.setPreferredSize(new Dimension(150,70));
+                 //the button initializes the game level
+                 playButton.addActionListener((ActionEvent e) -> {
+                     GameFrame.setVisible(true);
+                     MainMenu.setVisible(false);
+        });
+                 
+                 //back to menu button
+                 JButton showMenu = new JButton("Back to main menu");
+                 showMenu.setPreferredSize(new Dimension(150,70));
+                 showMenu.addActionListener((ActionEvent e) -> {
+                     MainMenu.setVisible(true);
+                     GameFrame.setVisible(false);
+                     PauseMenu.setVisible(false);
+                     EndMenu.setVisible(false);
+        });
+                 PauseMenu.add(showMenu);
+                 
+                 //show pause menu
+                 JButton pauseMenu = new JButton("Pause");
+                 pauseMenu.setPreferredSize(new Dimension(150,70));
+                 pauseMenu.addActionListener((ActionEvent e) -> {
+                     MainMenu.setVisible(false);
+                     GameFrame.setVisible(false);
+                     PauseMenu.setVisible(true);
+                     EndMenu.setVisible(false);
+        });
+                 GameFrame.add(pauseMenu);
+                 
+              //Panels
+                 //Main menu
+                 JPanel MainPanel = new JPanel();
+                 MainPanel.add(playButton);
+                 MainMenu.add(MainPanel);
+                 
+              
             //configuration of frames
                 //Main Menu Settings
                 MainMenu.setSize(Bigx,Bigy);
@@ -69,6 +121,10 @@ public class GameProject {
             
             //these frames are visible on startup
             MainMenu.setVisible(true);
+            
+           
+            
+            
     }
     
 }
