@@ -4,6 +4,7 @@ import static java.awt.BorderLayout.CENTER;
 import java.awt.Color;
 import static java.awt.Color.BLUE;
 import static java.awt.Color.GREEN;
+import static java.awt.Color.WHITE;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -50,6 +52,8 @@ public class GameProject {
             //fonts
             Font Default = new Font("", Font.BOLD, 17);
             Font BigButton = new Font("", Font.BOLD, 35);
+            Font BigTitle = new Font("", Font.BOLD, 65);
+            Font MediumTitle = new Font("", Font.BOLD, 40);
             
             //information
             String GameTitle =   "Maze Game - ";
@@ -78,11 +82,21 @@ public class GameProject {
                      GameFrame.setEnabled(true); 
         });
                  
-                 //back to menu button
+                 //back to menu button from pause menu
                  JButton showMenu = new JButton("Back to main menu");
                  showMenu.setFont(Default);
                  showMenu.setPreferredSize(new Dimension(200,45));
                  showMenu.addActionListener((ActionEvent e) -> {
+                     MainMenu.setVisible(true);
+                     GameFrame.setVisible(false);
+                     PauseMenu.setVisible(false);
+                     EndMenu.setVisible(false);
+        });
+                 //back to menu button from end menu
+                 JButton showMenu2 = new JButton("Back to main menu");
+                 showMenu2.setFont(Default);
+                 showMenu2.setPreferredSize(new Dimension(200,45));
+                 showMenu2.addActionListener((ActionEvent e) -> {
                      MainMenu.setVisible(true);
                      GameFrame.setVisible(false);
                      PauseMenu.setVisible(false);
@@ -115,18 +129,30 @@ public class GameProject {
                      PauseMenu.setVisible(false);
                      
         });
-                 
+              //title's
+                //Main Menu Title
+                JLabel MainTitle = new JLabel("Maze Game");
+                MainTitle.setFont(BigTitle);
+                //pause menu title
+                JLabel PauseTitle = new JLabel("Paused");
+                PauseTitle.setFont(MediumTitle);
+                //end title
+                JLabel EndTitle = new JLabel("End Reached!");
+                EndTitle.setFont(MediumTitle);
                  
               //Panels
                  //Main menu
                  JPanel MainPanel = new JPanel();
+                 MainPanel.add(MainTitle);
                  MainPanel.add(playButton);
                  MainMenu.add(MainPanel);
                  MainPanel.add(exitGame);
+                 MainPanel.setBackground(WHITE);
                  
                  //pause menu
                  JPanel pausePanel = new JPanel();
                  PauseMenu.add(pausePanel);
+                 pausePanel.add(PauseTitle);
                  pausePanel.add(Resume);
                  pausePanel.add(showMenu);
                  pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
@@ -138,6 +164,13 @@ public class GameProject {
                  gamePanel.add(pauseMenu);
                  gamePanel.setBackground(GREEN);
                  
+                 //end of level menu
+                 JPanel endPanel = new JPanel();
+                 endPanel.add(EndTitle);
+                 endPanel.add(showMenu2);
+                 EndMenu.add(endPanel);
+                 endPanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
+                            GameTitle + Ended));
                  
             //configuration of frames
                 //Main Menu Settings
@@ -152,13 +185,13 @@ public class GameProject {
                 PauseMenu.setResizable(false);
                 PauseMenu.setUndecorated(true);
                 PauseMenu.setLocationRelativeTo(null);
-                PauseMenu.setAlwaysOnTop(true);
-                
+                                
                 //End Menu settings
                 EndMenu.setSize(Smallx,Smally);
                 EndMenu.setTitle(GameTitle + Ended);
                 EndMenu.setResizable(false);
                 EndMenu.setLocationRelativeTo(null);
+                EndMenu.setUndecorated(true);
                 
                 //Game Frame settings
                 GameFrame.setSize(Gamex,Gamey);
@@ -168,6 +201,7 @@ public class GameProject {
             
             //these frames are visible on startup
             MainMenu.setVisible(true);
+            EndMenu.setVisible(true);
             
            
             
