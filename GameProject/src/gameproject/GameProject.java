@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
 /**
  *
- * @author Wessel
+ * @author Wessel Bakker - 17094801
+ * @author Bas Woltjer - 17067057
  */
 public class GameProject {
 
@@ -15,7 +11,8 @@ public class GameProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Game game = new Game();
+        HighScore HighScore = new HighScore();
     }
     
 }
