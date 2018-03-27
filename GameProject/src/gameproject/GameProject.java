@@ -1,10 +1,12 @@
 package gameproject;
 
+import static com.sun.javafx.geom.BaseBounds.BoundsType.BOX;
 import static java.awt.BorderLayout.CENTER;
 import java.awt.Color;
 import static java.awt.Color.BLUE;
 import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -12,10 +14,13 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -33,6 +38,7 @@ public class GameProject {
     public static void main(String[] args) {
         Game game = new Game();
         HighScore HighScore = new HighScore();
+        HighScore = null; //Tijdelijk! weer weghalen!
         
         //initialize frames
         JFrame MainMenu = new JFrame();
@@ -51,9 +57,10 @@ public class GameProject {
             
             //fonts
             Font Default = new Font("", Font.BOLD, 17);
-            Font BigButton = new Font("", Font.BOLD, 35);
+            Font BigButton = new Font("", Font.BOLD, 75);
             Font BigTitle = new Font("", Font.BOLD, 65);
             Font MediumTitle = new Font("", Font.BOLD, 40);
+            Font MediumText = new Font("", Font.PLAIN, 25);
             
             //information
             String GameTitle =   "Maze Game - ";
@@ -73,7 +80,7 @@ public class GameProject {
                  //main menu play button
                  JButton playButton = new JButton("Play!");
                  playButton.setFont(BigButton);
-                 playButton.setPreferredSize(new Dimension(150,70));
+                 playButton.setPreferredSize(new Dimension(300,100));
                  //the button initializes the game level
                  playButton.addActionListener((ActionEvent e) -> {
                      GameFrame.setLocationRelativeTo(MainMenu);
@@ -105,7 +112,7 @@ public class GameProject {
                  //exit button
                  JButton exitGame = new JButton("Exit");
                  exitGame.setFont(Default);
-                 exitGame.setPreferredSize(new Dimension(80,40));
+                 exitGame.setPreferredSize(new Dimension(150,60));
                  exitGame.addActionListener((ActionEvent e) -> {
                      System.exit(1);
                  });
@@ -133,21 +140,32 @@ public class GameProject {
                 //Main Menu Title
                 JLabel MainTitle = new JLabel("Maze Game");
                 MainTitle.setFont(BigTitle);
+                MainTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
                 //pause menu title
                 JLabel PauseTitle = new JLabel("Paused");
                 PauseTitle.setFont(MediumTitle);
                 //end title
                 JLabel EndTitle = new JLabel("End Reached!");
                 EndTitle.setFont(MediumTitle);
+                
+                //Highscore label
+                JLabel HS = new JLabel("Highscore: " + HighScore);
+                HS.setFont(MediumText);
+                //score after round
+                JLabel YS = new JLabel("Your Score: ");
+                YS.setFont(MediumText);
                  
               //Panels
                  //Main menu
                  JPanel MainPanel = new JPanel();
+               // MainPanel.setLayout(new SpringLayout());
                  MainPanel.add(MainTitle);
                  MainPanel.add(playButton);
                  MainMenu.add(MainPanel);
                  MainPanel.add(exitGame);
                  MainPanel.setBackground(WHITE);
+                        //components of main menu
+                        
                  
                  //pause menu
                  JPanel pausePanel = new JPanel();
@@ -167,6 +185,8 @@ public class GameProject {
                  //end of level menu
                  JPanel endPanel = new JPanel();
                  endPanel.add(EndTitle);
+                 endPanel.add(HS);
+                 endPanel.add(YS);
                  endPanel.add(showMenu2);
                  EndMenu.add(endPanel);
                  endPanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
@@ -201,7 +221,7 @@ public class GameProject {
             
             //these frames are visible on startup
             MainMenu.setVisible(true);
-            EndMenu.setVisible(true);
+           // EndMenu.setVisible(true);
             
            
             
