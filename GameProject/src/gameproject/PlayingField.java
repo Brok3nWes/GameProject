@@ -19,11 +19,12 @@ class PlayingField {
         }
     }
 
-    public void showField() {
+    public void printField() {
 //        for (int y = dimY - 1; y >= 0; y--) {
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
                 System.out.print(pf[x][y]);
+                
             }
             System.out.println();
         }

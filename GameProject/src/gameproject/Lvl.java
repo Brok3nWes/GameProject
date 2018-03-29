@@ -16,11 +16,11 @@ class Lvl {
         field.updateField(barricade1);
         field.updateField(key1);
         field.updateField(player1);
-        field.showField();
+        field.printField();
         player1.down();
         player1.right();
         field.updateField(player1);
-        field.showField();
+        field.printField();
     }
 }
 
