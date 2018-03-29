@@ -7,5 +7,4 @@ package gameproject;
 class Game {
 
     MainMenu MainMenu = new MainMenu();
-    Lvl lvl1 = new Lvl();
 }

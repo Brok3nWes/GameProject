@@ -9,8 +9,10 @@ class PlayingField {
     public static int dimX = 10;
     public static int dimY = 10;
     private final String[][] pf;
+    public createComponents component;
 
-    public PlayingField() {
+    public PlayingField(createComponents component) {
+        this.component = component;
         pf = new String[dimX][dimY];
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
@@ -20,15 +22,32 @@ class PlayingField {
     }
 
     public void printField() {
+        String gameField = "meh";
+       // createComponents component = new createComponents(gameField);
+        String text = "bleh";
+        String ditte = null;
 //        for (int y = dimY - 1; y >= 0; y--) {
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
                 System.out.print(pf[x][y]);
-                
+                ditte = ditte + text;
+                text = pf[x][y];
+                gameField = ditte + text;
+                component.setGamefield(gameField);
             }
             System.out.println();
         }
     }
+
+//    public void printField() {
+////        for (int y = dimY - 1; y >= 0; y--) {
+//        for (int y = 0; y < dimY; y++) {
+//            for (int x = 0; x < dimX; x++) {
+//                System.out.print(pf[x][y]);
+//            }
+//            System.out.println();
+//        }
+//    }
 
     public void updateField(Character c) {
         int xpos = c.getxCoordinate();

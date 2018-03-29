@@ -8,10 +8,10 @@ class Lvl {
 
     private int currentTime;
     private PlayingField field;
-    public Lvl(){
-        field = new PlayingField();
+    public Lvl(createComponents component){
+        field = new PlayingField(component);
         Character player1 = new Character(0, 0);
-        Key key1 = new Key(0, 1, true, 001);
+        Key key1 = new Key(9, 9, true, 001);
         Barricade barricade1 = new Barricade(0, 3, false, 001);
         field.updateField(barricade1);
         field.updateField(key1);

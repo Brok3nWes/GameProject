@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
@@ -24,7 +25,9 @@ import javax.swing.border.TitledBorder;
  */
       class createComponents {
 
-        public createComponents() {
+    JLabel gamefield;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu; 
+        public createComponents(String gameField) {
             
         HighScore HighScore = new HighScore();
         HighScore = null; //Tijdelijk! weer weghalen!
@@ -67,7 +70,7 @@ import javax.swing.border.TitledBorder;
         //configuration of components
         //buttons
         //main menu play button
-        JButton playButton = new JButton("Play!");
+        playButton = new JButton("Play!");
         playButton.setFont(BigButton);
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
@@ -79,7 +82,7 @@ import javax.swing.border.TitledBorder;
         });
 
         //back to menu button from pause menu
-        JButton showMenu = new JButton("Back to main menu");
+        showMenu = new JButton("Back to main menu");
         showMenu.setFont(Default);
         showMenu.setPreferredSize(new Dimension(200, 45));
         showMenu.addActionListener((ActionEvent e) -> {
@@ -89,7 +92,7 @@ import javax.swing.border.TitledBorder;
             EndMenu.setVisible(false);
         });
         //back to menu button from end menu
-        JButton showMenu2 = new JButton("Back to main menu");
+        showMenu2 = new JButton("Back to main menu");
         showMenu2.setFont(Default);
         showMenu2.setPreferredSize(new Dimension(200, 45));
         showMenu2.addActionListener((ActionEvent e) -> {
@@ -99,14 +102,14 @@ import javax.swing.border.TitledBorder;
             EndMenu.setVisible(false);
         });
         //exit button
-        JButton exitGame = new JButton("Exit");
+        exitGame = new JButton("Exit");
         exitGame.setFont(Default);
         exitGame.setPreferredSize(new Dimension(150, 60));
         exitGame.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
         //show pause menu
-        JButton pauseMenu = new JButton("Pause");
+        pauseMenu = new JButton("Pause");
         pauseMenu.setFont(Default);
         pauseMenu.addActionListener((ActionEvent e) -> {
             MainMenu.setVisible(false);
@@ -116,7 +119,7 @@ import javax.swing.border.TitledBorder;
             GameFrame.setEnabled(false);
         });
         //resume
-        JButton Resume = new JButton("Resume");
+        Resume = new JButton("Resume");
         Resume.setFont(Default);
         Resume.setFont(Default);
         Resume.setPreferredSize(new Dimension(200, 45));
@@ -145,8 +148,9 @@ import javax.swing.border.TitledBorder;
         YS.setFont(MediumText);
         
         //game as text
-        JLabel gamefield = new JLabel();
-        
+        gamefield = new JLabel();
+        JScrollPane gamescrl = new JScrollPane(gamefield);
+        gamescrl.setBounds(200,200,200,200);
 
         //Panels
         //Main menu
@@ -173,7 +177,8 @@ import javax.swing.border.TitledBorder;
         GameFrame.add(gamePanel);
         gamePanel.add(pauseMenu);
         gamePanel.setBackground(GREEN);
-        gamePanel.add(gamefield);
+        gamePanel.add(gamescrl);
+        
 
         //end of level menu
         JPanel endPanel = new JPanel();
@@ -215,5 +220,13 @@ import javax.swing.border.TitledBorder;
         //these frames are visible on startup
         MainMenu.setVisible(true);
         //EndMenu.setVisible(true);
+        
+        
         }
+        public void setGamefield(String s){
+           gamefield.setText(s);
+        }
+
+    
+        
     }

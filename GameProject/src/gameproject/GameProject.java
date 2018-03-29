@@ -1,5 +1,7 @@
 package gameproject;
 
+import javax.swing.JButton;
+
 
 
 /**
@@ -13,8 +15,13 @@ public class GameProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game game = new Game();
-        createComponents comp = new createComponents();
+//        Game game = new Game();
+
+        String gameField = null;
+        createComponents component = new createComponents(gameField);
+       
+        Lvl lvl1 = new Lvl(component);
+        //component.setGamefield(gameField);
 
     }
 
