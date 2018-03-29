@@ -15,12 +15,33 @@ public class Barricade {
     private final int yCoordinate;
     private final boolean Transparent;
     private final int code;
+    private final String Symbol = "B";
 
     public Barricade(int xCoordinate, int yCoordinate, boolean Transparent, int code) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.Transparent = Transparent;
         this.code = code;
+    }
+
+    public boolean isTransparent() {
+        return Transparent;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public String getSymbol() {
+        return Symbol;
     }
     
 }
