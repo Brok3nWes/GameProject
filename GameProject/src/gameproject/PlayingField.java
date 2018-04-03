@@ -10,9 +10,11 @@ class PlayingField {
     public static int dimY = 10;
     private final String[][] pf;
     public createComponents component;
+    public boolean lvlOver;
 
     public PlayingField(createComponents component) {
         this.component = component;
+        lvlOver = false;
         pf = new String[dimX][dimY];
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
@@ -53,6 +55,9 @@ class PlayingField {
         int xpos = c.getxCoordinate();
         int ypos = c.getyCoordinate();
         String symbol = c.getSymbol();
+        int prevxpos = c.getPrevxCoordinate();
+        int prevypos = c.getPrevyCoordinate();
+        pf[prevxpos][prevypos] = "O";
         pf[xpos][ypos] = symbol;
     }
 

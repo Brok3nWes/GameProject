@@ -17,10 +17,17 @@ class Lvl {
         field.updateField(key1);
         field.updateField(player1);
         field.printField();
-        player1.down();
-        player1.right();
-        field.updateField(player1);
-        field.printField();
+        while (field.lvlOver != true){
+            String command = player1.readCharacter("W,A,S,D for movement: ");
+            player1.handleMovement(command);
+            field.updateField(player1);
+            field.printField();
+        }
+        
+//        player1.down();
+//        player1.right();
+//        field.updateField(player1);
+//        field.printField();
     }
 }
 
