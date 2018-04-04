@@ -1,6 +1,13 @@
 package gameproject;
 
-import javax.swing.JButton;
+import java.awt.Canvas;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
 
 
@@ -11,9 +18,7 @@ import javax.swing.JButton;
  */
 public class GameProject {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
 //        Game game = new Game();
 
@@ -22,7 +27,7 @@ public class GameProject {
        
         Lvl lvl1 = new Lvl(component);
         //component.setGamefield(gameField);
-
+        
     }
 
    

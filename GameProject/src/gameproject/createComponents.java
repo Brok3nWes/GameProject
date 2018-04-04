@@ -5,12 +5,15 @@
  */
 package gameproject;
 
+import java.awt.Canvas;
 import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import javafx.scene.shape.Line;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -76,6 +79,8 @@ import javax.swing.border.TitledBorder;
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
             GameFrame.setLocationRelativeTo(MainMenu);
+            
+            new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
             GameFrame.setVisible(true);
             MainMenu.setVisible(false);
             GameFrame.setEnabled(true);
@@ -108,15 +113,17 @@ import javax.swing.border.TitledBorder;
         exitGame.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
-        //show pause menu
+        //pause menu
         pauseMenu = new JButton("Pause");
         pauseMenu.setFont(Default);
+        pauseMenu.setPreferredSize(new Dimension(100, 50));
         pauseMenu.addActionListener((ActionEvent e) -> {
             MainMenu.setVisible(false);
             PauseMenu.setLocationRelativeTo(GameFrame);
             PauseMenu.setVisible(true);
             EndMenu.setVisible(false);
             GameFrame.setEnabled(false);
+            
         });
         //resume
         Resume = new JButton("Resume");
@@ -174,10 +181,13 @@ import javax.swing.border.TitledBorder;
 
         //in-game
         JPanel gamePanel = new JPanel();
+        Canvas gameCanvas = new Canvas();
+         //   gameCanvas.paint(Graphics);
         GameFrame.add(gamePanel);
         gamePanel.add(pauseMenu);
+        gamePanel.add(gameCanvas);
         gamePanel.setBackground(GREEN);
-        gamePanel.add(gamescrl);
+        //GameFrame.add(gamescrl);
         
 
         //end of level menu
