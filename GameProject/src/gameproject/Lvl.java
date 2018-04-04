@@ -8,7 +8,8 @@ class Lvl {
 
     private int currentTime;
     private PlayingField field;
-    public Lvl(createComponents component){
+
+    public Lvl(createComponents component) {
         field = new PlayingField(component);
         Character player1 = new Character(0, 0);
         Key key1 = new Key(9, 9, true, 001);

@@ -11,9 +11,7 @@ import static java.awt.Color.WHITE;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import javafx.scene.shape.Line;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,12 +24,13 @@ import javax.swing.border.TitledBorder;
  *
  * @author Wessel
  */
-      class createComponents {
+class createComponents {
 
     JLabel gamefield;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu; 
-        public createComponents(String gameField) {
-            
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu;
+
+    public createComponents(String gameField) {
+
         HighScore HighScore = new HighScore();
         HighScore = null; //Tijdelijk! weer weghalen!
 
@@ -79,7 +78,7 @@ import javax.swing.border.TitledBorder;
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
             GameFrame.setLocationRelativeTo(MainMenu);
-            
+
             new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
             GameFrame.setVisible(true);
             MainMenu.setVisible(false);
@@ -123,7 +122,7 @@ import javax.swing.border.TitledBorder;
             PauseMenu.setVisible(true);
             EndMenu.setVisible(false);
             GameFrame.setEnabled(false);
-            
+
         });
         //resume
         Resume = new JButton("Resume");
@@ -153,11 +152,11 @@ import javax.swing.border.TitledBorder;
         //score after round
         JLabel YS = new JLabel("Your Score: ");
         YS.setFont(MediumText);
-        
+
         //game as text
         gamefield = new JLabel();
         JScrollPane gamescrl = new JScrollPane(gamefield);
-        gamescrl.setBounds(200,200,200,200);
+        gamescrl.setBounds(200, 200, 200, 200);
 
         //Panels
         //Main menu
@@ -182,13 +181,12 @@ import javax.swing.border.TitledBorder;
         //in-game
         JPanel gamePanel = new JPanel();
         Canvas gameCanvas = new Canvas();
-         //   gameCanvas.paint(Graphics);
+        //   gameCanvas.paint(Graphics);
         GameFrame.add(gamePanel);
         gamePanel.add(pauseMenu);
         gamePanel.add(gameCanvas);
         gamePanel.setBackground(GREEN);
         //GameFrame.add(gamescrl);
-        
 
         //end of level menu
         JPanel endPanel = new JPanel();
@@ -230,13 +228,11 @@ import javax.swing.border.TitledBorder;
         //these frames are visible on startup
         MainMenu.setVisible(true);
         //EndMenu.setVisible(true);
-        
-        
-        }
-        public void setGamefield(String s){
-           gamefield.setText(s);
-        }
 
-    
-        
     }
+
+    public void setGamefield(String s) {
+        gamefield.setText(s);
+    }
+
+}
