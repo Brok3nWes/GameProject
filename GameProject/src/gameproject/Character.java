@@ -25,19 +25,11 @@ public class Character {
     public int getxCoordinate() {
         return xCoordinate;
     }
-
-    public void setxCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
-    }
-
+    
     public int getyCoordinate() {
         return yCoordinate;
     }
-
-    public void setyCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
-    }
-
+    
     public int getPrevyCoordinate() {
         return prevyCoordinate;
     }
@@ -98,7 +90,7 @@ public class Character {
     }
 
     public void handleMovement(String command, String[][] pf) {
-        setPrevPos();
+        this.setPrevPos();
         switch (command) {
             case "W":
                 if (prevyCoordinate > 0) {
@@ -138,15 +130,19 @@ public class Character {
 //        }
 
     private boolean checkTile(String[][] pf, int dx, int dy) {
-        if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("O")) {
+        int newX = xCoordinate + dx;
+        int newY = yCoordinate + dy;
+        String nextSymbol = pf[newX][newY];
+        if (nextSymbol.equalsIgnoreCase("O")) {
             return true;
-        } else if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("K")) {
+        } else if (nextSymbol.equalsIgnoreCase("K")) {
+            this.pickupKey(KeyInPocket);
 //            pickupKey();
             return true;
-        } else if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("S")) {
+        } else if (nextSymbol.equalsIgnoreCase("S")) {
             return true;
         } else {
-            return pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("E");
+            return nextSymbol.equalsIgnoreCase("E");
         }
     }
 }

@@ -10,6 +10,7 @@ class Lvl {
 
     private int currentTime;
     private final PlayingField field;
+    private Character player1;
     private final StartTile start;
     private final EndTile end;
     private final ArrayList<Wall> Walls;
@@ -27,12 +28,12 @@ class Lvl {
         Barricades.add(new Barricade(0, 3, 001));
         field = new PlayingField(component);
         updateArrayLists();
-        setStartEnd();
-        start = new StartTile(0, 0);
+        start = new StartTile(1, 1);
         end = new EndTile(9, 9);
+        setStartEnd();
         field.printField();
-        start.spawnPlayer(field);
-
+        spawnPlayer();
+        updatePlayerInput();
     }
 
     private void updateArrayLists() {
@@ -45,15 +46,27 @@ class Lvl {
         field.updateField(start);
         field.updateField(end);
     }
+    private void spawnPlayer() {
+        player1 = new Character(1, 0);
+        field.updateField(player1);
+    }
+    
+    private void updatePlayerInput(){
+        while (field.lvlOver != true) {
+            String command = player1.readCharacter("W,A,S,D for movement: ");
+            player1.handleMovement(command, field.getField());
+            field.updateField(player1);
+            field.printField();
+        }
+    }
 
-    public Key getKey(int px, int py) {
+    private void getKey(int px, int py){
         for (Key k : Keys) {
             if (px == k.getxCoordinate() && py == k.getyCoordinate()) {
+                player1.pickupKey(k);
                 Keys.remove(k);
-                return k;
             }
         }
-        return null;
     }
 }
 
