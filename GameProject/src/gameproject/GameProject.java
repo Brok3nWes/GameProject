@@ -14,9 +14,10 @@ public class GameProject {
 
         String gameField = null;
         String nr = "0";
+        String GameTitle = "Maze Game - in-Game";
         createComponents component = new createComponents(gameField, nr);
        System.out.println("henk");
-       component.createTile(nr);
+       //component.createTile(nr);
         //Lvl lvl1 = new Lvl(component);
         //component.setGamefield(gameField);
         

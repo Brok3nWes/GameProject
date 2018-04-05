@@ -25,21 +25,21 @@ import javax.swing.border.TitledBorder;
  * @author Wessel
  */
 class createComponents {
+    String nr;
     JPanel gamePanel;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu;
-
+    JFrame GameFrame,MainMenu,PauseMenu,EndMenu;
+    Font Default,BigButton,BigTitle,MediumTitle,MediumText;
+    int i;
     public createComponents(String gameField, String nr) {
 
         HighScore HighScore = new HighScore();
         HighScore = null; //Tijdelijk! weer weghalen!
-
-        //initialize frames
-        JFrame MainMenu = new JFrame();
-        JFrame PauseMenu = new JFrame();
-        JFrame EndMenu = new JFrame();
-        JFrame GameFrame = new JFrame();
-
+        MainMenu = new JFrame();
+        PauseMenu = new JFrame();
+        EndMenu = new JFrame();
+        GameFrame = new JFrame();
         //main settings of frames
         //frame sizes
         int Bigx = 450;
@@ -50,11 +50,11 @@ class createComponents {
         int Gamey = 650;
 
         //fonts
-        Font Default = new Font("", Font.BOLD, 17);
-        Font BigButton = new Font("", Font.BOLD, 75);
-        Font BigTitle = new Font("", Font.BOLD, 65);
-        Font MediumTitle = new Font("", Font.BOLD, 40);
-        Font MediumText = new Font("", Font.PLAIN, 25);
+        Default = new Font("", Font.BOLD, 17);
+        BigButton = new Font("", Font.BOLD, 75);
+        BigTitle = new Font("", Font.BOLD, 65);
+        MediumTitle = new Font("", Font.BOLD, 40);
+        MediumText = new Font("", Font.PLAIN, 25);
 
         //information
         String GameTitle = "Maze Game - ";
@@ -62,12 +62,7 @@ class createComponents {
         String Game = "In-game";
         String MainM = "Main Menu";
         String Ended = "End of Level";
-
-        //close operations
-        MainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         //configuration of components
         //buttons
@@ -78,10 +73,10 @@ class createComponents {
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
             GameFrame.setLocationRelativeTo(MainMenu);
-
             new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
-            GameFrame.setVisible(true);
+            createGameWindow("");
             MainMenu.setVisible(false);
+            GameFrame.setVisible(true);
             GameFrame.setEnabled(true);
         });
 
@@ -90,6 +85,7 @@ class createComponents {
         showMenu.setFont(Default);
         showMenu.setPreferredSize(new Dimension(200, 45));
         showMenu.addActionListener((ActionEvent e) -> {
+            MainMenu.setLocationRelativeTo(GameFrame);
             MainMenu.setVisible(true);
             GameFrame.setVisible(false);
             PauseMenu.setVisible(false);
@@ -100,6 +96,7 @@ class createComponents {
         showMenu2.setFont(Default);
         showMenu2.setPreferredSize(new Dimension(200, 45));
         showMenu2.addActionListener((ActionEvent e) -> {
+            MainMenu.setLocationRelativeTo(GameFrame);
             MainMenu.setVisible(true);
             GameFrame.setVisible(false);
             PauseMenu.setVisible(false);
@@ -154,9 +151,9 @@ class createComponents {
         YS.setFont(MediumText);
 
         //game as text
-        gamefield = new JLabel();
+        /*gamefield = new JLabel();
         JScrollPane gamescrl = new JScrollPane(gamefield);
-        gamescrl.setBounds(200, 200, 200, 200);
+        gamescrl.setBounds(200, 200, 200, 200);*/
 
         //Panels
         //Main menu
@@ -179,14 +176,7 @@ class createComponents {
                 GameTitle + Paused));
 
         //in-game
-        JPanel gamePanel = new JPanel();
-        Canvas gameCanvas = new Canvas();
-        //   gameCanvas.paint(Graphics);
-        GameFrame.add(gamePanel);
-        gamePanel.add(pauseMenu);
-        gamePanel.add(gameCanvas);
-        gamePanel.setBackground(GREEN);
-        //GameFrame.add(gamescrl);
+        
 
         //end of level menu
         JPanel endPanel = new JPanel();
@@ -219,26 +209,50 @@ class createComponents {
         EndMenu.setLocationRelativeTo(null);
         EndMenu.setUndecorated(true);
 
-        //Game Frame settings
-        GameFrame.setSize(Gamex, Gamey);
-        GameFrame.setTitle(GameTitle + Game);
-        GameFrame.setResizable(false);
-        GameFrame.setLocationRelativeTo(null);
+        
 
         //these frames are visible on startup
         MainMenu.setVisible(true);
         //EndMenu.setVisible(true);
 
+        //close operations
+        MainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
     }
 
-    public void setGamefield(String s) {
-        gamefield.setText(s);
+    public void createGameWindow(String GameTitle) {
+        GameFrame = new JFrame(GameTitle);
+        GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Game Frame settings
+        GameFrame.setSize(700,650);
+        GameFrame.setResizable(false);
+        GameFrame.setLocationRelativeTo(null);
+        gamePanel = new JPanel();
+        Canvas gameCanvas = new Canvas();
+        //   gameCanvas.paint(Graphics);
+        gamePanel.add(pauseMenu);
+        gamePanel.add(gameCanvas);
+        gamePanel.setBackground(GREEN);
+        //GameFrame.add(gamescrl);
+        GameFrame.add(gamePanel);
+        JLabel till = createTile(i);
+        
+        for (i = 0; i<10; i++){
+        GameFrame.add(till);
+        }
+        GameFrame.pack();
     }
-    public void createTile(String nr){
     
-        tile = new JLabel(nr);
-    tile.setSize(200,200);
-    gamePanel.remove(pauseMenu);
-    System.out.print("derp");
+    
+    public JLabel createTile(int i){
+        String tilenr = Integer.toString(i);
+        
+        tile = new JLabel(tilenr);
+        tile.setSize(200,200);
+        
+        System.out.print("derp");
+        return tile;
 }
 }

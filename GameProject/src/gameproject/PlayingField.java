@@ -32,10 +32,7 @@ class PlayingField {
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
                 System.out.print(pf[x][y]);
-                ditte = ditte + text;
-                text = pf[x][y];
-                gameField = ditte + text;
-                component.setGamefield(gameField);
+                
             }
             System.out.println();
         }
