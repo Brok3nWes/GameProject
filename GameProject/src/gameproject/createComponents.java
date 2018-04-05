@@ -5,13 +5,19 @@
  */
 package gameproject;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,13 +31,15 @@ import javax.swing.border.TitledBorder;
  * @author Wessel
  */
 class createComponents {
+    GridBagConstraints c = new GridBagConstraints();
+    
     String nr;
-    JPanel gamePanel;
+    JPanel gamePanel,TPanel;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu;
     JFrame GameFrame,MainMenu,PauseMenu,EndMenu;
     Font Default,BigButton,BigTitle,MediumTitle,MediumText;
-    int i;
+    int i = 0;
     public createComponents(String gameField, String nr) {
 
         HighScore HighScore = new HighScore();
@@ -73,8 +81,8 @@ class createComponents {
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
             GameFrame.setLocationRelativeTo(MainMenu);
-            new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
-            createGameWindow("");
+           // new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
+            createGameWindow("Maze Game - In-Game");
             MainMenu.setVisible(false);
             GameFrame.setVisible(true);
             GameFrame.setEnabled(true);
@@ -225,7 +233,10 @@ class createComponents {
     public void createGameWindow(String GameTitle) {
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
         //Game Frame settings
+        
         GameFrame.setSize(700,650);
         GameFrame.setResizable(false);
         GameFrame.setLocationRelativeTo(null);
@@ -237,22 +248,35 @@ class createComponents {
         gamePanel.setBackground(GREEN);
         //GameFrame.add(gamescrl);
         GameFrame.add(gamePanel);
-        JLabel till = createTile(i);
         
-        for (i = 0; i<10; i++){
-        GameFrame.add(till);
+        for (i = 0; i<100; i++){
+        JPanel till = createTile(i);
+        
         }
+        TPanel.setBackground(GREEN);
+        gamePanel.add(TPanel);
         GameFrame.pack();
     }
     
     
-    public JLabel createTile(int i){
+    public JPanel createTile(int i){
         String tilenr = Integer.toString(i);
         
-        tile = new JLabel(tilenr);
-        tile.setSize(200,200);
+        ImageIcon tileImage = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\tile.png");
+        ImageIcon barricade = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\barricade.png");
+        ImageIcon wall = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\wall.png");
+        ImageIcon start = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\start.png");
+        ImageIcon end = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\end.png");
+        ImageIcon key = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\key.png");
+        ImageIcon player = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\character.png");
         
-        System.out.print("derp");
-        return tile;
+        
+        TPanel = new JPanel(new GridBagLayout());
+        tile = new JLabel(tileImage);
+        tile.setSize(10,10);
+        tile.setSize(200,200);
+        TPanel.add(tile, c);
+        
+        return TPanel;
 }
 }
