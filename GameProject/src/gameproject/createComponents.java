@@ -6,31 +6,20 @@
 package gameproject;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
-import java.awt.CardLayout;
-import static java.awt.Color.BLUE;
 import static java.awt.Color.GRAY;
-import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Random;
-import static javafx.scene.paint.Color.GREY;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
@@ -48,6 +37,7 @@ class createComponents {
     JFrame GameFrame,MainMenu,PauseMenu,EndMenu;
     Font Default,BigButton,BigTitle,MediumTitle,MediumText;
     int i = 0;
+    
     public createComponents(String gameField, String nr) {
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
@@ -56,7 +46,7 @@ class createComponents {
         PauseMenu = new JFrame();
         EndMenu = new JFrame();
         GameFrame = new JFrame();
-        //main settings of frames
+        
         //frame sizes
         int Bigx = 450;
         int Bigy = 500;
@@ -79,7 +69,6 @@ class createComponents {
         String MainM = "Main Menu";
         String Ended = "End of Level";
         
-
         //configuration of components
         //buttons
         //main menu play button
@@ -183,15 +172,9 @@ class createComponents {
         JLabel YS = new JLabel("Your Score: ");
         YS.setFont(MediumText);
 
-        //game as text
-        /*gamefield = new JLabel();
-        JScrollPane gamescrl = new JScrollPane(gamefield);
-        gamescrl.setBounds(200, 200, 200, 200);*/
-
         //Panels
         //Main menu
         JPanel MainPanel = new JPanel();
-        // MainPanel.setLayout(new SpringLayout());
         MainPanel.add(MainTitle);
         MainPanel.add(playButton);
         MainMenu.add(MainPanel);
@@ -207,9 +190,6 @@ class createComponents {
         pausePanel.add(showMenu);
         pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 GameTitle + Paused));
-
-        //in-game
-        
 
         //end of level menu
         JPanel endPanel = new JPanel();
@@ -242,17 +222,13 @@ class createComponents {
         EndMenu.setLocationRelativeTo(null);
         EndMenu.setUndecorated(true);
 
-        
-
-        //these frames are visible on startup
-        MainMenu.setVisible(true);
-        //EndMenu.setVisible(true);
-
         //close operations
         MainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
+        
+        //these frames are visible on startup
+        MainMenu.setVisible(true);
     }
 
     public void createGameWindow(String GameTitle) {
@@ -262,7 +238,6 @@ class createComponents {
         GameFrame.setSize(700,650);
         GameFrame.setResizable(false);
         GameFrame.setLayout(new BorderLayout());
-        GameFrame.setLocationRelativeTo(null);
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout(10,5));
         buttonPanel.add(pauseMenu);
@@ -270,55 +245,49 @@ class createComponents {
         buttonPanel.add(Reload);
         buttonPanel.setBackground(GRAY);
         gamePanel.setBackground(GRAY);
-        //GameFrame.add(gamescrl);
         GameFrame.add(buttonPanel);
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         TPanel = new JPanel();
-        for (i = 0; i<100; i++){    
-        randomizeTiles();
-            
-        }
         TPanel.setLayout(new GridLayout(10,10,0,0));
         TPanel.setBackground(GRAY);
-        
-        
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
-        GameFrame.pack();
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
+        
+        for (i = 0; i<100; i++){    
+        randomizeTiles();
+        }
+        GameFrame.pack();
     }
+    
+    
     public void randomizeTiles(){
         if (i<1){
         testtiles.add("start");
         } else{
             Random rnd = new Random();
-            int  n = rnd.nextInt(3);
-            
+            int  n = rnd.nextInt(4);
             if(n==0){
                 testtiles.add("tile");
             }
             if(n==1){
-                testtiles.add("barricade");
+                testtiles.add("tile");
             }
             if(n==2){
-                testtiles.add("wall");
+                testtiles.add("barricade");
             }
-            /*if(n==3){
-            testtiles.add("key");
-            }*/
-            if(n==6){
-                testtiles.add("character");
+            if(n==3){
+                testtiles.add("wall");
             }
             if(i==98){
                 testtiles.add("end");
             }
-}   
-        createTile(i);
+}       createTile(i);
     }
     
     public JPanel createTile(int i){
-        String tilenr = Integer.toString(i);
+        
         ImageIcon chosenTile = null;
         ImageIcon tileImage = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\tile.png");
         ImageIcon barricade = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\barricade.png");
@@ -349,10 +318,8 @@ class createComponents {
         if(testtiles.get(i).equals("character")){
             chosenTile = player;
         }
-        
         tile = new JLabel(chosenTile);
         TPanel.add(tile);
-        
         return TPanel;
 }
 }

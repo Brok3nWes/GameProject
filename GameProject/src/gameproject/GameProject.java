@@ -10,21 +10,8 @@ public class GameProject {
 
   
     public static void main(String[] args) {
-//        Game game = new Game();
-
         String gameField = null;
         String nr = "0";
-        String GameTitle = "Maze Game - in-Game";
         createComponents component = new createComponents(gameField, nr);
-       
-       //component.createTile(nr);
-        //Lvl lvl1 = new Lvl(component);
-        //component.setGamefield(gameField);
-        
     }
-
-   
-
-    
-
 }
