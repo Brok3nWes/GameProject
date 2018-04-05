@@ -141,7 +141,7 @@ public class Character {
         if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("O")) {
             return true;
         } else if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("K")) {
-//            pickupKey();
+            pickupKey(Lvl.getKey(1,3));
             return true;
         } else if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("S")) {
             return true;

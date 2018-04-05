@@ -1,6 +1,7 @@
 package gameproject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -13,8 +14,8 @@ class Lvl {
     private final StartTile start;
     private final EndTile end;
     private final ArrayList<Wall> Walls;
-    public final ArrayList<Key> Keys;
-    private final ArrayList<Barricade> Barricades;
+    public static ArrayList<Key> Keys;
+    private static ArrayList<Barricade> Barricades;
 
     public Lvl(createComponents component) {
         Walls = new ArrayList<>();
@@ -46,7 +47,7 @@ class Lvl {
         field.updateField(end);
     }
 
-    public Key getKey(int px, int py) {
+    static Key getKey(int px, int py) {
         for (Key k : Keys) {
             if (px == k.getxCoordinate() && py == k.getyCoordinate()) {
                 Keys.remove(k);
