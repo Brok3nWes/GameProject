@@ -25,11 +25,11 @@ import javax.swing.border.TitledBorder;
  * @author Wessel
  */
 class createComponents {
-
-    JLabel gamefield;
+    JPanel gamePanel;
+    JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu;
 
-    public createComponents(String gameField) {
+    public createComponents(String gameField, String nr) {
 
         HighScore HighScore = new HighScore();
         HighScore = null; //Tijdelijk! weer weghalen!
@@ -234,5 +234,11 @@ class createComponents {
     public void setGamefield(String s) {
         gamefield.setText(s);
     }
-
+    public void createTile(String nr){
+    
+        tile = new JLabel(nr);
+    tile.setSize(200,200);
+    gamePanel.remove(pauseMenu);
+    System.out.print("derp");
+}
 }

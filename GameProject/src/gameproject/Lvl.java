@@ -27,9 +27,9 @@ class Lvl {
         Barricades.add(new Barricade(0, 3, 001));
         field = new PlayingField(component);
         updateArrayLists();
-        setStartEnd();
         start = new StartTile(0, 0);
         end = new EndTile(9, 9);
+        setStartEnd();
         field.printField();
         start.spawnPlayer(field);
 

@@ -53,6 +53,8 @@ public class Character {
     public void useKey(Barricade b) {
         KeyInPocket.destroyBarricade(b);
     }
+    
+    
 //    
 //    private boolean checkNextTile(int[][] pf){
 //        if (pf[xCoordinate][yCoordinate].isEqualsTo("O")){
