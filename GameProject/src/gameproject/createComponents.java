@@ -288,14 +288,15 @@ class createComponents {
     
     public JPanel createTile(int i){
         
+        String path = System.getProperty("user.dir") + "\\src\\Images\\";
         ImageIcon chosenTile = null;
-        ImageIcon tileImage = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\tile.png");
-        ImageIcon barricade = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\barricade.png");
-        ImageIcon wall = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\wall.png");
-        ImageIcon start = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\start.png");
-        ImageIcon end = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\end.png");
-        ImageIcon key = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\key.png");
-        ImageIcon player = new ImageIcon("E:\\Documents\\GitHub\\GameProject\\player.png");
+        ImageIcon tileImage = new ImageIcon(path + "tile.png");
+        ImageIcon barricade = new ImageIcon(path + "barricade.png");
+        ImageIcon wall = new ImageIcon(path + "wall.png");
+        ImageIcon start = new ImageIcon(path + "start.png");
+        ImageIcon end = new ImageIcon(path + "end.png");
+        ImageIcon key = new ImageIcon(path + "key.png");
+        ImageIcon player = new ImageIcon("path + player.png");
         
         if(testtiles.get(i).equals("tile")){
             chosenTile = tileImage;
