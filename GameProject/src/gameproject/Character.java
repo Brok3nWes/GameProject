@@ -48,10 +48,11 @@ public class Character {
 
     public void pickupKey(Key k) {
         KeyInPocket = k;
+        System.out.println("You got the key: " + k.getCode());
     }
 
-    public void useKey(Barricade b) {
-        KeyInPocket.destroyBarricade(b);
+    public boolean useKey(Barricade b) {
+        return KeyInPocket.destroyBarricade(b);
     }
 //    
 //    private boolean checkNextTile(int[][] pf){
@@ -104,30 +105,30 @@ public class Character {
                 if (prevyCoordinate > 0) {
                     if (checkTile(pf, 0, -1)) {
                         up();
-                        break;
                     }
                 }
+                break;
             case "A":
                 if (prevxCoordinate > 0) {
                     if (checkTile(pf, -1, 0)) {
                         left();
-                        break;
                     }
                 }
+                break;
             case "S":
                 if (prevyCoordinate < PlayingField.dimY - 1) {
                     if (checkTile(pf, 0, 1)) {
                         down();
-                        break;
                     }
                 }
+                break;
             case "D":
                 if (prevxCoordinate < PlayingField.dimX - 1) {
                     if (checkTile(pf, 1, 0)) {
                         right();
-                        break;
                     }
                 }
+                break;
             case "Q":
                 System.exit(0);
                 break;
@@ -138,15 +139,28 @@ public class Character {
 //        }
 
     private boolean checkTile(String[][] pf, int dx, int dy) {
-        if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("O")) {
+        int newX = xCoordinate + dx;
+        int newY = yCoordinate + dy;
+        String nextSymbol = pf[newX][newY];
+        if (nextSymbol.equalsIgnoreCase("O")) {
             return true;
-        } else if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("K")) {
-            pickupKey(Lvl.getKey(1,3));
+        } else if (nextSymbol.equalsIgnoreCase("K")) {
+            this.pickupKey(Lvl.getKey(newX, newY));
             return true;
-        } else if (pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("S")) {
+        } else if (nextSymbol.equalsIgnoreCase("S")) {
             return true;
+        } else if (nextSymbol.equalsIgnoreCase("B")) {
+            System.out.println("1");
+            try {
+                System.out.println("2");
+                return this.KeyInPocket.destroyBarricade(Lvl.getBarricade(newX, newY));
+            } catch (NullPointerException e) {
+                System.out.println("3");
+                return false;
+            }
         } else {
-            return pf[xCoordinate + dx][yCoordinate + dy].equalsIgnoreCase("E");
+            System.out.println("4");
+            return nextSymbol.equalsIgnoreCase("E");
         }
     }
 }

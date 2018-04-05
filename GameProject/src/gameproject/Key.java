@@ -49,16 +49,24 @@ public class Key {
         return Symbol;
     }
 
+    public int getCode() {
+        return code;
+    }
+
     /**
      * Destroys the barricade
      *
      * @param b for getting the code of the barricade
+     * @return 
      */
-    public void destroyBarricade(Barricade b) {
+    public boolean destroyBarricade(Barricade b) {
         if (b.getCode() == code) {
+            
             System.out.println("Barricade removed!");
+            return true;
         } else {
             System.out.println("Nope!");
+            return false;
         }
     }
 

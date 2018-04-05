@@ -14,7 +14,7 @@ class Lvl {
     private final StartTile start;
     private final EndTile end;
     private final ArrayList<Wall> Walls;
-    public static ArrayList<Key> Keys;
+    private static ArrayList<Key> Keys;
     private static ArrayList<Barricade> Barricades;
 
     public Lvl(createComponents component) {
@@ -23,14 +23,14 @@ class Lvl {
         Walls.add(new Wall(5, 4));
         Walls.add(new Wall(5, 3));
         Keys = new ArrayList<>();
-        Keys.add(new Key(6, 6, 001));
+        Keys.add(new Key(6, 6, 100));
         Barricades = new ArrayList<>();
-        Barricades.add(new Barricade(0, 3, 001));
+        Barricades.add(new Barricade(0, 3, 100));
         field = new PlayingField(component);
         updateArrayLists();
-        setStartEnd();
         start = new StartTile(0, 0);
         end = new EndTile(9, 9);
+        setStartEnd();
         field.printField();
         start.spawnPlayer(field);
 
@@ -46,12 +46,25 @@ class Lvl {
         field.updateField(start);
         field.updateField(end);
     }
+    private void removeBarricade(Barricade b){
+        Barricades.remove(b);
+    }
 
     static Key getKey(int px, int py) {
         for (Key k : Keys) {
             if (px == k.getxCoordinate() && py == k.getyCoordinate()) {
                 Keys.remove(k);
                 return k;
+            }
+        }
+        return null;
+    }
+
+    static Barricade getBarricade(int px, int py) {
+        for (Barricade b : Barricades) {
+            if (px == b.getxCoordinate() && py == b.getyCoordinate()) {
+                Barricades.remove(b);
+                return b;
             }
         }
         return null;
