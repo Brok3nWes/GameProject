@@ -11,16 +11,17 @@ package gameproject;
  */
 public class EndTile extends Tile {
 
-    public EndTile(int x, int y, boolean bool) {
-        super(x, y, bool);
+    public EndTile(int x, int y) {
+        super(x, y);
+        Transparent = true;
+        Symbol = "E";
     }
 
     public void setHighScore() {
-        
     }
 
     public void showHighScore() {
-
+        System.out.println("Ya highscore = amazing BOI");
     }
 
     public void endLvl() {

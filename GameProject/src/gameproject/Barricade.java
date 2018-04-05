@@ -11,21 +11,16 @@ package gameproject;
  */
 public class Barricade {
 
-    private final int xCoordinate;
-    private final int yCoordinate;
+    private final int xCoordinate, yCoordinate, code;
     private final boolean Transparent;
-    private final int code;
-    private final String Symbol = "B";
+    private final String Symbol;
 
-    public Barricade(int xCoordinate, int yCoordinate, boolean Transparent, int code) {
+    public Barricade(int xCoordinate, int yCoordinate, int code) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        this.Transparent = Transparent;
+        this.Transparent = false;
         this.code = code;
-    }
-
-    public boolean isTransparent() {
-        return Transparent;
+        Symbol = "B";
     }
 
     public int getCode() {
@@ -43,5 +38,5 @@ public class Barricade {
     public String getSymbol() {
         return Symbol;
     }
-    
+
 }
