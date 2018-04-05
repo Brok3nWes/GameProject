@@ -6,8 +6,10 @@ package gameproject;
  */
 public class Wall extends Tile {
 
-    public Wall(int x, int y, boolean bool) {
-        super(x, y, bool);
+    public Wall(int x, int y) {
+        super(x, y);
+        Transparent = false;
+        Symbol = "W";
     }
 
 }

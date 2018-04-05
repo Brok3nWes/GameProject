@@ -24,8 +24,8 @@ class PlayingField {
     }
 
     public void printField() {
-        String gameField = "meh";
-       // createComponents component = new createComponents(gameField);
+        String gameField;
+        // createComponents component = new createComponents(gameField);
         String text = "bleh";
         String ditte = null;
 //        for (int y = dimY - 1; y >= 0; y--) {
@@ -50,7 +50,6 @@ class PlayingField {
 //            System.out.println();
 //        }
 //    }
-
     public void updateField(Character c) {
         int xpos = c.getxCoordinate();
         int ypos = c.getyCoordinate();
@@ -74,5 +73,15 @@ class PlayingField {
         String symbol = b.getSymbol();
         pf[xpos][ypos] = symbol;
     }
-    
+
+    public void updateField(Tile t) {
+        int xpos = t.getxCoordinate();
+        int ypos = t.getyCoordinate();
+        pf[xpos][ypos] = t.Symbol;
+    }
+
+    public String[][] getField() {
+        return pf;
+    }
+
 }

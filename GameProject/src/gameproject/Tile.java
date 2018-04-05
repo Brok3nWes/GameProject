@@ -6,13 +6,22 @@ package gameproject;
  */
 class Tile {
 
-    private int xCoordinate;
-    private int yCoordinate;
-    private boolean Transparent;
+    private final int xCoordinate;
+    private final int yCoordinate;
+    public boolean Transparent;
+    public String Symbol;
 
-    Tile(int x, int y, boolean bool) {
-        x = this.xCoordinate;
-        y = this.yCoordinate;
-        bool = this.Transparent;
+    Tile(int x, int y) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        Transparent = false;
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
     }
 }
