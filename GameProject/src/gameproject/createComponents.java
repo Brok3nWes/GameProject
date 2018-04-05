@@ -7,11 +7,14 @@ package gameproject;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.CardLayout;
 import static java.awt.Color.BLUE;
+import static java.awt.Color.GRAY;
 import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,6 +23,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Random;
+import static javafx.scene.paint.Color.GREY;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,7 +42,7 @@ class createComponents {
    ArrayList<String> testtiles = new ArrayList<String>(100); 
     
     String nr,gameTitle;
-    JPanel gamePanel,TPanel;
+    JPanel gamePanel,buttonPanel,TPanel;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu,Retry,Reload;
     JFrame GameFrame,MainMenu,PauseMenu,EndMenu;
@@ -124,7 +129,7 @@ class createComponents {
         //pause menu
         pauseMenu = new JButton("Pause");
         pauseMenu.setFont(Default);
-        pauseMenu.setPreferredSize(new Dimension(100, 50));
+        pauseMenu.setPreferredSize(new Dimension(100, 60));
         pauseMenu.addActionListener((ActionEvent e) -> {
             MainMenu.setVisible(false);
             PauseMenu.setLocationRelativeTo(GameFrame);
@@ -143,7 +148,7 @@ class createComponents {
 });
         Retry = new JButton("Retry");
         Retry.setFont(Default);
-        Retry.setPreferredSize(new Dimension(100, 45));
+        Retry.setPreferredSize(new Dimension(100, 60));
         Retry.addActionListener((ActionEvent r) -> {
             //character resetten
             //timer resetten
@@ -152,7 +157,7 @@ class createComponents {
     });
         Reload = new JButton("↺");
         Reload.setFont(Default);
-        Reload.setPreferredSize(new Dimension(50, 50));
+        Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
             testtiles.clear();
             GameFrame.dispose();
@@ -253,30 +258,31 @@ class createComponents {
     public void createGameWindow(String GameTitle) {
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-               
+        buttonPanel = new JPanel();       
         GameFrame.setSize(700,650);
         GameFrame.setResizable(false);
+        GameFrame.setLayout(new BorderLayout());
         GameFrame.setLocationRelativeTo(null);
         gamePanel = new JPanel();
-        Canvas gameCanvas = new Canvas();
-        //   gameCanvas.paint(Graphics);
-        gamePanel.add(Retry);
-        gamePanel.add(Reload);
-        gamePanel.add(pauseMenu);
-        gamePanel.add(gameCanvas);
-        gamePanel.setBackground(GREEN);
+        gamePanel.setLayout(new BorderLayout(10,5));
+        buttonPanel.add(pauseMenu);
+        buttonPanel.add(Retry);
+        buttonPanel.add(Reload);
+        buttonPanel.setBackground(GRAY);
+        gamePanel.setBackground(GRAY);
         //GameFrame.add(gamescrl);
-        GameFrame.add(gamePanel);
+        GameFrame.add(buttonPanel);
+        GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         TPanel = new JPanel();
         for (i = 0; i<100; i++){    
         randomizeTiles();
             
         }
-        TPanel.setLayout(new GridLayout(10,10));
-        TPanel.setBackground(BLUE);
+        TPanel.setLayout(new GridLayout(10,10,0,0));
+        TPanel.setBackground(GRAY);
         
         
-        gamePanel.add(TPanel);
+        gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.pack();
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
@@ -345,8 +351,6 @@ class createComponents {
         }
         
         tile = new JLabel(chosenTile);
-        tile.setSize(10,10);
-        tile.setSize(200,200);
         TPanel.add(tile);
         
         return TPanel;
