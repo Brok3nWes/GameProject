@@ -32,27 +32,28 @@ import javax.swing.border.TitledBorder;
  *
  * @author Wessel
  */
-class createComponents implements KeyListener{
+class createComponents {
 
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
     JPanel gamePanel, buttonPanel;
-    JLayeredPane  TPanel;
+    JLayeredPane TPanel;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
+    PlayingField PlayingField;
 
-        String path = System.getProperty("user.dir") + "\\src\\Images\\";
-        ImageIcon chosenTile = null;
-        ImageIcon tileImage = new ImageIcon(path + "tile.png");
-        ImageIcon barricade = new ImageIcon(path + "barricade.png");
-        ImageIcon wall = new ImageIcon(path + "wall.png");
-        ImageIcon start = new ImageIcon(path + "start.png");
-        ImageIcon end = new ImageIcon(path + "end.png");
-        ImageIcon key = new ImageIcon(path + "key.png");
-        ImageIcon player = new ImageIcon(path + "player.png");
-        
+    String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    ImageIcon chosenTile = null;
+    ImageIcon tileImage = new ImageIcon(path + "tile.png");
+    ImageIcon barricade = new ImageIcon(path + "barricade.png");
+    ImageIcon wall = new ImageIcon(path + "wall.png");
+    ImageIcon start = new ImageIcon(path + "start.png");
+    ImageIcon end = new ImageIcon(path + "end.png");
+    ImageIcon key = new ImageIcon(path + "key.png");
+    ImageIcon player = new ImageIcon(path + "player.png");
+
     public createComponents(String gameField, String nr) {
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
@@ -131,16 +132,11 @@ class createComponents implements KeyListener{
             System.exit(0);
         });
         //pause menu
-        pauseMenu = new JButton("Pause");
-        pauseMenu.setFont(Default);
-        pauseMenu.setPreferredSize(new Dimension(100, 60));
-        pauseMenu.addActionListener((ActionEvent e) -> {
-            MainMenu.setVisible(false);
-            PauseMenu.setLocationRelativeTo(GameFrame);
-            PauseMenu.setVisible(true);
-            EndMenu.setVisible(false);
-            GameFrame.setEnabled(false);
-
+        pauseButton = new JButton("Pause");
+        pauseButton.setFont(Default);
+        pauseButton.setPreferredSize(new Dimension(100, 60));
+        pauseButton.addActionListener((ActionEvent e) -> {
+            pauseGame();
         });
         //resume
         Resume = new JButton("Resume");
@@ -255,7 +251,7 @@ class createComponents implements KeyListener{
         GameFrame.setLayout(new BorderLayout());
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout(10, 5));
-        buttonPanel.add(pauseMenu);
+        buttonPanel.add(pauseButton);
         buttonPanel.add(Retry);
         buttonPanel.add(Reload);
         buttonPanel.setBackground(GRAY);
@@ -269,29 +265,32 @@ class createComponents implements KeyListener{
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
-        PlayingField field = new PlayingField();
-        GameFrame.addKeyListener(this);
+        PlayingField = new PlayingField();
+        gamePanel.setFocusable(true);
+        buttonPanel.setFocusable(true);
+        gamePanel.addKeyListener(new GameKeyListener());
+        buttonPanel.addKeyListener(new GameKeyListener());
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-                if(x==0 && y==0){
+                if (x == 0 && y == 0) {
                     JLabel playerP = new JLabel(player);
-                    playerP.setLocation(20,20);
+                    playerP.setLocation(20, 20);
                     TPanel.add(playerP, new Integer(0));
+                    PlayingField.getStartTile().spawnPlayer(PlayingField);
+                    System.out.println("PlayerSpawned!");
                 }
-                Tile tilee = field.getPf()[x][y].getTile();
+                Tile tilee = PlayingField.getPf()[x][y].getTile();
                 createTile(tilee);
 
             }
         }
-         
+
 //            randomizeTiles();
         GameFrame.pack();
     }
 
     public JLayeredPane createTile(Tile t) {
 
-        
-        
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
         }
@@ -314,37 +313,34 @@ class createComponents implements KeyListener{
             chosenTile = player;
         }
         tile = new JLabel(chosenTile);
-        TPanel.add(tile,new Integer(1));
+        TPanel.add(tile, new Integer(1));
         return TPanel;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+    class GameKeyListener implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            int KeyCode = e.getKeyCode();
+            PlayingField.getStartTile().getPlayer().handleMovement(KeyCode, PlayingField.getPf());
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    int KeyPressed = e.getKeyCode();
-
-    if (KeyPressed == KeyEvent.VK_LEFT) {
-        System.out.println("left");
-    }
-
-    if (KeyPressed == KeyEvent.VK_RIGHT) {
-        System.out.println("right");
-    }
-
-    if (KeyPressed == KeyEvent.VK_UP) {
-        System.out.println("up");
-    }
-
-    if (KeyPressed == KeyEvent.VK_DOWN) {
-        System.out.println("down");
-    }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
+    public void pauseGame() {
+        MainMenu.setVisible(false);
+        PauseMenu.setLocationRelativeTo(GameFrame);
+        PauseMenu.setVisible(true);
+        EndMenu.setVisible(false);
+        GameFrame.setEnabled(false);
     }
 }
