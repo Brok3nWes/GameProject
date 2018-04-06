@@ -5,6 +5,8 @@
  */
 package gameproject;
 
+import static gameproject.PlayingField.dimX;
+import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
 import static java.awt.Color.GRAY;
 import static java.awt.Color.WHITE;
@@ -14,7 +16,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,16 +29,15 @@ import javax.swing.border.TitledBorder;
  * @author Wessel
  */
 class createComponents {
-   ArrayList<String> testtiles = new ArrayList<String>(100); 
-    
-    String nr,gameTitle;
-    JPanel gamePanel,buttonPanel,TPanel;
+
+    ArrayList<String> testtiles = new ArrayList<>(100);
+    String nr, gameTitle;
+    JPanel gamePanel, buttonPanel, TPanel;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu,Retry,Reload;
-    JFrame GameFrame,MainMenu,PauseMenu,EndMenu;
-    Font Default,BigButton,BigTitle,MediumTitle,MediumText;
-    int i = 0;
-    
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload;
+    JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
+    Font Default, BigButton, BigTitle, MediumTitle, MediumText;
+
     public createComponents(String gameField, String nr) {
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
@@ -46,7 +46,7 @@ class createComponents {
         PauseMenu = new JFrame();
         EndMenu = new JFrame();
         GameFrame = new JFrame();
-        
+
         //frame sizes
         int Bigx = 450;
         int Bigy = 500;
@@ -68,7 +68,7 @@ class createComponents {
         String Game = "In-game";
         String MainM = "Main Menu";
         String Ended = "End of Level";
-        
+
         //configuration of components
         //buttons
         //main menu play button
@@ -77,13 +77,13 @@ class createComponents {
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
-            
-           // new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
-           testtiles.clear();
-           createGameWindow(gameTitle);
-           GameFrame.setLocationRelativeTo(MainMenu);
+
+            // new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
+            testtiles.clear();
+            createGameWindow(gameTitle);
+            GameFrame.setLocationRelativeTo(MainMenu);
             MainMenu.setVisible(false);
-            
+
         });
 
         //back to menu button from pause menu
@@ -134,7 +134,7 @@ class createComponents {
         Resume.addActionListener((ActionEvent e) -> {
             GameFrame.setEnabled(true);
             PauseMenu.setVisible(false);
-});
+        });
         Retry = new JButton("Retry");
         Retry.setFont(Default);
         Retry.setPreferredSize(new Dimension(100, 60));
@@ -142,8 +142,8 @@ class createComponents {
             //character resetten
             //timer resetten
             //keys en barricades resetten
-            
-    });
+
+        });
         Reload = new JButton("↺");
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
@@ -151,7 +151,7 @@ class createComponents {
             testtiles.clear();
             GameFrame.dispose();
             createGameWindow(gameTitle);
-            
+
         });
         //title's
         //Main Menu Title
@@ -226,7 +226,7 @@ class createComponents {
         MainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        
+
         //these frames are visible on startup
         MainMenu.setVisible(true);
     }
@@ -234,12 +234,12 @@ class createComponents {
     public void createGameWindow(String GameTitle) {
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        buttonPanel = new JPanel();       
-        GameFrame.setSize(700,650);
+        buttonPanel = new JPanel();
+        GameFrame.setSize(700, 650);
         GameFrame.setResizable(false);
         GameFrame.setLayout(new BorderLayout());
         gamePanel = new JPanel();
-        gamePanel.setLayout(new BorderLayout(10,5));
+        gamePanel.setLayout(new BorderLayout(10, 5));
         buttonPanel.add(pauseMenu);
         buttonPanel.add(Retry);
         buttonPanel.add(Reload);
@@ -248,46 +248,27 @@ class createComponents {
         GameFrame.add(buttonPanel);
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         TPanel = new JPanel();
-        TPanel.setLayout(new GridLayout(10,10,0,0));
+        TPanel.setLayout(new GridLayout(10, 10, 0, 0));
         TPanel.setBackground(GRAY);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
-        
-        for (i = 0; i<100; i++){    
-        randomizeTiles();
+        PlayingField field = new PlayingField();
+        for (int x = 0; x < dimX; x++) {
+            for (int y = 0; y < dimY; y++) {
+                Tile tilee = field.getPf()[x][y].getTile();
+                createTile(tilee);
+
+            }
         }
+
+//            randomizeTiles();
         GameFrame.pack();
     }
-    
-    
-    public void randomizeTiles(){
-        if (i<1){
-        testtiles.add("start");
-        } else{
-            Random rnd = new Random();
-            int  n = rnd.nextInt(4);
-            if(n==0){
-                testtiles.add("tile");
-            }
-            if(n==1){
-                testtiles.add("tile");
-            }
-            if(n==2){
-                testtiles.add("barricade");
-            }
-            if(n==3){
-                testtiles.add("wall");
-            }
-            if(i==98){
-                testtiles.add("end");
-            }
-}       createTile(i);
-    }
-    
-    public JPanel createTile(int i){
-        
+
+    public JPanel createTile(Tile t) {
+
         String path = System.getProperty("user.dir") + "\\src\\Images\\";
         ImageIcon chosenTile = null;
         ImageIcon tileImage = new ImageIcon(path + "tile.png");
@@ -296,31 +277,31 @@ class createComponents {
         ImageIcon start = new ImageIcon(path + "start.png");
         ImageIcon end = new ImageIcon(path + "end.png");
         ImageIcon key = new ImageIcon(path + "key.png");
-        ImageIcon player = new ImageIcon("path + player.png");
-        
-        if(testtiles.get(i).equals("tile")){
+        ImageIcon player = new ImageIcon(path + "player.png");
+
+        if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
         }
-        if(testtiles.get(i).equals("barricade")){
+        if (t.Symbol.equals("B")) {
             chosenTile = barricade;
         }
-        if(testtiles.get(i).equals("wall")){
+        if (t.Symbol.equals("W")) {
             chosenTile = wall;
         }
-        if(testtiles.get(i).equals("start")){
+        if (t.Symbol.equals("S")) {
             chosenTile = start;
         }
-        if(testtiles.get(i).equals("end")){
+        if (t.Symbol.equals("E")) {
             chosenTile = end;
         }
-        if(testtiles.get(i).equals("key")){
+        if (t.Symbol.equals("K")) {
             chosenTile = key;
         }
-        if(testtiles.get(i).equals("character")){
+        if (t.Symbol.equals("C")) {
             chosenTile = player;
         }
         tile = new JLabel(chosenTile);
         TPanel.add(tile);
         return TPanel;
-}
+    }
 }

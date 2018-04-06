@@ -1,7 +1,5 @@
 package gameproject;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author baswo
@@ -9,52 +7,49 @@ import java.util.ArrayList;
 class Lvl {
 
     private int currentTime;
-    private final PlayingField field;
-    private final StartTile start;
-    private final EndTile end;
-    private final ArrayList<Wall> Walls;
-    public final ArrayList<Key> Keys;
-    private final ArrayList<Barricade> Barricades;
+    private PlayingField field;
 
-    public Lvl(createComponents component) {
-        Walls = new ArrayList<>();
-        Walls.add(new Wall(5, 5));
-        Walls.add(new Wall(5, 4));
-        Walls.add(new Wall(5, 3));
-        Keys = new ArrayList<>();
-        Keys.add(new Key(6, 6, 001));
-        Barricades = new ArrayList<>();
-        Barricades.add(new Barricade(0, 3, 001));
-        field = new PlayingField(component);
-        updateArrayLists();
-        start = new StartTile(0, 0);
-        end = new EndTile(9, 9);
-        setStartEnd();
-        field.printField();
-        start.spawnPlayer(field);
+    public Lvl() {
+        field = new PlayingField();
+//        Walls = new ArrayList<>();
+//        Walls.add(new Wall(5, 5));
+//        Walls.add(new Wall(5, 4));
+//        Walls.add(new Wall(5, 3));
+//        Keys = new ArrayList<>();
+//        Keys.add(new Key(6, 6, 001));
+//        Barricades = new ArrayList<>();
+//        Barricades.add(new Barricade(0, 3, 001));
+//        field = new PlayingField(component);
+//        updateArrayLists();
+//        start = new StartTile(0, 0);
+//        end = new EndTile(9, 9);
+//        setStartEnd();
+//        field.printField();
+//        start.spawnPlayer(field);
 
     }
 
-    private void updateArrayLists() {
-        Walls.forEach(field::updateField);
-        Keys.forEach(field::updateField);
-        Barricades.forEach(field::updateField);
-    }
-
-    private void setStartEnd() {
-        field.updateField(start);
-        field.updateField(end);
-    }
-
-    public Key getKey(int px, int py) {
-        for (Key k : Keys) {
-            if (px == k.getxCoordinate() && py == k.getyCoordinate()) {
-                Keys.remove(k);
-                return k;
-            }
-        }
-        return null;
-    }
+//
+//    private void updateArrayLists() {
+//        Walls.forEach(field::updateField);
+//        Keys.forEach(field::updateField);
+//        Barricades.forEach(field::updateField);
+//    }
+//
+//    private void setStartEnd() {
+//        field.updateField(start);
+//        field.updateField(end);
+//    }
+//
+//    public Key getKey(int px, int py) {
+//        for (Key k : Keys) {
+//            if (px == k.getxCoordinate() && py == k.getyCoordinate()) {
+//                Keys.remove(k);
+//                return k;
+//            }
+//        }
+//        return null;
+//    }
 }
 
 //        player1.down();

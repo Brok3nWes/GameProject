@@ -1,6 +1,5 @@
 package gameproject;
 
-
 /**
  *
  * @author Wessel Bakker - 17094801
@@ -8,7 +7,6 @@ package gameproject;
  */
 public class GameProject {
 
-  
     public static void main(String[] args) {
         String gameField = null;
         String nr = "0";

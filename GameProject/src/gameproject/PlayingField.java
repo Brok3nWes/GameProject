@@ -1,5 +1,7 @@
 package gameproject;
 
+import java.util.Random;
+
 /**
  *
  * @author baswo
@@ -8,31 +10,62 @@ class PlayingField {
 
     public static int dimX = 10;
     public static int dimY = 10;
-    private final String[][] pf;
-    public createComponents component;
+    private final Field[][] pf;
     public boolean lvlOver;
+    private StartTile ST;
 
-    public PlayingField(createComponents component) {
-        this.component = component;
+    /**
+     * Generate the random PlayingField
+     */
+    public PlayingField() {
         lvlOver = false;
-        pf = new String[dimX][dimY];
+        pf = new Field[dimX][dimY];
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-                pf[x][y] = "O";
+                if (y == 0 && x == 0) {
+                    ST = new StartTile(x, y);
+                    pf[x][y] = new Field(ST);
+                    pf[x][y].getTile();
+//                    pf[x][y] = new StartTile(x, y);
+                } else {
+                    Random rnd = new Random();
+                    int n = rnd.nextInt(4);
+                    if (n == 0 || n == 1) {
+                        pf[x][y] = new Field(new EmptyTile(x, y));
+                        System.out.print("O");
+                    }
+                    if (n == 2) {
+                        pf[x][y] = new Field(new Barricade(x, y, 100));
+                        System.out.print("B");
+                    }
+                    if (n == 3) {
+                        pf[x][y] = new Field(new Wall(x, y));
+                        System.out.print("W");
+                    }
+                    if (x == 9 && y == 9) {
+                        pf[x][y] = new Field(new EndTile(x, y));
+                        System.out.print("E");
+                    }
+                }
             }
         }
     }
 
+    /**
+     * Getter for the PlayingField
+     *
+     * @return PlayingField
+     */
+    public Field[][] getPf() {
+        return pf;
+    }
+
     public void printField() {
-        String gameField;
-        // createComponents component = new createComponents(gameField);
-        String text = "bleh";
-        String ditte = null;
 //        for (int y = dimY - 1; y >= 0; y--) {
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
-                System.out.print(pf[x][y]);
-                
+                System.out.print(pf[x][y].getTile().Symbol);
+
             }
             System.out.println();
         }
@@ -50,35 +83,10 @@ class PlayingField {
     public void updateField(Character c) {
         int xpos = c.getxCoordinate();
         int ypos = c.getyCoordinate();
-        String symbol = c.getSymbol();
         int prevxpos = c.getPrevxCoordinate();
         int prevypos = c.getPrevyCoordinate();
-        pf[prevxpos][prevypos] = "O";
-        pf[xpos][ypos] = symbol;
-    }
-
-    public void updateField(Key k) {
-        int xpos = k.getxCoordinate();
-        int ypos = k.getyCoordinate();
-        String symbol = k.getSymbol();
-        pf[xpos][ypos] = symbol;
-    }
-
-    public void updateField(Barricade b) {
-        int xpos = b.getxCoordinate();
-        int ypos = b.getyCoordinate();
-        String symbol = b.getSymbol();
-        pf[xpos][ypos] = symbol;
-    }
-
-    public void updateField(Tile t) {
-        int xpos = t.getxCoordinate();
-        int ypos = t.getyCoordinate();
-        pf[xpos][ypos] = t.Symbol;
-    }
-
-    public String[][] getField() {
-        return pf;
+//        pf[prevxpos][prevypos] = c;
+//        pf[xpos][ypos]. = c;
     }
 
 }

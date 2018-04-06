@@ -9,34 +9,30 @@ package gameproject;
  *
  * @author baswo
  */
-public class Barricade {
+public class Barricade extends Tile {
 
-    private final int xCoordinate, yCoordinate, code;
-    private final boolean Transparent;
-    private final String Symbol;
+    private int code;
 
-    public Barricade(int xCoordinate, int yCoordinate, int code) {
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.Transparent = false;
+    /**
+     * Constructor for the Barricade
+     *
+     * @param x set coordinate
+     * @param y set coordinate
+     * @param code Set the code to an Integer
+     */
+    public Barricade(int x, int y, int code) {
+        super(x, y);
         this.code = code;
         Symbol = "B";
     }
 
+    /**
+     * Getter for the code
+     *
+     * @return the code that has been set for the barricade
+     */
     public int getCode() {
         return code;
-    }
-
-    public int getxCoordinate() {
-        return xCoordinate;
-    }
-
-    public int getyCoordinate() {
-        return yCoordinate;
-    }
-
-    public String getSymbol() {
-        return Symbol;
     }
 
 }

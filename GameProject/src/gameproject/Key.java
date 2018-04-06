@@ -4,49 +4,21 @@ package gameproject;
  *
  * @author baswo
  */
-public class Key {
+public class Key extends Tile {
 
-    private final int xCoordinate;
-    private final int yCoordinate;
-    private final boolean Transparent;
     private final int code;
-    private final String Symbol = "K";
 
     /**
+     * Constructor for the Key
      *
-     * @param xCoordinate
-     * @param yCoordinate
-     * @param code
+     * @param x set coordinate
+     * @param y set coordinate
+     * @param code Set the code to an Integer
      */
-    public Key(int xCoordinate, int yCoordinate, int code) {
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.Transparent = true;
+    public Key(int x, int y, int code) {
+        super(x, y);
         this.code = code;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getxCoordinate() {
-        return xCoordinate;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getyCoordinate() {
-        return yCoordinate;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getSymbol() {
-        return Symbol;
+        Symbol = "K";
     }
 
     /**

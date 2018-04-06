@@ -9,29 +9,18 @@ package gameproject;
  *
  * @author baswo
  */
-public class EndTile extends Tile {
+public class EmptyTile extends Tile {
 
     /**
-     * Constructor for an EndTile
+     * Constructor for an EmtyTile
      *
      * @param x set coordinate
      * @param y set coordinate
      */
-    public EndTile(int x, int y) {
+    public EmptyTile(int x, int y) {
         super(x, y);
         Transparent = true;
-        Symbol = "E";
-    }
-
-    public void setHighScore() {
-    }
-
-    public void showHighScore() {
-        System.out.println("Ya highscore = amazing BOI");
-    }
-
-    public void endLvl() {
-
+        Symbol = "O";
     }
 
 }
