@@ -6,8 +6,6 @@ package gameproject;
  */
 class StartTile extends Tile {
 
-    private Character player1;
-
     /**
      * Constructor for a StartTile
      *
@@ -26,11 +24,14 @@ class StartTile extends Tile {
      * @param field for getting the
      */
     public void spawnPlayer(PlayingField field) {
-        player1 = new Character(this.xCoordinate, this.yCoordinate);
-    }
-
-    public Character getPlayer() {
-        return player1;
+        Character player1 = new Character(this.xCoordinate, this.yCoordinate);
+        field.updateField(player1);
+        while (field.lvlOver != true) {
+            String command = player1.readCharacter("W,A,S,D for movement: ");
+            player1.handleMovement(command, field.getPf());
+            field.updateField(player1);
+            field.printField();
+        }
     }
 
     public void startTimer() {
