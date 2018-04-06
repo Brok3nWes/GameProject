@@ -8,7 +8,8 @@ import java.util.Scanner;
  */
 public class Character extends Tile {
 
-    private int prevyCoordinate, prevxCoordinate;
+    private int prevyCoordinate;
+    private int prevxCoordinate;
     private Key KeyInPocket;
 
     /**
@@ -67,6 +68,10 @@ public class Character extends Tile {
         KeyInPocket = k;
     }
 
+    public Key getKeyInPocket() {
+        return KeyInPocket;
+    }
+
     /**
      * Remove barricade b when called
      *
@@ -119,27 +124,27 @@ public class Character extends Tile {
      * Set previous coordinates to current coordinates (only use when player
      * moves)
      */
-    private void setPrevPos() {
+    public void setPrevPos() {//public for unittest
         prevxCoordinate = xCoordinate;
         prevyCoordinate = yCoordinate;
     }
 
-    /**
-     * Read the character in the CommandLine
-     *
-     * @param prompt what message it shall give
-     * @return what character has been put in
-     */
-    public String readCharacter(String prompt) {
-        System.out.print(prompt);
-        Scanner keyboard = new Scanner(System.in);
-        String input = keyboard.next();
-        if (input.length() == 0) {
-            return " ";
-        } else {
-            return input.substring(0, 1).toUpperCase();
-        }
-    }
+//    /**
+//     * Read the character in the CommandLine
+//     *
+//     * @param prompt what message it shall give
+//     * @return what character has been put in
+//     */
+//    public String readCharacter(String prompt) {
+//        System.out.print(prompt);
+//        Scanner keyboard = new Scanner(System.in);
+//        String input = keyboard.next();
+//        if (input.length() == 0) {
+//            return " ";
+//        } else {
+//            return input.substring(0, 1).toUpperCase();
+//        }
+//    }
 
     /**
      * Handler for movement
@@ -209,15 +214,16 @@ public class Character extends Tile {
      * @return boolean if it is a valid space or not
      */
     private boolean checkTile(Field[][] pf, int dx, int dy) {
-        if (pf[xCoordinate + dx][yCoordinate + dy].getTile().Symbol.equalsIgnoreCase("O")) {
+        
+        Field field = pf[xCoordinate + dx][yCoordinate + dy];
+        if (field.getTile().Symbol.equalsIgnoreCase("O")) {
             return true;
-        } else if (pf[xCoordinate + dx][yCoordinate + dy].getTile().Symbol.equalsIgnoreCase("K")) {
-//            pickupKey();
+        } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
             return true;
-        } else if (pf[xCoordinate + dx][yCoordinate + dy].getTile().Symbol.equalsIgnoreCase("S")) {
+        } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
         } else {
-            return pf[xCoordinate + dx][yCoordinate + dy].getTile().Symbol.equalsIgnoreCase("E");
+            return field.getTile().Symbol.equalsIgnoreCase("E");
         }
     }
 
