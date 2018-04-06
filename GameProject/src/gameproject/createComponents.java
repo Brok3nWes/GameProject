@@ -359,7 +359,6 @@ class createComponents {
         layeredTile.add(tile);
 
         TPanel.add(layeredTile);
-        TPanel.add(tile, new Integer(1));
         return TPanel;
     }
 
