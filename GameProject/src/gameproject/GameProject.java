@@ -10,6 +10,7 @@ public class GameProject {
     public static void main(String[] args) {
         String gameField = null;
         String nr = "0";
-        createComponents component = new createComponents(gameField, nr);
+        createComponents component = new createComponents(gameField);
+        
     }
 }

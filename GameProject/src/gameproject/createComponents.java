@@ -31,11 +31,11 @@ import javax.swing.border.TitledBorder;
  * @author Wessel
  */
 class createComponents {
-
+    
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
-    int lvl;
-    JPanel buttonPanel, TPanel;
+    
+    JPanel buttonPanel, TPanel,levelPanel;
     JLayeredPane  gamePanel, layeredTile;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload,Finish,Level1,Level2,Level3;
@@ -52,7 +52,9 @@ class createComponents {
         ImageIcon key = new ImageIcon(path + "key.png");
         ImageIcon player = new ImageIcon(path + "player.png");
         
-    public createComponents(String gameField, String nr) {
+    public createComponents(String gameField) {
+        PlayingField level = new PlayingField();
+        
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
         
@@ -180,24 +182,25 @@ class createComponents {
         Level1 = new JButton("Level 1");
         Level1.setFont(Default);
         Level1.setPreferredSize(new Dimension(150, 60));
-        Level1.addActionListener((ActionEvent e) -> {
-            lvl=1;
+        Level1.addActionListener((ActionEvent u) -> {
+            level.changeLevel(1);
             
         });
         //level1 selector button2 
         Level2 = new JButton("Level 2");
         Level2.setFont(Default);
         Level2.setPreferredSize(new Dimension(150, 60));
-        Level2.addActionListener((ActionEvent e) -> {
-            lvl =2;
+        Level2.addActionListener((ActionEvent t) -> {
+            level.changeLevel(2);
+           
             
         });
         //level1 selector button3
         Level3 = new JButton("Level 3");
         Level3.setFont(Default);
         Level3.setPreferredSize(new Dimension(150, 60));
-        Level3.addActionListener((ActionEvent e) -> {
-            lvl=3;
+        Level3.addActionListener((ActionEvent l) -> {
+            level.changeLevel(3);
             
         });
         
@@ -221,11 +224,17 @@ class createComponents {
         YS.setFont(MediumText);
 
         //Panels
+        
         //Main menu
         JPanel MainPanel = new JPanel();
         MainPanel.add(MainTitle);
         MainPanel.add(playButton);
+        
         MainMenu.add(MainPanel);
+        
+        MainPanel.add(Level1);
+        MainPanel.add(Level2);
+        MainPanel.add(Level3);
         MainPanel.add(exitGame);
         MainPanel.setBackground(WHITE);
         //components of main menu

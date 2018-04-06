@@ -1,6 +1,6 @@
 package gameproject;
 
-import java.lang.reflect.Array;
+
 import java.util.Random;
 
 /**
@@ -19,11 +19,16 @@ class PlayingField {
     /**
      * Generate the random PlayingField
      */
+    public void changeLevel(int lvl){
+        CustomGame=lvl;
+        System.out.println("Level " + lvl + " selected");
+    }
+    
     public PlayingField() {
         lvlOver = false;
         pf = new Field[dimX][dimY];
         
-        
+        // T = normal tile, B = barricade, W = wall
        String[] customLevel1 = {"S","B","T","T","T","T","T","T","T","T"
                                ,"T","T","T","T","T","T","T","T","T","T"
                                ,"T","T","T","T","T","T","T","T","T","T"
@@ -180,15 +185,5 @@ class PlayingField {
 //        pf[xpos][ypos]. = c;
     }
 
-    public void changeLevel(int lvl){
-        if(lvl==1){
-            CustomGame =1;
-        }
-        if(lvl==2){
-            CustomGame =2;
-        }
-        if(lvl==3){
-            CustomGame=3;
-        }
-    }
+    
 }
