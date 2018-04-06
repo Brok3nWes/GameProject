@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,7 +32,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author Wessel
  */
-class createComponents {
+class createComponents implements KeyListener{
 
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
@@ -268,6 +270,7 @@ class createComponents {
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
         PlayingField field = new PlayingField();
+        GameFrame.addKeyListener(this);
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
                 if(x==0 && y==0){
@@ -313,5 +316,35 @@ class createComponents {
         tile = new JLabel(chosenTile);
         TPanel.add(tile,new Integer(1));
         return TPanel;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    int KeyPressed = e.getKeyCode();
+
+    if (KeyPressed == KeyEvent.VK_LEFT) {
+        System.out.println("left");
+    }
+
+    if (KeyPressed == KeyEvent.VK_RIGHT) {
+        System.out.println("right");
+    }
+
+    if (KeyPressed == KeyEvent.VK_UP) {
+        System.out.println("up");
+    }
+
+    if (KeyPressed == KeyEvent.VK_DOWN) {
+        System.out.println("down");
+    }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }
