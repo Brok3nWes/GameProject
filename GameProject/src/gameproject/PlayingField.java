@@ -1,6 +1,5 @@
 package gameproject;
 
-
 import java.util.Random;
 
 /**
@@ -11,140 +10,21 @@ class PlayingField {
 
     public static int dimX = 10;
     public static int dimY = 10;
-    private final Field[][] pf;
+    private Field[][] pf;
+    private String[] customLevel1, customLevel2, customLevel3;
     public boolean lvlOver;
     private StartTile ST;
-    int i = 0;
-    int CustomGame = 0;  //0 = randomly generated level
+    int i;
+    int LvlInt;  //0 = randomly generated level
+
+
     /**
      * Generate the random PlayingField
      */
-    public void changeLevel(int lvl){
-        CustomGame=lvl;
-        System.out.println("Level " + lvl + " selected");
-    }
-    
-    public PlayingField() {
+    public PlayingField(int lvl) {
         lvlOver = false;
         pf = new Field[dimX][dimY];
-        
-        // T = normal tile, B = barricade, W = wall
-       String[] customLevel1 = {"S","B","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","W","T","T","B","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","E",""};
-       
-       String[] customLevel2 = {"S","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","B","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","W","T","T","T","T","T","T"
-                               ,"T","T","T","W","T","T","T","T","T","T"
-                               ,"T","T","T","W","T","T","T","T","T","E",""};
-       
-       String[] customLevel3 = {"S","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","W","W","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","B","B","W","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","T"
-                               ,"T","T","T","T","T","T","T","T","T","E",""};
-       if (CustomGame==0){
-        for (int x = 0; x < dimX; x++) {
-            for (int y = 0; y < dimY; y++) {
-                
-                if (x == 9 && y == 9) {
-                        pf[x][y] = new Field(new EndTile(x, y));
-                        System.out.print("E");
-                } else {
-                if (y == 0 && x == 0) {
-                    ST = new StartTile(x, y);
-                    pf[x][y] = new Field(ST);
-                    pf[x][y].getTile();
-                    System.out.print("S");
-//                    pf[x][y] = new StartTile(x, y);
-                } else {
-                    
-                    Random rnd = new Random();
-                    int n = rnd.nextInt(4);
-                    if (n == 0 || n == 1) {
-                        pf[x][y] = new Field(new EmptyTile(x, y));
-                        System.out.print("O");
-                    }
-                    if (n == 2) {
-                        pf[x][y] = new Field(new Barricade(x, y, 100));
-                        System.out.print("B");
-                    }
-                    if (n == 3) {
-                        pf[x][y] = new Field(new Wall(x, y));
-                        System.out.print("W");
-                    }
-                }}
-                    
-                
-                
-            }
-        }
-        } else {
-           
-       
-                
-                        for (int x = 0; x < dimX; x++) {
-                        for (int y = 0; y < dimY; y++) {
-                            
-                            if (i==99) {
-                            pf[x][y] = new Field(new EndTile(x, y));
-                            System.out.print("E");
-                                } else {
-                                    if (i==0) {
-                                    ST = new StartTile(x, y);
-                                    pf[x][y] = new Field(ST);
-                                    pf[x][y].getTile();
-                                    System.out.print("S");
-                                    i++;
-
-                } else {
-                    String n = "";
-                    if(CustomGame==1){
-                    n = customLevel1[i];
-                    }
-                    if(CustomGame==2){
-                    n = customLevel2[i];
-                    }
-                    if(CustomGame==3){
-                    n = customLevel3[i];
-                    }
-                    if (n == "T") {
-                        pf[x][y] = new Field(new EmptyTile(x, y));
-                        System.out.print("O");
-                        i++;
-                    }
-                    if (n == "B") {
-                        pf[x][y] = new Field(new Barricade(x, y, 100));
-                        System.out.print("B");
-                        i++;
-                    }
-                    if (n == "W") {
-                        pf[x][y] = new Field(new Wall(x, y));
-                        System.out.print("W");
-                        i++;
-                    }
-                }}   
-       }
-    }
-       }
+        this.LvlInt = lvl;
     }
 
     /**
@@ -176,6 +56,128 @@ class PlayingField {
 //            System.out.println();
 //        }
 //    }
+    public void setLvl(int lvl) {
+        LvlInt = lvl;
+        System.out.println("Level " + lvl + " selected");
+
+        // T = normal tile, B = barricade, W = wall
+        customLevel1 = new String[]{"S", "B", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "W", "T", "T", "B", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "E", ""};
+
+        customLevel2 = new String[]{"S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "B", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "T", "T", "T", "E", ""};
+
+        customLevel3 = new String[]{"S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "W", "W", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "B", "B", "W", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "T", "T", "T", "T", "E", ""};
+
+        if (LvlInt == 0) {
+            for (int x = 0; x < dimX; x++) {
+                for (int y = 0; y < dimY; y++) {
+
+                    if (x == 9 && y == 9) {
+                        pf[x][y] = new Field(new EndTile(x, y));
+                        System.out.print("E");
+                    } else {
+                        if (y == 0 && x == 0) {
+                            ST = new StartTile(x, y);
+                            pf[x][y] = new Field(ST);
+                            pf[x][y].getTile();
+                            System.out.print("S");
+//                    pf[x][y] = new StartTile(x, y);
+                        } else {
+
+                            Random rnd = new Random();
+                            int n = rnd.nextInt(4);
+                            if (n == 0 || n == 1) {
+                                pf[x][y] = new Field(new EmptyTile(x, y));
+                                System.out.print("O");
+                            }
+                            if (n == 2) {
+                                pf[x][y] = new Field(new Barricade(x, y, 100));
+                                System.out.print("B");
+                            }
+                            if (n == 3) {
+                                pf[x][y] = new Field(new Wall(x, y));
+                                System.out.print("W");
+                            }
+                        }
+                    }
+
+                }
+            }
+        } else {
+
+            for (int x = 0; x < dimX; x++) {
+                for (int y = 0; y < dimY; y++) {
+
+                    if (i == 99) {
+                        pf[x][y] = new Field(new EndTile(x, y));
+                        System.out.print("E");
+                    } else {
+                        if (i == 0) {
+                            ST = new StartTile(x, y);
+                            pf[x][y] = new Field(ST);
+                            pf[x][y].getTile();
+                            System.out.print("S");
+                            i++;
+
+                        } else {
+                            String n = "";
+                            if (LvlInt == 1) {
+                                n = customLevel1[i];
+                            }
+                            if (LvlInt == 2) {
+                                n = customLevel2[i];
+                            }
+                            if (LvlInt == 3) {
+                                n = customLevel3[i];
+                            }
+                            if ("T".equals(n)) {
+                                pf[x][y] = new Field(new EmptyTile(x, y));
+                                System.out.print("O");
+                                i++;
+                            }
+                            if ("B".equals(n)) {
+                                pf[x][y] = new Field(new Barricade(x, y, 100));
+                                System.out.print("B");
+                                i++;
+                            }
+                            if ("W".equals(n)) {
+                                pf[x][y] = new Field(new Wall(x, y));
+                                System.out.print("W");
+                                i++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void updateField(Character c) {
         int xpos = c.getxCoordinate();
         int ypos = c.getyCoordinate();
@@ -185,5 +187,4 @@ class PlayingField {
 //        pf[xpos][ypos]. = c;
     }
 
-    
 }

@@ -10,7 +10,7 @@ class Lvl {
     private PlayingField field;
 
     public Lvl() {
-        field = new PlayingField();
+//        field = new PlayingField();
 //        Walls = new ArrayList<>();
 //        Walls.add(new Wall(5, 5));
 //        Walls.add(new Wall(5, 4));

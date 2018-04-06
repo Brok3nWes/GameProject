@@ -31,33 +31,33 @@ import javax.swing.border.TitledBorder;
  * @author Wessel
  */
 class createComponents {
-    
+
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
-    
-    JPanel buttonPanel, TPanel,levelPanel;
-    JLayeredPane  gamePanel, layeredTile;
+
+    JPanel buttonPanel, TPanel, levelPanel;
+    JLayeredPane gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload,Finish,Level1,Level2,Level3;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload, Finish, Level1, Level2, Level3;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
+    int lvlINT = 0;
 
-        String path = System.getProperty("user.dir") + "\\src\\Images\\";
-        ImageIcon chosenTile = null;
-        ImageIcon tileImage = new ImageIcon(path + "tile.png");
-        ImageIcon barricade = new ImageIcon(path + "barricade.png");
-        ImageIcon wall = new ImageIcon(path + "wall.png");
-        ImageIcon start = new ImageIcon(path + "start.png");
-        ImageIcon end = new ImageIcon(path + "end.png");
-        ImageIcon key = new ImageIcon(path + "key.png");
-        ImageIcon player = new ImageIcon(path + "player.png");
-        
+    String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    ImageIcon chosenTile = null;
+    ImageIcon tileImage = new ImageIcon(path + "tile.png");
+    ImageIcon barricade = new ImageIcon(path + "barricade.png");
+    ImageIcon wall = new ImageIcon(path + "wall.png");
+    ImageIcon start = new ImageIcon(path + "start.png");
+    ImageIcon end = new ImageIcon(path + "end.png");
+    ImageIcon key = new ImageIcon(path + "key.png");
+    ImageIcon player = new ImageIcon(path + "player.png");
+
     public createComponents(String gameField) {
-        PlayingField level = new PlayingField();
-        
+
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
-        
+
         MainMenu = new JFrame();
         PauseMenu = new JFrame();
         EndMenu = new JFrame();
@@ -70,9 +70,7 @@ class createComponents {
         int Smally = 350;
         int Gamex = 700;
         int Gamey = 650;
-        
-        
-        
+
         //fonts
         Default = new Font("", Font.BOLD, 17);
         BigButton = new Font("", Font.BOLD, 75);
@@ -95,9 +93,9 @@ class createComponents {
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
-            
+
             testtiles.clear();
-            createGameWindow(gameTitle);
+            createGameWindow(gameTitle, lvlINT);
             GameFrame.setLocationRelativeTo(MainMenu);
             MainMenu.setVisible(false);
 
@@ -167,43 +165,42 @@ class createComponents {
         Reload.addActionListener((ActionEvent rl) -> {
             testtiles.clear();
             GameFrame.dispose();
-            createGameWindow(gameTitle);
-         });   
+            createGameWindow(gameTitle, lvlINT);
+        });
         //debug end button
         Finish = new JButton("debug");
         Finish.setFont(Default);
-        
+
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
             EndMenu.setLocationRelativeTo(GameFrame);
             EndMenu.setVisible(true);
-       });
+        });
         //level1 selector button1 
         Level1 = new JButton("Level 1");
         Level1.setFont(Default);
         Level1.setPreferredSize(new Dimension(150, 60));
         Level1.addActionListener((ActionEvent u) -> {
-            level.changeLevel(1);
-            
+            lvlINT = 1;
+
         });
         //level1 selector button2 
         Level2 = new JButton("Level 2");
         Level2.setFont(Default);
         Level2.setPreferredSize(new Dimension(150, 60));
         Level2.addActionListener((ActionEvent t) -> {
-            level.changeLevel(2);
-           
-            
+            lvlINT = 2;
+
         });
         //level1 selector button3
         Level3 = new JButton("Level 3");
         Level3.setFont(Default);
         Level3.setPreferredSize(new Dimension(150, 60));
         Level3.addActionListener((ActionEvent l) -> {
-            level.changeLevel(3);
-            
+            lvlINT = 3;
+
         });
-        
+
         //title's
         //Main Menu Title
         JLabel MainTitle = new JLabel("Maze Game");
@@ -224,14 +221,13 @@ class createComponents {
         YS.setFont(MediumText);
 
         //Panels
-        
         //Main menu
         JPanel MainPanel = new JPanel();
         MainPanel.add(MainTitle);
         MainPanel.add(playButton);
-        
+
         MainMenu.add(MainPanel);
-        
+
         MainPanel.add(Level1);
         MainPanel.add(Level2);
         MainPanel.add(Level3);
@@ -270,7 +266,7 @@ class createComponents {
         PauseMenu.setTitle(GameTitle + Paused);
         PauseMenu.setResizable(false);
         PauseMenu.setUndecorated(true);
-        
+
         //End Menu settings
         EndMenu.setSize(Smallx, Smally);
         EndMenu.setTitle(GameTitle + Ended);
@@ -286,7 +282,7 @@ class createComponents {
         MainMenu.setVisible(true);
     }
 
-    public void createGameWindow(String GameTitle) {
+    public void createGameWindow(String GameTitle, int lvlINT) {
         System.out.println();
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -306,21 +302,21 @@ class createComponents {
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         TPanel = new JPanel();
         TPanel.setLayout(new GridLayout(10, 10, 0, 0));
-       
+
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
-        PlayingField field = new PlayingField();
+        PlayingField field = new PlayingField(lvlINT);
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-               
+
                 Tile tilee = field.getPf()[x][y].getTile();
                 createTile(tilee);
 
             }
         }
-         
+
 //            randomizeTiles();
         GameFrame.pack();
     }
@@ -348,14 +344,14 @@ class createComponents {
         if (t.Symbol.equals("C")) {
             chosenTile = player;
         }
-        
+
         layeredTile = new JLayeredPane();
         layeredTile.setLayout(new BorderLayout(10, 5));
         tile = new JLabel(chosenTile);
         layeredTile.add(tile);
-        
+
         TPanel.add(layeredTile);
-        
+
         return TPanel;
     }
 }
