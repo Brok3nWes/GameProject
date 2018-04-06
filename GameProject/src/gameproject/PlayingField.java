@@ -26,6 +26,7 @@ class PlayingField {
                     ST = new StartTile(x, y);
                     pf[x][y] = new Field(ST);
                     pf[x][y].getTile();
+                    
 //                    pf[x][y] = new StartTile(x, y);
                 } else {
                     Random rnd = new Random();

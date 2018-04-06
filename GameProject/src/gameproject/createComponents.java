@@ -8,6 +8,7 @@ package gameproject;
 import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
+import static java.awt.Color.BLUE;
 import static java.awt.Color.GRAY;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
@@ -20,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -32,12 +34,23 @@ class createComponents {
 
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
-    JPanel gamePanel, buttonPanel, TPanel;
+    JPanel gamePanel, buttonPanel;
+    JLayeredPane  TPanel;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
 
+        String path = System.getProperty("user.dir") + "\\src\\Images\\";
+        ImageIcon chosenTile = null;
+        ImageIcon tileImage = new ImageIcon(path + "tile.png");
+        ImageIcon barricade = new ImageIcon(path + "barricade.png");
+        ImageIcon wall = new ImageIcon(path + "wall.png");
+        ImageIcon start = new ImageIcon(path + "start.png");
+        ImageIcon end = new ImageIcon(path + "end.png");
+        ImageIcon key = new ImageIcon(path + "key.png");
+        ImageIcon player = new ImageIcon(path + "player.png");
+        
     public createComponents(String gameField, String nr) {
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
@@ -247,9 +260,9 @@ class createComponents {
         gamePanel.setBackground(GRAY);
         GameFrame.add(buttonPanel);
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
-        TPanel = new JPanel();
+        TPanel = new JLayeredPane();
         TPanel.setLayout(new GridLayout(10, 10, 0, 0));
-        TPanel.setBackground(GRAY);
+        TPanel.setBackground(BLUE);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
@@ -257,28 +270,21 @@ class createComponents {
         PlayingField field = new PlayingField();
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
+               
                 Tile tilee = field.getPf()[x][y].getTile();
                 createTile(tilee);
 
             }
         }
-
+         
 //            randomizeTiles();
         GameFrame.pack();
     }
 
-    public JPanel createTile(Tile t) {
+    public JLayeredPane createTile(Tile t) {
 
-        String path = System.getProperty("user.dir") + "\\src\\Images\\";
-        ImageIcon chosenTile = null;
-        ImageIcon tileImage = new ImageIcon(path + "tile.png");
-        ImageIcon barricade = new ImageIcon(path + "barricade.png");
-        ImageIcon wall = new ImageIcon(path + "wall.png");
-        ImageIcon start = new ImageIcon(path + "start.png");
-        ImageIcon end = new ImageIcon(path + "end.png");
-        ImageIcon key = new ImageIcon(path + "key.png");
-        ImageIcon player = new ImageIcon(path + "player.png");
-
+        
+        
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
         }
@@ -301,7 +307,7 @@ class createComponents {
             chosenTile = player;
         }
         tile = new JLabel(chosenTile);
-        TPanel.add(tile);
+        TPanel.add(tile,new Integer(1));
         return TPanel;
     }
 }
