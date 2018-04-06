@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,10 +40,11 @@ class createComponents {
     JPanel buttonPanel, TPanel, levelPanel;
     JLayeredPane gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload, Finish, Level1, Level2, Level3;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
     int lvlINT = 0;
+    PlayingField PlayingField;
 
     String path = System.getProperty("user.dir") + "\\src\\Images\\";
     ImageIcon chosenTile = null;
@@ -54,7 +57,6 @@ class createComponents {
     ImageIcon player = new ImageIcon(path + "player.png");
 
     public createComponents(String gameField) {
-
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
 
@@ -131,16 +133,11 @@ class createComponents {
             System.exit(0);
         });
         //pause menu
-        pauseMenu = new JButton("Pause");
-        pauseMenu.setFont(Default);
-        pauseMenu.setPreferredSize(new Dimension(100, 60));
-        pauseMenu.addActionListener((ActionEvent e) -> {
-            MainMenu.setVisible(false);
-            PauseMenu.setLocationRelativeTo(GameFrame);
-            PauseMenu.setVisible(true);
-            EndMenu.setVisible(false);
-            GameFrame.setEnabled(false);
-
+        pauseButton = new JButton("Pause");
+        pauseButton.setFont(Default);
+        pauseButton.setPreferredSize(new Dimension(100, 60));
+        pauseButton.addActionListener((ActionEvent e) -> {
+            pauseGame();
         });
         //resume
         Resume = new JButton("Resume");
@@ -292,7 +289,7 @@ class createComponents {
         GameFrame.setLayout(new BorderLayout());
         gamePanel = new JLayeredPane();
         gamePanel.setLayout(new BorderLayout(10, 5));
-        buttonPanel.add(pauseMenu);
+        buttonPanel.add(pauseButton);
         buttonPanel.add(Retry);
         buttonPanel.add(Reload);
         buttonPanel.add(Finish);
@@ -307,11 +304,21 @@ class createComponents {
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
-        PlayingField field = new PlayingField(lvlINT);
+        PlayingField = new PlayingField(lvlINT);
+        gamePanel.setFocusable(true);
+        buttonPanel.setFocusable(true);
+        gamePanel.addKeyListener(new GameKeyListener());
+        buttonPanel.addKeyListener(new GameKeyListener());
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-
-                Tile tilee = field.getPf()[x][y].getTile();
+                if (x == 0 && y == 0) {
+                    JLabel playerP = new JLabel(player);
+                    playerP.setLocation(20, 20);
+                    TPanel.add(playerP, new Integer(0));
+                    PlayingField.getStartTile().spawnPlayer(PlayingField);
+                    System.out.println("PlayerSpawned!");
+                }
+                Tile tilee = PlayingField.getPf()[x][y].getTile();
                 createTile(tilee);
 
             }
@@ -351,7 +358,34 @@ class createComponents {
         layeredTile.add(tile);
 
         TPanel.add(layeredTile);
-
+        TPanel.add(tile, new Integer(1));
         return TPanel;
+    }
+
+    class GameKeyListener implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            int KeyCode = e.getKeyCode();
+            PlayingField.getStartTile().getPlayer().handleMovement(KeyCode, PlayingField.getPf());
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+
+    }
+
+    public void pauseGame() {
+        MainMenu.setVisible(false);
+        PauseMenu.setLocationRelativeTo(GameFrame);
+        PauseMenu.setVisible(true);
+        EndMenu.setVisible(false);
+        GameFrame.setEnabled(false);
     }
 }
