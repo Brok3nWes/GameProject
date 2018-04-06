@@ -319,7 +319,6 @@ class createComponents {
                     PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     System.out.println("PlayerSpawned!");
                 }
-                System.out.println(x + y);
                 Tile tilee = PlayingField.getPf()[x][y].getTile();
                 createTile(tilee);
 
