@@ -21,10 +21,9 @@ class PlayingField {
     /**
      * Generate the random PlayingField
      */
-    public PlayingField(int lvl) {
+    public PlayingField() {
         lvlOver = false;
         pf = new Field[dimX][dimY];
-        this.LvlInt = lvl;
     }
 
     /**

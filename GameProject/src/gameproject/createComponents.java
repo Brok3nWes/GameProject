@@ -304,7 +304,8 @@ class createComponents {
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
-        PlayingField = new PlayingField(lvlINT);
+        PlayingField = new PlayingField();
+        PlayingField.setLvl(lvlINT);
         gamePanel.setFocusable(true);
         buttonPanel.setFocusable(true);
         gamePanel.addKeyListener(new GameKeyListener());
