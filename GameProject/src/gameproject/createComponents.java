@@ -270,7 +270,11 @@ class createComponents {
         PlayingField field = new PlayingField();
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-               
+                if(x==0 && y==0){
+                    JLabel playerP = new JLabel(player);
+                    playerP.setLocation(20,20);
+                    TPanel.add(playerP, new Integer(0));
+                }
                 Tile tilee = field.getPf()[x][y].getTile();
                 createTile(tilee);
 
