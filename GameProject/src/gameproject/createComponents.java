@@ -20,7 +20,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -34,7 +33,6 @@ class createComponents {
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
     JPanel gamePanel, buttonPanel, TPanel;
-    JLayeredPane tileP;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
@@ -303,9 +301,7 @@ class createComponents {
             chosenTile = player;
         }
         tile = new JLabel(chosenTile);
-        tileP = new JLayeredPane();
-        tileP.add(tile);
-        TPanel.add(tileP);
+        TPanel.add(tile);
         return TPanel;
     }
 }
