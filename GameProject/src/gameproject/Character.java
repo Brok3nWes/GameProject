@@ -154,6 +154,7 @@ public class Character extends Tile {
                 if (prevyCoordinate > 0) {
                     if (checkTile(pf, 0, -1)) {
                         up();
+                        
                     }
                 }
                 break;

@@ -34,8 +34,8 @@ class createComponents {
 
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
-    JPanel gamePanel, buttonPanel;
-    JLayeredPane  TPanel;
+    JPanel buttonPanel, TPanel;
+    JLayeredPane  gamePanel, layeredTile;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
@@ -54,7 +54,7 @@ class createComponents {
     public createComponents(String gameField, String nr) {
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
-        HighScore = null; //Tijdelijk! weer weghalen!
+        
         MainMenu = new JFrame();
         PauseMenu = new JFrame();
         EndMenu = new JFrame();
@@ -91,7 +91,7 @@ class createComponents {
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
 
-            // new FieldFrame(GameTitle + Game, 300, 300, 10, 10).setVisible(true);
+            
             testtiles.clear();
             createGameWindow(gameTitle);
             GameFrame.setLocationRelativeTo(MainMenu);
@@ -226,13 +226,11 @@ class createComponents {
         PauseMenu.setTitle(GameTitle + Paused);
         PauseMenu.setResizable(false);
         PauseMenu.setUndecorated(true);
-        PauseMenu.setLocationRelativeTo(null);
-
+        
         //End Menu settings
         EndMenu.setSize(Smallx, Smally);
         EndMenu.setTitle(GameTitle + Ended);
         EndMenu.setResizable(false);
-        EndMenu.setLocationRelativeTo(null);
         EndMenu.setUndecorated(true);
 
         //close operations
@@ -245,13 +243,14 @@ class createComponents {
     }
 
     public void createGameWindow(String GameTitle) {
+        System.out.println();
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         buttonPanel = new JPanel();
         GameFrame.setSize(700, 650);
         GameFrame.setResizable(false);
         GameFrame.setLayout(new BorderLayout());
-        gamePanel = new JPanel();
+        gamePanel = new JLayeredPane();
         gamePanel.setLayout(new BorderLayout(10, 5));
         buttonPanel.add(pauseMenu);
         buttonPanel.add(Retry);
@@ -260,9 +259,9 @@ class createComponents {
         gamePanel.setBackground(GRAY);
         GameFrame.add(buttonPanel);
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
-        TPanel = new JLayeredPane();
+        TPanel = new JPanel();
         TPanel.setLayout(new GridLayout(10, 10, 0, 0));
-        TPanel.setBackground(BLUE);
+       
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
@@ -270,11 +269,7 @@ class createComponents {
         PlayingField field = new PlayingField();
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-                if(x==0 && y==0){
-                    JLabel playerP = new JLabel(player);
-                    playerP.setLocation(20,20);
-                    TPanel.add(playerP, new Integer(0));
-                }
+               
                 Tile tilee = field.getPf()[x][y].getTile();
                 createTile(tilee);
 
@@ -285,10 +280,8 @@ class createComponents {
         GameFrame.pack();
     }
 
-    public JLayeredPane createTile(Tile t) {
+    public JPanel createTile(Tile t) {
 
-        
-        
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
         }
@@ -310,8 +303,14 @@ class createComponents {
         if (t.Symbol.equals("C")) {
             chosenTile = player;
         }
+        
+        layeredTile = new JLayeredPane();
+        layeredTile.setLayout(new BorderLayout(10, 5));
         tile = new JLabel(chosenTile);
-        TPanel.add(tile,new Integer(1));
+        layeredTile.add(tile);
+        
+        TPanel.add(layeredTile);
+        
         return TPanel;
     }
 }

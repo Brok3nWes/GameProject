@@ -22,11 +22,15 @@ class PlayingField {
         pf = new Field[dimX][dimY];
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
+                if (x == 9 && y == 9) {
+                        pf[x][y] = new Field(new EndTile(x, y));
+                        System.out.print("E");
+                } else {
                 if (y == 0 && x == 0) {
                     ST = new StartTile(x, y);
                     pf[x][y] = new Field(ST);
                     pf[x][y].getTile();
-                    
+                    System.out.print("S");
 //                    pf[x][y] = new StartTile(x, y);
                 } else {
                     Random rnd = new Random();
@@ -43,12 +47,10 @@ class PlayingField {
                         pf[x][y] = new Field(new Wall(x, y));
                         System.out.print("W");
                     }
-                    if (x == 9 && y == 9) {
-                        pf[x][y] = new Field(new EndTile(x, y));
-                        System.out.print("E");
+                    
                     }
-                }
-            }
+                
+            }}
         }
     }
 
