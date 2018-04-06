@@ -37,7 +37,7 @@ class createComponents {
     JPanel buttonPanel, TPanel;
     JLayeredPane  gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload,Finish;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
 
@@ -164,8 +164,20 @@ class createComponents {
             testtiles.clear();
             GameFrame.dispose();
             createGameWindow(gameTitle);
-
-        });
+         });   
+        //debug end button
+        Finish = new JButton("debug");
+        Finish.setFont(Default);
+        
+        Finish.setPreferredSize(new Dimension(90, 50));
+        Finish.addActionListener((ActionEvent f) -> {
+            EndMenu.setLocationRelativeTo(GameFrame);
+            EndMenu.setVisible(true);
+       });
+            
+        
+            
+        
         //title's
         //Main Menu Title
         JLabel MainTitle = new JLabel("Maze Game");
@@ -255,6 +267,7 @@ class createComponents {
         buttonPanel.add(pauseMenu);
         buttonPanel.add(Retry);
         buttonPanel.add(Reload);
+        buttonPanel.add(Finish);
         buttonPanel.setBackground(GRAY);
         gamePanel.setBackground(GRAY);
         GameFrame.add(buttonPanel);
