@@ -147,53 +147,41 @@ public class Character extends Tile {
      * @param command what command has been given
      * @param pf to get the information of the next tile
      */
-    public void handleMovement(int command, Field[][] pf) {
+    public void handleMovement(String command, Field[][] pf) {
         setPrevPos();
-        ActionEnum code = ActionEnum.getEnumName(command);
-        if (code != null) {
-            switch (code) {
-                case UP:
-                    if (prevyCoordinate > 0) {
-                        if (checkTile(pf, 0, -1)) {
-                            up();
-                        }
+        switch (command) {
+            case "W":
+                if (prevyCoordinate > 0) {
+                    if (checkTile(pf, 0, -1)) {
+                        up();
+                        
                     }
-                    System.out.println("UP WE GO");
-                    printCoordinates();
-                    break;
-                case LEFT:
-                    if (prevxCoordinate > 0) {
-                        if (checkTile(pf, -1, 0)) {
-                            left();
-                        }
+                }
+                break;
+            case "A":
+                if (prevxCoordinate > 0) {
+                    if (checkTile(pf, -1, 0)) {
+                        left();
                     }
-                    System.out.println("LEFT WE GO");
-                    printCoordinates();
-                    break;
-                case DOWN:
-                    if (prevyCoordinate < PlayingField.dimY - 1) {
-                        if (checkTile(pf, 0, 1)) {
-                            down();
-                        }
+                }
+                break;
+            case "S":
+                if (prevyCoordinate < PlayingField.dimY - 1) {
+                    if (checkTile(pf, 0, 1)) {
+                        down();
                     }
-                    System.out.println("DOWN WE GO");
-                    printCoordinates();
-                    break;
-                case RIGHT:
-                    if (prevxCoordinate < PlayingField.dimX - 1) {
-                        if (checkTile(pf, 1, 0)) {
-                            right();
-                        }
+                }
+                break;
+            case "D":
+                if (prevxCoordinate < PlayingField.dimX - 1) {
+                    if (checkTile(pf, 1, 0)) {
+                        right();
                     }
-                    System.out.println("RIGHT WE GO");
-                    printCoordinates();
-                    break;
-                case ESCAPE:
-                    System.out.println("Pause da game?!!!!");
-
-//                    System.exit(0);
-                    break;
-            }
+                }
+                break;
+            case "Q":
+                System.exit(0);
+                break;
         }
     }
 //        else{
@@ -219,11 +207,6 @@ public class Character extends Tile {
         } else {
             return pf[xCoordinate + dx][yCoordinate + dy].getTile().Symbol.equalsIgnoreCase("E");
         }
-    }
-
-    private void printCoordinates() {
-        System.out.println("Previous coordinates = " + "x:" + prevxCoordinate + "y:" + prevyCoordinate);
-        System.out.println("New coordinates = " + "x:" + xCoordinate + "y:" + yCoordinate);
     }
 }
 //getKey(xCoordinate, yCoordinate)
