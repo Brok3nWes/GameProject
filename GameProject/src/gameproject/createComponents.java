@@ -1,14 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Game GUI, mainly consisting of JSwing components
+ * 
  */
 package gameproject;
 
 import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
-import static java.awt.Color.BLUE;
 import static java.awt.Color.GRAY;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
@@ -18,7 +16,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,13 +31,11 @@ import javax.swing.border.TitledBorder;
  */
 class createComponents {
 
-    ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
-
     JPanel buttonPanel, TPanel, levelPanel;
     JLayeredPane gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3,Random;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
     int lvlINT = 0;
@@ -59,7 +54,7 @@ class createComponents {
     public createComponents(String gameField) {
         gameTitle = "Maze Game - In-Game";
         HighScore HighScore = new HighScore();
-
+        HighScore = null;
         MainMenu = new JFrame();
         PauseMenu = new JFrame();
         EndMenu = new JFrame();
@@ -70,9 +65,7 @@ class createComponents {
         int Bigy = 500;
         int Smallx = 300;
         int Smally = 350;
-        int Gamex = 700;
-        int Gamey = 650;
-
+        
         //fonts
         Default = new Font("", Font.BOLD, 17);
         BigButton = new Font("", Font.BOLD, 75);
@@ -83,10 +76,13 @@ class createComponents {
         //information
         String GameTitle = "Maze Game - ";
         String Paused = "Paused";
-        String Game = "In-game";
         String MainM = "Main Menu";
         String Ended = "End of Level";
 
+        //selected level
+        JLabel selected = new JLabel("Selected:                                      Random");
+        selected.setFont(Default);
+        
         //configuration of components
         //buttons
         //main menu play button
@@ -95,8 +91,6 @@ class createComponents {
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
-
-            testtiles.clear();
             createGameWindow(gameTitle, lvlINT);
             GameFrame.setLocationRelativeTo(MainMenu);
             MainMenu.setVisible(false);
@@ -160,7 +154,6 @@ class createComponents {
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
-            testtiles.clear();
             GameFrame.dispose();
             createGameWindow(gameTitle, lvlINT);
         });
@@ -173,29 +166,44 @@ class createComponents {
             EndMenu.setLocationRelativeTo(GameFrame);
             EndMenu.setVisible(true);
         });
-        //level1 selector button1 
+        //level selector button1 
         Level1 = new JButton("Level 1");
         Level1.setFont(Default);
         Level1.setPreferredSize(new Dimension(150, 60));
         Level1.addActionListener((ActionEvent u) -> {
             lvlINT = 1;
+            selected.setText("Selected:                                        Level 1");
+            System.out.println("Level " + lvlINT + " selected");
 
         });
-        //level1 selector button2 
+        //level selector button2 
         Level2 = new JButton("Level 2");
         Level2.setFont(Default);
         Level2.setPreferredSize(new Dimension(150, 60));
         Level2.addActionListener((ActionEvent t) -> {
             lvlINT = 2;
-
+            selected.setText("Selected:                                        Level 2");
+            System.out.println("Level " + lvlINT + " selected");
         });
-        //level1 selector button3
+        //level selector button3
         Level3 = new JButton("Level 3");
         Level3.setFont(Default);
         Level3.setPreferredSize(new Dimension(150, 60));
         Level3.addActionListener((ActionEvent l) -> {
             lvlINT = 3;
-
+            selected.setText("Selected:                                        Level 3");
+            System.out.println("Level " + lvlINT + " selected");
+        });
+        
+        
+        //level selector random
+        Random = new JButton("Random");
+        Random.setFont(Default);
+        Random.setPreferredSize(new Dimension(150, 60));
+        Random.addActionListener((ActionEvent l) -> {
+            lvlINT = 0;
+            selected.setText("Selected:                                      Random");
+            System.out.println("Random level selected");
         });
 
         //title's
@@ -216,19 +224,21 @@ class createComponents {
         //score after round
         JLabel YS = new JLabel("Your Score: ");
         YS.setFont(MediumText);
+        
+        
 
         //Panels
         //Main menu
         JPanel MainPanel = new JPanel();
         MainPanel.add(MainTitle);
         MainPanel.add(playButton);
-
-        MainMenu.add(MainPanel);
-
+        MainPanel.add(selected);
         MainPanel.add(Level1);
         MainPanel.add(Level2);
         MainPanel.add(Level3);
+        MainPanel.add(Random);
         MainPanel.add(exitGame);
+        MainMenu.add(MainPanel);
         MainPanel.setBackground(WHITE);
         //components of main menu
 
@@ -315,7 +325,7 @@ class createComponents {
                 if (x == 0 && y == 0) {
                     JLabel playerP = new JLabel(player);
                     playerP.setLocation(20, 20);
-                    TPanel.add(playerP, new Integer(0));
+                    //TPanel.add(playerP, new Integer(0));
                     PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     System.out.println("PlayerSpawned!");
                 }
@@ -324,8 +334,6 @@ class createComponents {
 
             }
         }
-
-//            randomizeTiles();
         GameFrame.pack();
     }
 
@@ -357,7 +365,6 @@ class createComponents {
         layeredTile.setLayout(new BorderLayout(10, 5));
         tile = new JLabel(chosenTile);
         layeredTile.add(tile);
-
         TPanel.add(layeredTile);
         return TPanel;
     }

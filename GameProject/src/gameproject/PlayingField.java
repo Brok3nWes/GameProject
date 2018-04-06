@@ -61,20 +61,20 @@ class PlayingField {
 //    }
     public void setLvl(int lvl) {
         LvlInt = lvl;
-        System.out.println("Level " + lvl + " selected");
+        
 
         // T = normal tile, B = barricade, W = wall
         customLevel1 = new String[]{
-            "S", "B", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "W", "T", "T", "B", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "T", "T", "T", "T", "E", ""};
+            "S", "B", "T", "W", "T", "T", "W", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "W", "W", "W", "W",
+            "T", "T", "T", "W", "T", "T", "B", "W", "T", "T",
+            "W", "W", "B", "W", "W", "B", "T", "T", "T", "T",
+            "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "W", "W", "B", "W", "B", "W",
+            "T", "T", "T", "W", "T", "T", "T", "W", "T", "E", ""};
 
         customLevel2 = new String[]{
             "S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
