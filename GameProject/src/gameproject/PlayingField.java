@@ -25,35 +25,6 @@ class PlayingField {
         lvlOver = false;
         pf = new Field[dimX][dimY];
         this.LvlInt = lvl;
-        for (int x = 0; x < dimX; x++) {
-            for (int y = 0; y < dimY; y++) {
-                if (y == 0 && x == 0) {
-                    ST = new StartTile(x, y);
-                    pf[x][y] = new Field(ST);
-                    pf[x][y].getTile();
-//                    pf[x][y] = new StartTile(x, y);
-                } else {
-                    Random rnd = new Random();
-                    int n = rnd.nextInt(4);
-                    if (n == 0 || n == 1) {
-                        pf[x][y] = new Field(new EmptyTile(x, y));
-                        System.out.print("O");
-                    }
-                    if (n == 2) {
-                        pf[x][y] = new Field(new Barricade(x, y, 100));
-                        System.out.print("B");
-                    }
-                    if (n == 3) {
-                        pf[x][y] = new Field(new Wall(x, y));
-                        System.out.print("W");
-                    }
-                    if (x == 9 && y == 9) {
-                        pf[x][y] = new Field(new EndTile(x, y));
-                        System.out.print("E");
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -94,7 +65,8 @@ class PlayingField {
         System.out.println("Level " + lvl + " selected");
 
         // T = normal tile, B = barricade, W = wall
-        customLevel1 = new String[]{"S", "B", "T", "T", "T", "T", "T", "T", "T", "T",
+        customLevel1 = new String[]{
+            "S", "B", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
@@ -105,7 +77,8 @@ class PlayingField {
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "E", ""};
 
-        customLevel2 = new String[]{"S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+        customLevel2 = new String[]{
+            "S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
@@ -116,7 +89,8 @@ class PlayingField {
             "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "T", "T", "T", "E", ""};
 
-        customLevel3 = new String[]{"S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
+        customLevel3 = new String[]{
+            "S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "W", "W", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",

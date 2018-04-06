@@ -315,9 +315,10 @@ class createComponents {
                     JLabel playerP = new JLabel(player);
                     playerP.setLocation(20, 20);
                     TPanel.add(playerP, new Integer(0));
-                    PlayingField.getStartTile().spawnPlayer(PlayingField);
+                    PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     System.out.println("PlayerSpawned!");
                 }
+                System.out.println(x + y);
                 Tile tilee = PlayingField.getPf()[x][y].getTile();
                 createTile(tilee);
 
