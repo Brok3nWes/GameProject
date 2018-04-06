@@ -184,13 +184,13 @@ class PlayingField {
         }
     }
 
-    public void updateField(Character c) {
-        int xpos = c.getxCoordinate();
-        int ypos = c.getyCoordinate();
-        int prevxpos = c.getPrevxCoordinate();
-        int prevypos = c.getPrevyCoordinate();
-//        pf[prevxpos][prevypos] = c;
-//        pf[xpos][ypos]. = c;
-    }
+//    public void updateField(Character c) {
+//        int xpos = c.getxCoordinate();
+//        int ypos = c.getyCoordinate();
+//        int prevxpos = c.getPrevxCoordinate();
+//        int prevypos = c.getPrevyCoordinate();
+////        pf[prevxpos][prevypos] = c;
+////        pf[xpos][ypos]. = c;
+//    }
 
 }
