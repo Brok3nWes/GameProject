@@ -34,10 +34,11 @@ class createComponents {
 
     ArrayList<String> testtiles = new ArrayList<>(100);
     String nr, gameTitle;
+    int lvl;
     JPanel buttonPanel, TPanel;
     JLayeredPane  gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload,Finish;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseMenu, Retry, Reload,Finish,Level1,Level2,Level3;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
 
@@ -67,7 +68,9 @@ class createComponents {
         int Smally = 350;
         int Gamex = 700;
         int Gamey = 650;
-
+        
+        
+        
         //fonts
         Default = new Font("", Font.BOLD, 17);
         BigButton = new Font("", Font.BOLD, 75);
@@ -90,7 +93,6 @@ class createComponents {
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
-
             
             testtiles.clear();
             createGameWindow(gameTitle);
@@ -174,9 +176,30 @@ class createComponents {
             EndMenu.setLocationRelativeTo(GameFrame);
             EndMenu.setVisible(true);
        });
+        //level1 selector button1 
+        Level1 = new JButton("Level 1");
+        Level1.setFont(Default);
+        Level1.setPreferredSize(new Dimension(150, 60));
+        Level1.addActionListener((ActionEvent e) -> {
+            lvl=1;
             
-        
+        });
+        //level1 selector button2 
+        Level2 = new JButton("Level 2");
+        Level2.setFont(Default);
+        Level2.setPreferredSize(new Dimension(150, 60));
+        Level2.addActionListener((ActionEvent e) -> {
+            lvl =2;
             
+        });
+        //level1 selector button3
+        Level3 = new JButton("Level 3");
+        Level3.setFont(Default);
+        Level3.setPreferredSize(new Dimension(150, 60));
+        Level3.addActionListener((ActionEvent e) -> {
+            lvl=3;
+            
+        });
         
         //title's
         //Main Menu Title
