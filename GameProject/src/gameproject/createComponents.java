@@ -35,7 +35,7 @@ class createComponents {
     JPanel buttonPanel, TPanel, levelPanel;
     JLayeredPane gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3,Random;
+    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3, Random;
     JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
     int lvlINT = 0;
@@ -65,7 +65,7 @@ class createComponents {
         int Bigy = 500;
         int Smallx = 300;
         int Smally = 350;
-        
+
         //fonts
         Default = new Font("", Font.BOLD, 17);
         BigButton = new Font("", Font.BOLD, 75);
@@ -82,7 +82,7 @@ class createComponents {
         //selected level
         JLabel selected = new JLabel("Selected:                                      Random");
         selected.setFont(Default);
-        
+
         //configuration of components
         //buttons
         //main menu play button
@@ -194,8 +194,7 @@ class createComponents {
             selected.setText("Selected:                                        Level 3");
             System.out.println("Level " + lvlINT + " selected");
         });
-        
-        
+
         //level selector random
         Random = new JButton("Random");
         Random.setFont(Default);
@@ -224,8 +223,6 @@ class createComponents {
         //score after round
         JLabel YS = new JLabel("Your Score: ");
         YS.setFont(MediumText);
-        
-        
 
         //Panels
         //Main menu
@@ -329,7 +326,7 @@ class createComponents {
                     PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     System.out.println("PlayerSpawned!");
                 }
-                Tile tilee = PlayingField.getPf()[x][y].getTile();
+                Tile tilee = PlayingField.getPf()[y][x].getTile();
                 createTile(tilee);
 
             }

@@ -1,7 +1,5 @@
 package gameproject;
 
-import java.util.Scanner;
-
 /**
  *
  * @author baswo
@@ -145,7 +143,6 @@ public class Character extends Tile {
 //            return input.substring(0, 1).toUpperCase();
 //        }
 //    }
-
     /**
      * Handler for movement
      *
@@ -214,7 +211,7 @@ public class Character extends Tile {
      * @return boolean if it is a valid space or not
      */
     private boolean checkTile(Field[][] pf, int dx, int dy) {
-        
+
         Field field = pf[xCoordinate + dx][yCoordinate + dy];
         if (field.getTile().Symbol.equalsIgnoreCase("O")) {
             return true;

@@ -39,17 +39,6 @@ class PlayingField {
         return ST;
     }
 
-    public void printField() {
-//        for (int y = dimY - 1; y >= 0; y--) {
-        for (int y = 0; y < dimY; y++) {
-            for (int x = 0; x < dimX; x++) {
-                System.out.print(pf[x][y].getTile().Symbol);
-
-            }
-            System.out.println();
-        }
-    }
-
 //    public void printField() {
 ////        for (int y = dimY - 1; y >= 0; y--) {
 //        for (int y = 0; y < dimY; y++) {
