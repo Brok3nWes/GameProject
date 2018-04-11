@@ -26,15 +26,15 @@ import javax.swing.JPanel;
  * @author Wessel
  * @author Bas
  */
-class createComponents {
+class gameComponents {
 
     String nr, gameTitle;
-    JPanel buttonPanel, TPanel, levelPanel;
+    JPanel buttonPanel, TPanel;
     JLayeredPane gamePanel, layeredTile;
     JLabel gamefield, tile;
-    JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3, Random;
-    JFrame GameFrame, MainMenu;
-    Font Default, BigButton, BigTitle, MediumTitle, MediumText;
+    JButton showMenu, pauseButton, Retry, Reload, Finish;
+    JFrame GameFrame;
+    Font Default;
     int lvlINT = 0;
     PlayingField PlayingField;
 
@@ -48,22 +48,15 @@ class createComponents {
     ImageIcon key = new ImageIcon(path + "key.png");
     ImageIcon player = new ImageIcon(path + "player.png");
 
-    public createComponents(String gameField) {
+    public gameComponents(String gameField) {
         Menu menu = new Menu();
         EndOfLvlMenu endMenu = new EndOfLvlMenu();
-        HighScore HighScore = new HighScore();
-        HighScore = null;
         
         GameFrame = new JFrame();
 
         //fonts
         Default = new Font("", Font.BOLD, 17);
-        BigButton = new Font("", Font.BOLD, 75);
-        BigTitle = new Font("", Font.BOLD, 65);
-        MediumTitle = new Font("", Font.BOLD, 40);
-        MediumText = new Font("", Font.PLAIN, 25);
         
-
         //pause menu
         pauseButton = new JButton("Pause");
         pauseButton.setFont(Default);
@@ -194,7 +187,6 @@ class createComponents {
         @Override
         public void keyReleased(KeyEvent e) {
         }
-
     }}
 
     

@@ -21,13 +21,14 @@ import javax.swing.JPanel;
  */
 public class MainMenu extends Menu{
     String gameTitle;
-    int lvlINT;
+    int lvlINT = 0;
     JFrame MainMenu;
     JButton exitGame,playButton,Level1,Level2,Level3,Random;
     Font Default,BigButton,BigTitle,MediumTitle,MediumText;
     
     
     public JFrame MainMenu(){
+        gameComponents game = new gameComponents(gameTitle);
         gameTitle = "Maze Game - In-Game";
         MainMenu = new JFrame();
         
@@ -46,9 +47,8 @@ public class MainMenu extends Menu{
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
-           // createGameWindow(gameTitle, lvlINT);
-           // GameFrame.setLocationRelativeTo(MainMenu);
-            MainMenu.setVisible(false);
+           game.createGameWindow(gameTitle, lvlINT);
+           MainMenu.setVisible(false);
 
         });
 
