@@ -18,6 +18,6 @@ public class GameProject {
         //create the initial components and show main menu
         
         MainMenu menu = new MainMenu();
-        
+        menu.MainMenu();
     }
 }

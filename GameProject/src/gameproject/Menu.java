@@ -5,11 +5,12 @@ package gameproject;
  * @author baswo
  */
 class Menu {
-    PauseMenu pause = new PauseMenu();
-    MainMenu mainMenu = new MainMenu();
-    EndOfLvlMenu endMenu = new EndOfLvlMenu();
+    
+    
+    
 
     public void pauseGame() {
+        PauseMenu pause = new PauseMenu();
        pause.showPauseMenu();
        
 
@@ -22,6 +23,9 @@ class Menu {
         //GameFrame.setEnabled(false);
     }
     public void exitToMenu(){
+        PauseMenu pause = new PauseMenu();
+        MainMenu mainMenu = new MainMenu();
+        EndOfLvlMenu endMenu = new EndOfLvlMenu();
         pause.hidePauseMenu();
         mainMenu.showMenu();
         endMenu.hideEndMenu();
