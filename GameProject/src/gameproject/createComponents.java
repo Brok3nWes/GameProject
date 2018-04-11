@@ -8,8 +8,6 @@ import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
 import static java.awt.Color.GRAY;
-import static java.awt.Color.WHITE;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -22,12 +20,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
 
 /**
  *
  * @author Wessel
+ * @author Bas
  */
 class createComponents {
 
@@ -36,7 +33,7 @@ class createComponents {
     JLayeredPane gamePanel, layeredTile;
     JLabel gamefield, tile;
     JButton playButton, showMenu, showMenu2, Resume, exitGame, pauseButton, Retry, Reload, Finish, Level1, Level2, Level3, Random;
-    JFrame GameFrame, MainMenu, PauseMenu, EndMenu;
+    JFrame GameFrame, MainMenu;
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
     int lvlINT = 0;
     PlayingField PlayingField;
@@ -52,19 +49,12 @@ class createComponents {
     ImageIcon player = new ImageIcon(path + "player.png");
 
     public createComponents(String gameField) {
-        gameTitle = "Maze Game - In-Game";
+        Menu menu = new Menu();
+        EndOfLvlMenu endMenu = new EndOfLvlMenu();
         HighScore HighScore = new HighScore();
         HighScore = null;
-        MainMenu = new JFrame();
-        PauseMenu = new JFrame();
-        EndMenu = new JFrame();
+        
         GameFrame = new JFrame();
-
-        //frame sizes
-        int Bigx = 450;
-        int Bigy = 500;
-        int Smallx = 300;
-        int Smally = 350;
 
         //fonts
         Default = new Font("", Font.BOLD, 17);
@@ -72,75 +62,16 @@ class createComponents {
         BigTitle = new Font("", Font.BOLD, 65);
         MediumTitle = new Font("", Font.BOLD, 40);
         MediumText = new Font("", Font.PLAIN, 25);
+        
 
-        //information
-        String GameTitle = "Maze Game - ";
-        String Paused = "Paused";
-        String MainM = "Main Menu";
-        String Ended = "End of Level";
-
-        //selected level
-        JLabel selected = new JLabel("Selected:                                      Random");
-        selected.setFont(Default);
-
-        //configuration of components
-        //buttons
-        //main menu play button
-        playButton = new JButton("Play!");
-        playButton.setFont(BigButton);
-        playButton.setPreferredSize(new Dimension(300, 100));
-        //the button initializes the game level
-        playButton.addActionListener((ActionEvent e) -> {
-            createGameWindow(gameTitle, lvlINT);
-            GameFrame.setLocationRelativeTo(MainMenu);
-            MainMenu.setVisible(false);
-
-        });
-
-        //back to menu button from pause menu
-        showMenu = new JButton("Back to main menu");
-        showMenu.setFont(Default);
-        showMenu.setPreferredSize(new Dimension(200, 45));
-        showMenu.addActionListener((ActionEvent e) -> {
-            MainMenu.setLocationRelativeTo(GameFrame);
-            MainMenu.setVisible(true);
-            GameFrame.setVisible(false);
-            PauseMenu.setVisible(false);
-            EndMenu.setVisible(false);
-        });
-        //back to menu button from end menu
-        showMenu2 = new JButton("Back to main menu");
-        showMenu2.setFont(Default);
-        showMenu2.setPreferredSize(new Dimension(200, 45));
-        showMenu2.addActionListener((ActionEvent e) -> {
-            MainMenu.setLocationRelativeTo(GameFrame);
-            MainMenu.setVisible(true);
-            GameFrame.setVisible(false);
-            PauseMenu.setVisible(false);
-            EndMenu.setVisible(false);
-        });
-        //exit button
-        exitGame = new JButton("Exit");
-        exitGame.setFont(Default);
-        exitGame.setPreferredSize(new Dimension(150, 60));
-        exitGame.addActionListener((ActionEvent e) -> {
-            System.exit(0);
-        });
         //pause menu
         pauseButton = new JButton("Pause");
         pauseButton.setFont(Default);
         pauseButton.setPreferredSize(new Dimension(100, 60));
         pauseButton.addActionListener((ActionEvent e) -> {
-            pauseGame();
+           menu.pauseGame();
         });
-        //resume
-        Resume = new JButton("Resume");
-        Resume.setFont(Default);
-        Resume.setPreferredSize(new Dimension(200, 45));
-        Resume.addActionListener((ActionEvent e) -> {
-            GameFrame.setEnabled(true);
-            PauseMenu.setVisible(false);
-        });
+        
         Retry = new JButton("Retry");
         Retry.setFont(Default);
         Retry.setPreferredSize(new Dimension(100, 60));
@@ -163,127 +94,8 @@ class createComponents {
 
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
-            EndMenu.setLocationRelativeTo(GameFrame);
-            EndMenu.setVisible(true);
+            endMenu.showEndMenu();
         });
-        //level selector button1 
-        Level1 = new JButton("Level 1");
-        Level1.setFont(Default);
-        Level1.setPreferredSize(new Dimension(150, 60));
-        Level1.addActionListener((ActionEvent u) -> {
-            lvlINT = 1;
-            selected.setText("Selected:                                        Level 1");
-            System.out.println("Level " + lvlINT + " selected");
-
-        });
-        //level selector button2 
-        Level2 = new JButton("Level 2");
-        Level2.setFont(Default);
-        Level2.setPreferredSize(new Dimension(150, 60));
-        Level2.addActionListener((ActionEvent t) -> {
-            lvlINT = 2;
-            selected.setText("Selected:                                        Level 2");
-            System.out.println("Level " + lvlINT + " selected");
-        });
-        //level selector button3
-        Level3 = new JButton("Level 3");
-        Level3.setFont(Default);
-        Level3.setPreferredSize(new Dimension(150, 60));
-        Level3.addActionListener((ActionEvent l) -> {
-            lvlINT = 3;
-            selected.setText("Selected:                                        Level 3");
-            System.out.println("Level " + lvlINT + " selected");
-        });
-
-        //level selector random
-        Random = new JButton("Random");
-        Random.setFont(Default);
-        Random.setPreferredSize(new Dimension(150, 60));
-        Random.addActionListener((ActionEvent l) -> {
-            lvlINT = 0;
-            selected.setText("Selected:                                      Random");
-            System.out.println("Random level selected");
-        });
-
-        //title's
-        //Main Menu Title
-        JLabel MainTitle = new JLabel("Maze Game");
-        MainTitle.setFont(BigTitle);
-        MainTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //pause menu title
-        JLabel PauseTitle = new JLabel("Paused");
-        PauseTitle.setFont(MediumTitle);
-        //end title
-        JLabel EndTitle = new JLabel("End Reached!");
-        EndTitle.setFont(MediumTitle);
-
-        //Highscore label
-        JLabel HS = new JLabel("Highscore: " + HighScore);
-        HS.setFont(MediumText);
-        //score after round
-        JLabel YS = new JLabel("Your Score: ");
-        YS.setFont(MediumText);
-
-        //Panels
-        //Main menu
-        JPanel MainPanel = new JPanel();
-        MainPanel.add(MainTitle);
-        MainPanel.add(playButton);
-        MainPanel.add(selected);
-        MainPanel.add(Level1);
-        MainPanel.add(Level2);
-        MainPanel.add(Level3);
-        MainPanel.add(Random);
-        MainPanel.add(exitGame);
-        MainMenu.add(MainPanel);
-        MainPanel.setBackground(WHITE);
-        //components of main menu
-
-        //pause menu
-        JPanel pausePanel = new JPanel();
-        PauseMenu.add(pausePanel);
-        pausePanel.add(PauseTitle);
-        pausePanel.add(Resume);
-        pausePanel.add(showMenu);
-        pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
-                GameTitle + Paused));
-
-        //end of level menu
-        JPanel endPanel = new JPanel();
-        endPanel.add(EndTitle);
-        endPanel.add(HS);
-        endPanel.add(YS);
-        endPanel.add(showMenu2);
-        EndMenu.add(endPanel);
-        endPanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
-                GameTitle + Ended));
-
-        //configuration of frames
-        //Main Menu Settings
-        MainMenu.setSize(Bigx, Bigy);
-        MainMenu.setTitle(GameTitle + MainM);
-        MainMenu.setResizable(false);
-        MainMenu.setLocationRelativeTo(null);
-
-        //Pause Menu settings
-        PauseMenu.setSize(Smallx, Smally);
-        PauseMenu.setTitle(GameTitle + Paused);
-        PauseMenu.setResizable(false);
-        PauseMenu.setUndecorated(true);
-
-        //End Menu settings
-        EndMenu.setSize(Smallx, Smally);
-        EndMenu.setTitle(GameTitle + Ended);
-        EndMenu.setResizable(false);
-        EndMenu.setUndecorated(true);
-
-        //close operations
-        MainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-        //these frames are visible on startup
-        MainMenu.setVisible(true);
     }
 
     public void createGameWindow(String GameTitle, int lvlINT) {
@@ -383,13 +195,6 @@ class createComponents {
         public void keyReleased(KeyEvent e) {
         }
 
-    }
+    }}
 
-    public void pauseGame() {
-        MainMenu.setVisible(false);
-        PauseMenu.setLocationRelativeTo(GameFrame);
-        PauseMenu.setVisible(true);
-        EndMenu.setVisible(false);
-        GameFrame.setEnabled(false);
-    }
-}
+    

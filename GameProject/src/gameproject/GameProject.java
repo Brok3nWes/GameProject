@@ -16,8 +16,8 @@ public class GameProject {
     public static void main(String[] args) {
         
         //create the initial components and show main menu
-        String gameField = null;
-        createComponents component = new createComponents(gameField);
+        
+        MainMenu menu = new MainMenu();
         
     }
 }
