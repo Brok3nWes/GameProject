@@ -25,7 +25,7 @@ public class PauseMenu extends Menu{
     JButton Resume,showMenu;
     Font MediumText,MediumTitle,Default;
     
-    public JFrame PauseMenu(){
+    public PauseMenu(){
          Menu menu = new Menu();
         
         Default = new Font("", Font.BOLD, 17);
@@ -40,7 +40,7 @@ public class PauseMenu extends Menu{
         showMenu.setFont(Default);
         showMenu.setPreferredSize(new Dimension(200, 45));
         showMenu.addActionListener((ActionEvent e) -> {
-            menu.exitToMenu();
+            menu.exitToMainMenu();
         });
         //pause menu
         JPanel pausePanel = new JPanel();
@@ -66,7 +66,7 @@ public class PauseMenu extends Menu{
         PauseMenu.setUndecorated(true);
         PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         
-        return PauseMenu;
+        
    }
     public void showPauseMenu(){
         PauseMenu.setVisible(true);
