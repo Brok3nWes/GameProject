@@ -25,12 +25,15 @@ public class Key extends Tile {
      * Destroys the barricade
      *
      * @param b for getting the code of the barricade
+     * @return returning if the removing worked
      */
-    public void destroyBarricade(Barricade b) {
+    public boolean destroyBarricade(Barricade b) {
         if (b.getCode() == code) {
             System.out.println("Barricade removed!");
+            return true;
         } else {
             System.out.println("Nope!");
+            return false;
         }
     }
 

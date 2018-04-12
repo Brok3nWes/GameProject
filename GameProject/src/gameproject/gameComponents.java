@@ -35,8 +35,10 @@ class gameComponents {
     JButton showMenu, pauseButton, Retry, Reload, Finish;
     JFrame GameFrame;
     Font Default;
+//    Menu menu;
     int lvlINT = 0;
     PlayingField PlayingField;
+    Character P;
 
     String path = System.getProperty("user.dir") + "\\src\\Images\\";
     ImageIcon chosenTile = null;
@@ -51,20 +53,20 @@ class gameComponents {
     public gameComponents(String gameField) {
         Menu menu = new Menu();
         EndOfLvlMenu endMenu = new EndOfLvlMenu();
-        
+
         GameFrame = new JFrame();
 
         //fonts
         Default = new Font("", Font.BOLD, 17);
-        
+
         //pause menu
         pauseButton = new JButton("Pause");
         pauseButton.setFont(Default);
         pauseButton.setPreferredSize(new Dimension(100, 60));
         pauseButton.addActionListener((ActionEvent e) -> {
-           menu.pauseGame();
+            menu.pauseGame();
         });
-        
+
         Retry = new JButton("Retry");
         Retry.setFont(Default);
         Retry.setPreferredSize(new Dimension(100, 60));
@@ -128,7 +130,7 @@ class gameComponents {
                     JLabel playerP = new JLabel(player);
                     playerP.setLocation(20, 20);
                     //TPanel.add(playerP, new Integer(0));
-                    PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
+                    P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     System.out.println("PlayerSpawned!");
                 }
                 Tile tilee = PlayingField.getPf()[y][x].getTile();
@@ -177,7 +179,8 @@ class gameComponents {
         public void keyPressed(KeyEvent e) {
 
             int KeyCode = e.getKeyCode();
-            PlayingField.getStartTile().getPlayer().handleMovement(KeyCode, PlayingField.getPf());
+            handleCommand(KeyCode);
+
         }
 
         @Override
@@ -187,6 +190,94 @@ class gameComponents {
         @Override
         public void keyReleased(KeyEvent e) {
         }
-    }}
+    }
 
-    
+    /**
+     * Handler for movement
+     *
+     * @param command what command has been given
+     */
+    public void handleCommand(int command) {
+        ActionEnum code = ActionEnum.getEnumName(command);
+        if (code != null) {
+            switch (code) {
+                case UP:
+                    if (P.getPrevyCoordinate() > 0) {
+                        if (checkTile(0, -1)) {
+                            P.setPrevPos();
+                            P.up();
+                        }
+                    }
+                    System.out.println("UP WE GO");
+                    break;
+                case LEFT:
+                    if (P.getPrevxCoordinate() > 0) {
+                        if (checkTile(-1, 0)) {
+                            P.setPrevPos();
+                            P.left();
+                        }
+                    }
+                    System.out.println("LEFT WE GO");
+                    break;
+                case DOWN:
+                    if (P.getPrevyCoordinate() < PlayingField.dimY - 1) {
+                        if (checkTile(0, 1)) {
+                            P.setPrevPos();
+                            P.down();
+                        }
+                    }
+                    System.out.println("DOWN WE GO");
+                    break;
+                case RIGHT:
+                    if (P.getPrevxCoordinate() < PlayingField.dimX - 1) {
+                        if (checkTile(1, 0)) {
+                            P.setPrevPos();
+                            P.right();
+                        }
+                    }
+                    System.out.println("RIGHT WE GO");
+                    break;
+                case ESCAPE:
+//                    menu.pauseGame();
+                    System.out.println("Pause da game?!!!!");
+
+//                    System.exit(0);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Checking if the next move is possible
+     *
+     * @param pf Field to check
+     * @param dx how far there should be checked relative to the player x
+     * @param dy how far there should be checked relative to the player y
+     * @return boolean if it is a valid space or not
+     */
+    private boolean checkTile(int dx, int dy) {
+        int nextX = P.getxCoordinate() + dx;
+        int nextY = P.getyCoordinate() + dy;
+        Field[][] pf = PlayingField.getPf();
+
+        Field field = pf[nextX][nextY];
+        if (field.getTile().Symbol.equalsIgnoreCase("O")) {
+            return true;
+        } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
+            System.out.println(PlayingField.getPf()[nextX][nextY].getClass().getTypeName());
+            return true;
+        } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
+            return true;
+        } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
+            return true;
+        } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
+            if (P.getKeyInPocket() != null) {
+//                field.getTile() instanceof Barricade
+//                return P.useKey(b); //how to find the right Barricade?
+            } else {
+                return false; //temp until right way found
+            }
+        } else return field.getTile().Symbol.equalsIgnoreCase("E");
+        return false;
+    }
+}

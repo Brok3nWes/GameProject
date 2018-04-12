@@ -25,11 +25,8 @@ class StartTile extends Tile {
      *
      * @param field for getting the
      */
-    public void spawnPlayer(Field[][] field) {
+    public Character spawnPlayer(Field[][] field) {
         player1 = new Character(this.xCoordinate, this.yCoordinate);
-    }
-
-    public Character getPlayer() {
         return player1;
     }
 

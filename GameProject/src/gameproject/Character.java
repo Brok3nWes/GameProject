@@ -92,29 +92,33 @@ public class Character extends Tile {
     /**
      * Movement UP
      */
-    private void up() {
+    public void up() {
         this.yCoordinate--;
+        printCoordinates();
     }
 
     /**
      * Movement DOWN
      */
-    private void down() {
+    public void down() {
         this.yCoordinate++;
+        printCoordinates();
     }
 
     /**
      * Movement LEFT
      */
-    private void left() {
+    public void left() {
         this.xCoordinate--;
+        printCoordinates();
     }
 
     /**
      * Movement RIGHT
      */
-    private void right() {
+    public void right() {
         this.xCoordinate++;
+        printCoordinates();
 
     }
 
@@ -127,103 +131,9 @@ public class Character extends Tile {
         prevyCoordinate = yCoordinate;
     }
 
-//    /**
-//     * Read the character in the CommandLine
-//     *
-//     * @param prompt what message it shall give
-//     * @return what character has been put in
-//     */
-//    public String readCharacter(String prompt) {
-//        System.out.print(prompt);
-//        Scanner keyboard = new Scanner(System.in);
-//        String input = keyboard.next();
-//        if (input.length() == 0) {
-//            return " ";
-//        } else {
-//            return input.substring(0, 1).toUpperCase();
-//        }
-//    }
     /**
-     * Handler for movement
-     *
-     * @param command what command has been given
-     * @param pf to get the information of the next tile
+     * Print the coordinates for debug purposes
      */
-    public void handleMovement(int command, Field[][] pf) {
-        setPrevPos();
-        ActionEnum code = ActionEnum.getEnumName(command);
-        if (code != null) {
-            switch (code) {
-                case UP:
-                    if (prevyCoordinate > 0) {
-                        if (checkTile(pf, 0, -1)) {
-                            up();
-                        }
-                    }
-                    System.out.println("UP WE GO");
-                    printCoordinates();
-                    break;
-                case LEFT:
-                    if (prevxCoordinate > 0) {
-                        if (checkTile(pf, -1, 0)) {
-                            left();
-                        }
-                    }
-                    System.out.println("LEFT WE GO");
-                    printCoordinates();
-                    break;
-                case DOWN:
-                    if (prevyCoordinate < PlayingField.dimY - 1) {
-                        if (checkTile(pf, 0, 1)) {
-                            down();
-                        }
-                    }
-                    System.out.println("DOWN WE GO");
-                    printCoordinates();
-                    break;
-                case RIGHT:
-                    if (prevxCoordinate < PlayingField.dimX - 1) {
-                        if (checkTile(pf, 1, 0)) {
-                            right();
-                        }
-                    }
-                    System.out.println("RIGHT WE GO");
-                    printCoordinates();
-                    break;
-                case ESCAPE:
-                    System.out.println("Pause da game?!!!!");
-
-//                    System.exit(0);
-                    break;
-            }
-        }
-    }
-//        else{
-//        System.out.println("You can't move over there");
-//        }
-
-    /**
-     * Checking if the next move is possible
-     *
-     * @param pf Field to check
-     * @param dx how far there should be checked relative to the player x
-     * @param dy how far there should be checked relative to the player y
-     * @return boolean if it is a valid space or not
-     */
-    private boolean checkTile(Field[][] pf, int dx, int dy) {
-
-        Field field = pf[xCoordinate + dx][yCoordinate + dy];
-        if (field.getTile().Symbol.equalsIgnoreCase("O")) {
-            return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
-            return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
-            return true;
-        } else {
-            return field.getTile().Symbol.equalsIgnoreCase("E");
-        }
-    }
-
     private void printCoordinates() {
         System.out.println("Previous coordinates = " + "x:" + prevxCoordinate + "y:" + prevyCoordinate);
         System.out.println("New coordinates = " + "x:" + xCoordinate + "y:" + yCoordinate);
