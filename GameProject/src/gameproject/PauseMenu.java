@@ -42,14 +42,6 @@ public class PauseMenu extends Menu{
         showMenu.addActionListener((ActionEvent e) -> {
             menu.exitToMainMenu();
         });
-        //pause menu
-        JPanel pausePanel = new JPanel();
-        PauseMenu.add(pausePanel);
-        pausePanel.add(PauseTitle);
-        pausePanel.add(Resume);
-        pausePanel.add(showMenu);
-        pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
-                "Maze Game - Paused"));
         
         //resume
         Resume = new JButton("Resume");
@@ -58,6 +50,15 @@ public class PauseMenu extends Menu{
         Resume.addActionListener((ActionEvent e) -> {
             hidePauseMenu();
         });
+        
+        //pause menu
+        JPanel pausePanel = new JPanel();
+        PauseMenu.add(pausePanel);
+        pausePanel.add(PauseTitle);
+        pausePanel.add(Resume);
+        pausePanel.add(showMenu);
+        pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
+                "Maze Game - Paused"));
         
         //Pause Menu settings
         PauseMenu.setSize(300,350);

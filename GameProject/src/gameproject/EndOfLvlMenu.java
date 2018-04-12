@@ -19,19 +19,18 @@ import javax.swing.border.TitledBorder;
  *
  * @author baswo
  */
+class EndOfLvlMenu extends Menu {
 
-    
-
- class EndOfLvlMenu extends Menu{
     JFrame EndMenu;
     JButton showMenu2;
-    Font MediumText,MediumTitle,Default;
+    Font MediumText, MediumTitle, Default;
+
     public JFrame EndOfLvlMenu() {
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 25);
         MediumTitle = new Font("", Font.BOLD, 40);
         EndMenu = new JFrame();
-            
+
         JLabel EndTitle = new JLabel("End Reached!");
         EndTitle.setFont(MediumTitle);
         //Highscore label
@@ -40,15 +39,15 @@ import javax.swing.border.TitledBorder;
         //score after round
         JLabel YS = new JLabel("Your Score: ");
         YS.setFont(MediumText);
-        
+
         //back to menu button from end menu
         showMenu2 = new JButton("Back to main menu");
         showMenu2.setFont(Default);
         showMenu2.setPreferredSize(new Dimension(200, 45));
         showMenu2.addActionListener((ActionEvent e) -> {
-            
+
         });
-        
+
         //end of level menu
         JPanel endPanel = new JPanel();
         endPanel.add(EndTitle);
@@ -58,21 +57,23 @@ import javax.swing.border.TitledBorder;
         EndMenu.add(endPanel);
         endPanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 "Maze Game - End of Level"));
-        
+
         //End Menu settings
         EndMenu.setSize(300, 350);
         EndMenu.setTitle("Maze Game - End of Level");
         EndMenu.setResizable(false);
         EndMenu.setUndecorated(true);
-        
+
         EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        
+
         return EndMenu;
-}
-    public void showEndMenu(){
+    }
+
+    public void showEndMenu() {
         EndMenu.setVisible(true);
     }
-    public void hideEndMenu(){
+
+    public void hideEndMenu(JFrame EndMenu) {
         EndMenu.setVisible(false);
     }
 }
