@@ -259,7 +259,7 @@ class gameComponents {
                     }
                     break;
                 case DOWN:
-                    if (P.getPrevyCoordinate() < PlayingField.dimY - 1) {
+                    if (P.getyCoordinate() < PlayingField.dimY - 1) {
                         if (checkTile(0, 1)) {
                             P.down();
                             updatePlayer();
@@ -268,7 +268,7 @@ class gameComponents {
                     }
                     break;
                 case RIGHT:
-                    if (P.getPrevxCoordinate() < PlayingField.dimX - 1) {
+                    if (P.getxCoordinate() < PlayingField.dimX - 1) {
                         if (checkTile(1, 0)) {
                             P.right();
                             updatePlayer();
@@ -287,16 +287,16 @@ class gameComponents {
     }
 
     public void updatePlayer() {
-        int x = P.getPrevxCoordinate();
-        int y = P.getPrevyCoordinate();
+        int y = P.getPrevxCoordinate();
+        int x = P.getPrevyCoordinate();
         LvlCells[x][y].remove(playerTile);
         System.out.println("RemovedPTile: x=" + P.getPrevxCoordinate() + " y=" + P.getPrevyCoordinate());
-        LvlCells[x][y].repaint();
-        x = P.getxCoordinate();
-        y = P.getyCoordinate();
+        LvlCells[x][y].revalidate();
+        y = P.getxCoordinate();
+        x = P.getyCoordinate();
         LvlCells[x][y].add(playerTile);
         System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
-        LvlCells[x][y].repaint();
+        LvlCells[x][y].revalidate();
     }
 
     /**
