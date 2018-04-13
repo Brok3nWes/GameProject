@@ -73,7 +73,7 @@ class EndOfLvlMenu extends Menu {
         EndMenu.setVisible(true);
     }
 
-    public void hideEndMenu(JFrame EndMenu) {
+    public void hideEndMenu() {
         EndMenu.setVisible(false);
     }
 }

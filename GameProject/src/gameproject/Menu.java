@@ -5,22 +5,19 @@ package gameproject;
  * @author baswo
  */
 class Menu {
-    
-    
-    
 
     public void pauseGame() {
         PauseMenu pause = new PauseMenu();
-       pause.showPauseMenu();
-       
+        pause.showPauseMenu();
+
     }
-    public void exitToMainMenu(){
-        PauseMenu pause = new PauseMenu();
+
+    public void exitToMainMenu() {
+//        PauseMenu pause = new PauseMenu();
         MainMenu mainMenu = new MainMenu();
-//        EndOfLvlMenu endMenu = new EndOfLvlMenu();
-        pause.hidePauseMenu();
+        EndOfLvlMenu EndMenu = new EndOfLvlMenu();
+//        pause.hidePauseMenu();
         mainMenu.showMenu();
-//        endMenu.hideEndMenu();
+        EndMenu.hideEndMenu();
     }
 }
-

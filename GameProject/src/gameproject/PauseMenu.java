@@ -19,20 +19,20 @@ import javax.swing.border.TitledBorder;
  *
  * @author baswo
  */
-public class PauseMenu extends Menu{
-   
+public class PauseMenu extends Menu {
+
     JFrame PauseMenu;
-    JButton Resume,showMenu;
-    Font MediumText,MediumTitle,Default;
-    
-    public PauseMenu(){
-         Menu menu = new Menu();
-        
+    JButton Resume, showMenu;
+    Font MediumText, MediumTitle, Default;
+
+    public PauseMenu() {
+        Menu menu = new Menu();
+
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 25);
         MediumTitle = new Font("", Font.BOLD, 40);
         PauseMenu = new JFrame();
-         //pause menu title
+        //pause menu title
         JLabel PauseTitle = new JLabel("Paused");
         PauseTitle.setFont(MediumTitle);
         //back to menu button from pause menu
@@ -42,7 +42,7 @@ public class PauseMenu extends Menu{
         showMenu.addActionListener((ActionEvent e) -> {
             menu.exitToMainMenu();
         });
-        
+
         //resume
         Resume = new JButton("Resume");
         Resume.setFont(Default);
@@ -50,7 +50,7 @@ public class PauseMenu extends Menu{
         Resume.addActionListener((ActionEvent e) -> {
             hidePauseMenu();
         });
-        
+
         //pause menu
         JPanel pausePanel = new JPanel();
         PauseMenu.add(pausePanel);
@@ -59,21 +59,21 @@ public class PauseMenu extends Menu{
         pausePanel.add(showMenu);
         pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 "Maze Game - Paused"));
-        
+
         //Pause Menu settings
-        PauseMenu.setSize(300,350);
+        PauseMenu.setSize(300, 350);
         PauseMenu.setTitle("Maze Game - Paused");
         PauseMenu.setResizable(false);
         PauseMenu.setUndecorated(true);
         PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        
-        
-   }
-    public void showPauseMenu(){
+
+    }
+
+    public void showPauseMenu() {
         PauseMenu.setVisible(true);
     }
-    public void hidePauseMenu(){
-        
+
+    public void hidePauseMenu() {
         PauseMenu.setVisible(false);
     }
 }

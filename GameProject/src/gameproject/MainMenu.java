@@ -19,36 +19,36 @@ import javax.swing.JPanel;
  *
  * @author baswo
  */
-public class MainMenu extends Menu{
+public class MainMenu extends Menu {
+
     String gameTitle;
     int lvlINT = 0;
     JFrame MainMenu;
-    JButton exitGame,playButton,Level1,Level2,Level3,Random;
-    Font Default,BigButton,BigTitle,MediumTitle,MediumText;
-    
-    
-    public JFrame MainMenu(){
+    JButton exitGame, playButton, Level1, Level2, Level3, Random;
+    Font Default, BigButton, BigTitle, MediumTitle, MediumText;
+
+    public JFrame MainMenu() {
         gameComponents game = new gameComponents(gameTitle);
         gameTitle = "Maze Game - In-Game";
         MainMenu = new JFrame();
-        
+
         Default = new Font("", Font.BOLD, 17);
         BigButton = new Font("", Font.BOLD, 75);
         BigTitle = new Font("", Font.BOLD, 65);
         MediumTitle = new Font("", Font.BOLD, 40);
         MediumText = new Font("", Font.PLAIN, 25);
-        
+
         JLabel selected = new JLabel("Selected:                                      Random");
         selected.setFont(Default);
-        
+
         //main menu play button
         playButton = new JButton("Play!");
         playButton.setFont(BigButton);
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
-           game.createGameWindow(gameTitle, lvlINT);
-           MainMenu.setVisible(false);
+            game.createGameWindow(gameTitle, lvlINT);
+            MainMenu.setVisible(false);
 
         });
 
@@ -59,7 +59,7 @@ public class MainMenu extends Menu{
         exitGame.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
-        
+
         //level selector button1 
         Level1 = new JButton("Level 1");
         Level1.setFont(Default);
@@ -104,8 +104,8 @@ public class MainMenu extends Menu{
         JLabel MainTitle = new JLabel("Maze Game");
         MainTitle.setFont(BigTitle);
         MainTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-         //Main menu
+
+        //Main menu
         JPanel MainPanel = new JPanel();
         MainPanel.add(MainTitle);
         MainPanel.add(playButton);
@@ -117,24 +117,21 @@ public class MainMenu extends Menu{
         MainPanel.add(exitGame);
         MainMenu.add(MainPanel);
         MainPanel.setBackground(WHITE);
-        
-        
-        MainMenu.setSize(450,500);
+
+        MainMenu.setSize(450, 500);
         MainMenu.setTitle("Maze Game - Main Menu");
         MainMenu.setResizable(false);
         MainMenu.setLocationRelativeTo(null);
 
         //close operation
         MainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-       
+
         MainMenu.setVisible(true);
-    
-        
+
         return MainMenu;
     }
-    
-    public void showMenu(){
-        
+
+    public void showMenu() {
+
     }
 }
