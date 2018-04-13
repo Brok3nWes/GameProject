@@ -12,12 +12,17 @@ class Menu {
 
     }
 
+    public void endLvl() {
+        EndOfLvlMenu endMenu = new EndOfLvlMenu();
+        endMenu.showEndMenu();
+    }
+
     public void exitToMainMenu() {
 //        PauseMenu pause = new PauseMenu();
-        MainMenu mainMenu = new MainMenu();
-        EndOfLvlMenu EndMenu = new EndOfLvlMenu();
 //        pause.hidePauseMenu();
-        mainMenu.showMenu();
-        EndMenu.hideEndMenu();
+//        MainMenu mainMenu = new MainMenu();
+//        mainMenu.showMenu();
+//        EndOfLvlMenu EndMenu = new EndOfLvlMenu();
+//        EndMenu.hideEndMenu();
     }
 }

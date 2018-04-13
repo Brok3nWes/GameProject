@@ -25,11 +25,12 @@ class EndOfLvlMenu extends Menu {
     JButton showMenu2;
     Font MediumText, MediumTitle, Default;
 
-    public JFrame EndOfLvlMenu() {
+    public EndOfLvlMenu() {
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 25);
         MediumTitle = new Font("", Font.BOLD, 40);
         EndMenu = new JFrame();
+        System.out.println("test2");
 
         JLabel EndTitle = new JLabel("End Reached!");
         EndTitle.setFont(MediumTitle);
@@ -45,7 +46,8 @@ class EndOfLvlMenu extends Menu {
         showMenu2.setFont(Default);
         showMenu2.setPreferredSize(new Dimension(200, 45));
         showMenu2.addActionListener((ActionEvent e) -> {
-
+            EndMenu.dispose();
+            
         });
 
         //end of level menu
@@ -65,15 +67,12 @@ class EndOfLvlMenu extends Menu {
         EndMenu.setUndecorated(true);
 
         EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        System.out.println("test");
 
-        return EndMenu;
     }
 
     public void showEndMenu() {
+        System.out.println("test3");
         EndMenu.setVisible(true);
-    }
-
-    public void hideEndMenu() {
-        EndMenu.setVisible(false);
     }
 }

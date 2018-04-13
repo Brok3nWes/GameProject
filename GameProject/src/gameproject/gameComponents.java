@@ -52,7 +52,6 @@ class gameComponents {
 
     public gameComponents(String gameField) {
         Menu menu = new Menu();
-        EndOfLvlMenu endMenu = new EndOfLvlMenu();
 
         GameFrame = new JFrame();
 
@@ -89,7 +88,7 @@ class gameComponents {
 
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
-            endMenu.showEndMenu();
+            menu.endLvl();
         });
     }
 
@@ -277,7 +276,9 @@ class gameComponents {
             } else {
                 return false; //temp until right way found
             }
-        } else return field.getTile().Symbol.equalsIgnoreCase("E");
+        } else {
+            return field.getTile().Symbol.equalsIgnoreCase("E");
+        }
         return false;
     }
 }
