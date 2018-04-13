@@ -141,9 +141,9 @@ class gameComponents {
     }
 
     public JPanel createTile(Tile t) {
-layeredTile = new JLayeredPane();
-        layeredTile.setLayout(new BorderLayout(10, 5));
-        
+        layeredTile = new JLayeredPane();
+        layeredTile.setLayout(new BorderLayout(0, 0));
+
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
             tile = new JLabel(chosenTile);
@@ -167,14 +167,14 @@ layeredTile = new JLayeredPane();
         if (t.Symbol.equals("K")) {
             chosenTile = key;
             tile = new JLabel(chosenTile);
-            
+            JLabel code = new JLabel()
         }
         if (t.Symbol.equals("C")) {
             chosenTile = player;
             tile = new JLabel(chosenTile);
         }
 
-        layeredTile.add(tile);
+        layeredTile.add(tile, new Integer(1));
         TPanel.add(layeredTile);
         return TPanel;
     }
@@ -215,7 +215,7 @@ layeredTile = new JLayeredPane();
                             System.out.println("UP WE GO");
                         }
                     }
-                    
+
                     break;
                 case LEFT:
                     if (P.getxCoordinate() > 0) {
@@ -225,7 +225,7 @@ layeredTile = new JLayeredPane();
                             System.out.println("LEFT WE GO");
                         }
                     }
-                    
+
                     break;
                 case DOWN:
                     if (P.getPrevyCoordinate() < PlayingField.dimY - 1) {
@@ -235,7 +235,7 @@ layeredTile = new JLayeredPane();
                             System.out.println("DOWN WE GO");
                         }
                     }
-                    
+
                     break;
                 case RIGHT:
                     if (P.getPrevxCoordinate() < PlayingField.dimX - 1) {
@@ -245,7 +245,7 @@ layeredTile = new JLayeredPane();
                             System.out.println("RIGHT WE GO");
                         }
                     }
-                    
+
                     break;
                 case ESCAPE:
 //                    menu.pauseGame();
