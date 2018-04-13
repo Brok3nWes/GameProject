@@ -73,8 +73,9 @@ public class Character extends Tile {
      *
      * @param k
      */
-    public void pickupKey(Key k) {
+    public boolean pickupKey(Key k) {
         KeyInPocket = k;
+        return true;
     }
 
     public Key getKeyInPocket() {
@@ -86,8 +87,8 @@ public class Character extends Tile {
      *
      * @param b
      */
-    public void useKey(Barricade b) {
-        KeyInPocket.destroyBarricade(b);
+    public boolean useKey(Barricade b) {
+        return KeyInPocket.destroyBarricade(b);
     }
 
 //    

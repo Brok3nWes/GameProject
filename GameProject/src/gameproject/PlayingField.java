@@ -54,8 +54,8 @@ class PlayingField {
 
         // T = normal tile, B = barricade, W = wall
         customLevel1 = new String[]{
-            "S", "B", "T", "W", "T", "K", "W", "T", "T", "T",
-            "T", "T", "T", "W", "T", "T", "W", "W", "W", "W",
+            "T", "B", "T", "W", "T", "K", "W", "T", "T", "T",
+            "T", "T", "K", "W", "T", "T", "W", "W", "W", "W",
             "T", "T", "T", "W", "T", "T", "B", "W", "T", "T",
             "W", "W", "B", "W", "W", "B", "T", "T", "T", "T",
             "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
@@ -100,7 +100,6 @@ class PlayingField {
                         if (y == 0 && x == 0) {
                             ST = new StartTile(x, y);
                             pf[x][y] = new Field(ST);
-                            pf[x][y].getTile();
                             System.out.print("S");
 //                    pf[x][y] = new StartTile(x, y);
                         } else {

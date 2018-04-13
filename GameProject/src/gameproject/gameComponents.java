@@ -48,21 +48,22 @@ class gameComponents {
     int lvlINT = 0;
     PlayingField PlayingField;
     Character P;
+    Menu menu;
 
-    String path = System.getProperty("user.dir") + "\\src\\Images\\";
-    ImageIcon chosenTile = null;
-    ImageIcon tileImage = new ImageIcon(path + "tile.png");
-    ImageIcon barricade = new ImageIcon(path + "barricade.png");
-    ImageIcon wall = new ImageIcon(path + "wall.png");
-    ImageIcon start = new ImageIcon(path + "start.png");
-    ImageIcon end = new ImageIcon(path + "end.png");
-    ImageIcon key = new ImageIcon(path + "key.png");
-    ImageIcon player = new ImageIcon(path + "player.png");
-    Color tileColor = Color.decode("#c5c5c5");
+//    String path = System.getProperty("user.dir") + "\\src\\Images\\";
+//    ImageIcon chosenTile = null;
+//    ImageIcon tileImage = new ImageIcon(path + "tile.png");
+//    ImageIcon barricade = new ImageIcon(path + "barricade.png");
+//    ImageIcon wall = new ImageIcon(path + "wall.png");
+//    ImageIcon start = new ImageIcon(path + "start.png");
+//    ImageIcon end = new ImageIcon(path + "end.png");
+//    ImageIcon key = new ImageIcon(path + "key.png");
+//    ImageIcon player = new ImageIcon(path + "player.png");
+//    Color tileColor = Color.decode("#c5c5c5");
     private JLabel playerTile;
 
     public gameComponents() {
-        Menu menu = new Menu();
+        menu = new Menu();
 
         GameFrame = new JFrame();
 
@@ -313,19 +314,29 @@ class gameComponents {
         Field[][] pf = PlayingField.getPf();
 
         Field field = pf[nextY][nextX];
-        Rectangle r = new Rectangle(60 * nextX, 60 * nextY);
         if (field.getTile().Symbol.equalsIgnoreCase("O")) {
-//            playerTile.setBounds(r);
             playerTile.setLocation(60 * nextX, 60 * nextY);
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
-            return true;
+            Key k = (Key) field.getTile();
+            LvlCells[nextX][nextY].removeAll();
+            field.resetTile(nextX, nextY);
+            LvlCells[nextX][nextY].revalidate();
+            return P.pickupKey(k);
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
+            time.stop();
+            System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
+            menu.endLvl();
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
+                Barricade b = (Barricade) field.getTile();
+                field.resetTile(nextX, nextY);
+                LvlCells[nextX][nextY].removeAll();
+                LvlCells[nextX][nextY].revalidate();
+                return P.useKey(b);
 //                field.getTile() instanceof Barricade
 //                return P.useKey(b); //how to find the right Barricade?
             } else {
@@ -334,7 +345,6 @@ class gameComponents {
         } else {
             return field.getTile().Symbol.equalsIgnoreCase("E");
         }
-        return false;
     }
 
     public void quitGame() {
