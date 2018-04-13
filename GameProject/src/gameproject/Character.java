@@ -74,9 +74,10 @@ public class Character extends Tile {
      * Remove barricade b when called
      *
      * @param b
+     * @return boolean if barricade was destroyed
      */
-    public void useKey(Barricade b) {
-        KeyInPocket.destroyBarricade(b);
+    public boolean useKey(Barricade b) {
+        return KeyInPocket.destroyBarricade(b);
     }
 
 //    

@@ -22,6 +22,15 @@ public class Key extends Tile {
     }
 
     /**
+     * Getter for the code
+     *
+     * @return the code that has been set for the key
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
      * Destroys the barricade
      *
      * @param b for getting the code of the barricade

@@ -201,7 +201,7 @@ class gameComponents {
         if (code != null) {
             switch (code) {
                 case UP:
-                    if (P.getPrevyCoordinate() > 0) {
+                    if (P.getyCoordinate() > 0) {
                         if (checkTile(0, -1)) {
                             P.setPrevPos();
                             P.up();
@@ -210,7 +210,7 @@ class gameComponents {
                     System.out.println("UP WE GO");
                     break;
                 case LEFT:
-                    if (P.getPrevxCoordinate() > 0) {
+                    if (P.getxCoordinate() > 0) {
                         if (checkTile(-1, 0)) {
                             P.setPrevPos();
                             P.left();
@@ -260,25 +260,31 @@ class gameComponents {
         Field[][] pf = PlayingField.getPf();
 
         Field field = pf[nextX][nextY];
-        if (field.getTile().Symbol.equalsIgnoreCase("O")) {
-            return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
-            System.out.println(PlayingField.getPf()[nextX][nextY].getClass().getTypeName());
-            return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
-            return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
-            return true;
+        System.out.println(field.getTile().Symbol);
+        if (field.isTransparent()) {
+            if (field.getTile().Symbol.equalsIgnoreCase("O")) {
+                return true;
+            } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
+                
+                return true;
+            } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
+                return true;
+            } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
+                return true;
+            } else {
+                return field.getTile().Symbol.equalsIgnoreCase("E");
+            }
         } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
+                return P.useKey((Barricade) field.getTile());
 //                field.getTile() instanceof Barricade
 //                return P.useKey(b); //how to find the right Barricade?
             } else {
+                System.out.println("You can't go through this barricade!");
                 return false; //temp until right way found
             }
-        } else {
-            return field.getTile().Symbol.equalsIgnoreCase("E");
+        } else{
+            return false;
         }
-        return false;
     }
 }

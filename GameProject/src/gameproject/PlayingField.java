@@ -54,15 +54,15 @@ class PlayingField {
 
         // T = normal tile, B = barricade, W = wall
         customLevel1 = new String[]{
-            "S", "B", "T", "W", "T", "T", "W", "T", "T", "T",
+            "S", "1", "!", "W", "T", "T", "W", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "W", "W", "W", "W",
-            "T", "T", "T", "W", "T", "T", "B", "W", "T", "T",
-            "W", "W", "B", "W", "W", "B", "T", "T", "T", "T",
-            "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "1", "W", "T", "T",
+            "W", "W", "1", "W", "W", "2", "T", "T", "T", "T",
+            "T", "T", "T", "1", "@", "T", "T", "!", "T", "T",
+            "T", "T", "T", "1", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "W", "W", "W", "B", "W", "B", "W",
+            "T", "T", "T", "W", "W", "W", "1", "W", "2", "W",
             "T", "T", "T", "W", "T", "T", "T", "W", "T", "E", ""};
 
         customLevel2 = new String[]{
@@ -70,7 +70,7 @@ class PlayingField {
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "B", "T", "T", "T", "T",
+            "T", "T", "T", "T", "T", "1", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
@@ -83,7 +83,7 @@ class PlayingField {
             "T", "T", "T", "T", "T", "T", "T", "W", "W", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "B", "B", "W", "T", "T", "T", "T", "T",
+            "T", "T", "1", "1", "W", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
@@ -156,9 +156,24 @@ class PlayingField {
                                 System.out.print("O");
                                 i++;
                             }
-                            if ("B".equals(n)) {
+                            if ("1".equals(n)) {
                                 pf[x][y] = new Field(new Barricade(x, y, 100));
                                 System.out.print("B");
+                                i++;
+                            }
+                            if ("2".equals(n)) {
+                                pf[x][y] = new Field(new Barricade(x, y, 200));
+                                System.out.print("B");
+                                i++;
+                            }
+                            if ("!".equals(n)) {
+                                pf[x][y] = new Field(new Barricade(x, y, 100));
+                                System.out.print("K");
+                                i++;
+                            }
+                            if ("@".equals(n)) {
+                                pf[x][y] = new Field(new Barricade(x, y, 200));
+                                System.out.print("K");
                                 i++;
                             }
                             if ("W".equals(n)) {
