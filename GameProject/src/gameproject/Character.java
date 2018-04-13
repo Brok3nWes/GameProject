@@ -1,10 +1,15 @@
 package gameproject;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author baswo
  */
 public class Character extends Tile {
+
+    private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    private ImageIcon icon;
 
     private int prevyCoordinate;
     private int prevxCoordinate;
@@ -18,7 +23,13 @@ public class Character extends Tile {
      */
     public Character(int x, int y) {
         super(x, y);
+        this.icon = new ImageIcon(path + "player.png");
         Symbol = "C";
+    }
+
+    @Override
+    public ImageIcon getIcon() {
+        return icon;
     }
 
     /**
@@ -93,6 +104,7 @@ public class Character extends Tile {
      * Movement UP
      */
     public void up() {
+        setPrevPos();
         this.yCoordinate--;
         printCoordinates();
     }
@@ -101,6 +113,7 @@ public class Character extends Tile {
      * Movement DOWN
      */
     public void down() {
+        setPrevPos();
         this.yCoordinate++;
         printCoordinates();
     }
@@ -109,6 +122,7 @@ public class Character extends Tile {
      * Movement LEFT
      */
     public void left() {
+        setPrevPos();
         this.xCoordinate--;
         printCoordinates();
     }
@@ -117,6 +131,7 @@ public class Character extends Tile {
      * Movement RIGHT
      */
     public void right() {
+        setPrevPos();
         this.xCoordinate++;
         printCoordinates();
 

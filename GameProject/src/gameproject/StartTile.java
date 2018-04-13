@@ -1,5 +1,7 @@
 package gameproject;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author baswo
@@ -7,6 +9,13 @@ package gameproject;
 class StartTile extends Tile {
 
     private Character player1;
+    private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    private ImageIcon icon;
+
+    @Override
+    public ImageIcon getIcon() {
+        return icon;
+    }
 
     /**
      * Constructor for a StartTile
@@ -16,12 +25,13 @@ class StartTile extends Tile {
      */
     public StartTile(int x, int y) {
         super(x, y);
+        this.icon = new ImageIcon(path + "start.png");
         Transparent = true;
         Symbol = "S";
     }
 
     /**
-     * Create Player at 0, 0
+     * Create Player at StartTilePosition
      *
      * @param field for getting the
      */

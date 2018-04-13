@@ -14,6 +14,7 @@ import static java.awt.Color.RED;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.OverlayLayout;
 
 /**
  *
@@ -32,9 +34,10 @@ import javax.swing.JTextArea;
  * @author Bas
  */
 class gameComponents {
-StopWatch time = new StopWatch();
+
+    StopWatch time = new StopWatch();
     String nr, gameTitle;
-    JPanel buttonPanel, TPanel;
+    JPanel buttonPanel, TPanel, LvlCells[][];
     JLayeredPane gamePanel;
     JPanel layeredTile;
     JLabel gamefield, tile;
@@ -56,6 +59,8 @@ StopWatch time = new StopWatch();
     ImageIcon key = new ImageIcon(path + "key.png");
     ImageIcon player = new ImageIcon(path + "player.png");
     Color tileColor = Color.decode("#c5c5c5");
+    private JLabel playerTile;
+
     public gameComponents() {
         Menu menu = new Menu();
 
@@ -76,7 +81,7 @@ StopWatch time = new StopWatch();
         Retry.setFont(Default);
         Retry.setPreferredSize(new Dimension(100, 60));
         Retry.addActionListener((ActionEvent r) -> {
-           quitGame();
+            quitGame();
             //character resetten
             //timer resetten
             //keys en barricades resetten
@@ -86,7 +91,7 @@ StopWatch time = new StopWatch();
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
-            
+
             createGameWindow(gameTitle, lvlINT);
         });
         //debug end button
@@ -98,12 +103,12 @@ StopWatch time = new StopWatch();
             time.stop();
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             menu.endLvl();
-            
+
         });
     }
-    
+
     public void createGameWindow(String GameTitle, int lvlINT) {
-        
+
         System.out.println();
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,69 +139,77 @@ StopWatch time = new StopWatch();
         buttonPanel.setFocusable(true);
         gamePanel.addKeyListener(new GameKeyListener());
         buttonPanel.addKeyListener(new GameKeyListener());
-        for (int x = 0; x < dimX; x++) {
-            for (int y = 0; y < dimY; y++) {
-                if (x == 0 && y == 0) {
-                    JLabel playerP = new JLabel(player);
-                    playerP.setLocation(20, 20);
-                    //TPanel.add(playerP, new Integer(0));
-                    P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
-                    System.out.println("PlayerSpawned!");
-                }
-                Tile tilee = PlayingField.getPf()[x][y].getTile();
-                createTile(tilee);
-
-            }
-        }
+        CreateLvlCells();
         GameFrame.pack();
         time.start();
     }
+//
+//    public JPanel createTile(Tile t) {
+//        layeredTile = new JPanel();
+//
+//        layeredTile.setLayout(new GridLayout());
+//
+//        if (t.Symbol.equals("O")) {
+//            chosenTile = tileImage;
+//            tile = new JLabel(chosenTile);
+//        }
+//        if (t.Symbol.equals("B")) {
+//            chosenTile = barricade;
+//            tile = new JLabel(chosenTile);
+//        }
+//        if (t.Symbol.equals("W")) {
+//            chosenTile = wall;
+//            tile = new JLabel(chosenTile);
+//        }
+//        if (t.Symbol.equals("S")) {
+//            tile = playerTile;
+//            tile.setBackground(GREEN);
+//        }
+//        if (t.Symbol.equals("E")) {
+//            chosenTile = end;
+//            tile = new JLabel(chosenTile);
+//        }
+//        if (t.Symbol.equals("K")) {
+//            chosenTile = key;
+//            tile = new JLabel(chosenTile);
+//            tile.setBackground(tileColor);
+//            JTextArea code = new JTextArea("poep");
+//
+//            gamePanel.add(code);
+//            //layeredTile.add(code);
+//        }
+//        if (t.Symbol.equals("C")) {
+//            chosenTile = player;
+//            tile = new JLabel(chosenTile);
+//            tile.setBackground(tileColor);
+//
+//        }
+//        tile.setOpaque(true);
+//        layeredTile.add(tile);
+//        TPanel.add(layeredTile);
+////        layeredTile.remove(tile);
+//        return TPanel;
+//    }
 
-    public JPanel createTile(Tile t) {
-        layeredTile = new JPanel();
-        
-        layeredTile.setLayout(new GridLayout());
-        
-        if (t.Symbol.equals("O")) {
-            chosenTile = tileImage;
-            tile = new JLabel(chosenTile);
+    private void CreateLvlCells() {
+        LvlCells = new JPanel[dimX][dimY];
+        for (int x = 0; x < dimX; x++) {
+            for (int y = 0; y < dimY; y++) {
+                LvlCells[x][y] = new JPanel();
+                LvlCells[x][y].setLayout(new OverlayLayout(LvlCells[x][y]));
+                if (x == 0 && y == 0) {
+                    //TPanel.add(playerP, new Integer(0));
+                    P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
+                    playerTile = new JLabel(P.getIcon());
+                    LvlCells[x][y].add(playerTile);
+                    System.out.println("PlayerSpawned!");
+                }
+                Tile tilee = PlayingField.getPf()[x][y].getTile();
+                LvlCells[x][y].add(new JLabel(tilee.getIcon()));
+                TPanel.add(LvlCells[x][y]);
+
+            }
         }
-        if (t.Symbol.equals("B")) {
-            chosenTile = barricade;
-            tile = new JLabel(chosenTile);
-        }
-        if (t.Symbol.equals("W")) {
-            chosenTile = wall;
-            tile = new JLabel(chosenTile);
-        }
-        if (t.Symbol.equals("S")) {
-            chosenTile = player;
-            tile = new JLabel(chosenTile);
-            tile.setBackground(GREEN);
-        }
-        if (t.Symbol.equals("E")) {
-            chosenTile = end;
-            tile = new JLabel(chosenTile);
-        }
-        if (t.Symbol.equals("K")) {
-            chosenTile = key;
-            tile = new JLabel(chosenTile);
-            tile.setBackground(tileColor);
-            JTextArea code = new JTextArea("poep");
-            
-            gamePanel.add(code);
-            //layeredTile.add(code);
-        }
-        if (t.Symbol.equals("C")) {
-            chosenTile = player;
-            tile = new JLabel(chosenTile);
-            tile.setBackground(tileColor);
-            
-        }
-        tile.setOpaque(true);
-        layeredTile.add(tile);
-        TPanel.add(layeredTile);
-        return TPanel;
     }
 
     class GameKeyListener implements KeyListener {
@@ -230,52 +243,60 @@ StopWatch time = new StopWatch();
                 case UP:
                     if (P.getyCoordinate() > 0) {
                         if (checkTile(0, -1)) {
-                            
                             P.up();
+                            updatePlayer();
                             System.out.println("UP WE GO");
                         }
                     }
-
                     break;
                 case LEFT:
                     if (P.getxCoordinate() > 0) {
                         if (checkTile(-1, 0)) {
-                            
                             P.left();
+                            updatePlayer();
                             System.out.println("LEFT WE GO");
                         }
                     }
-
                     break;
                 case DOWN:
                     if (P.getPrevyCoordinate() < PlayingField.dimY - 1) {
                         if (checkTile(0, 1)) {
-                           
                             P.down();
+                            updatePlayer();
                             System.out.println("DOWN WE GO");
                         }
                     }
-
                     break;
                 case RIGHT:
                     if (P.getPrevxCoordinate() < PlayingField.dimX - 1) {
                         if (checkTile(1, 0)) {
-                            
                             P.right();
+                            updatePlayer();
                             System.out.println("RIGHT WE GO");
                         }
                     }
-
                     break;
                 case ESCAPE:
                     PauseMenu menu = new PauseMenu();
                     menu.pauseGame();
                     System.out.println("Pause da game?!!!!");
-
 //                    System.exit(0);
                     break;
             }
         }
+    }
+
+    public void updatePlayer() {
+        int x = P.getPrevxCoordinate();
+        int y = P.getPrevyCoordinate();
+        LvlCells[x][y].remove(playerTile);
+        System.out.println("RemovedPTile: x=" + P.getPrevxCoordinate() + " y=" + P.getPrevyCoordinate());
+        LvlCells[x][y].repaint();
+        x = P.getxCoordinate();
+        y = P.getyCoordinate();
+        LvlCells[x][y].add(playerTile);
+        System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
+        LvlCells[x][y].repaint();
     }
 
     /**
@@ -292,10 +313,12 @@ StopWatch time = new StopWatch();
         Field[][] pf = PlayingField.getPf();
 
         Field field = pf[nextY][nextX];
+        Rectangle r = new Rectangle(60 * nextX, 60 * nextY);
         if (field.getTile().Symbol.equalsIgnoreCase("O")) {
+//            playerTile.setBounds(r);
+            playerTile.setLocation(60 * nextX, 60 * nextY);
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
-            System.out.println(PlayingField.getPf()[nextX][nextY].getClass().getTypeName());
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
@@ -313,9 +336,10 @@ StopWatch time = new StopWatch();
         }
         return false;
     }
-   public void quitGame(){
-      
+
+    public void quitGame() {
+
         GameFrame.dispose();
-        
+
     }
 }

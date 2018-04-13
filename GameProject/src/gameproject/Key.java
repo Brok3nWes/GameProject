@@ -1,5 +1,7 @@
 package gameproject;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author baswo
@@ -7,6 +9,8 @@ package gameproject;
 public class Key extends Tile {
 
     private final int code;
+    private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    private ImageIcon icon;
 
     /**
      * Constructor for the Key
@@ -17,8 +21,14 @@ public class Key extends Tile {
      */
     public Key(int x, int y, int code) {
         super(x, y);
+        this.icon = new ImageIcon(path + "key.png");
         this.code = code;
         Symbol = "K";
+    }
+
+    @Override
+    public ImageIcon getIcon() {
+        return icon;
     }
 
     /**

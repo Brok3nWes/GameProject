@@ -5,11 +5,15 @@
  */
 package gameproject;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author baswo
  */
 public class EmptyTile extends Tile {
+    private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    private ImageIcon icon;
 
     /**
      * Constructor for an EmtyTile
@@ -19,6 +23,7 @@ public class EmptyTile extends Tile {
      */
     public EmptyTile(int x, int y) {
         super(x, y);
+        this.icon = new ImageIcon(path + "tile.png");
         Transparent = true;
         Symbol = "O";
     }

@@ -5,6 +5,8 @@
  */
 package gameproject;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author baswo
@@ -12,6 +14,13 @@ package gameproject;
 public class Barricade extends Tile {
 
     private int code;
+    private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
+    private ImageIcon icon;
+
+    @Override
+    public ImageIcon getIcon() {
+        return icon;
+    }
 
     /**
      * Constructor for the Barricade
@@ -22,6 +31,7 @@ public class Barricade extends Tile {
      */
     public Barricade(int x, int y, int code) {
         super(x, y);
+        this.icon = new ImageIcon(path + "barricade.png");
         this.code = code;
         Symbol = "B";
     }
