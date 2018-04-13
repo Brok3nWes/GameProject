@@ -54,9 +54,9 @@ class PlayingField {
 
         // T = normal tile, B = barricade, W = wall
         customLevel1 = new String[]{
-            "S", "B", "T", "W", "T", "T", "W", "T", "T", "T",
+            "S", "B", "T", "W", "T", "K", "W", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "W", "W", "W", "W",
-            "T", "T", "T", "W", "T", "T", "B", "W", "T", "T",
+            "T", "T", "T", "W", "C", "T", "B", "W", "T", "T",
             "W", "W", "B", "W", "W", "B", "T", "T", "T", "T",
             "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
@@ -164,6 +164,16 @@ class PlayingField {
                             if ("W".equals(n)) {
                                 pf[x][y] = new Field(new Wall(x, y));
                                 System.out.print("W");
+                                i++;
+                            }
+                            if ("K".equals(n)) {
+                                pf[x][y] = new Field(new Key(x, y,100));
+                                System.out.print("K");
+                                i++;
+                            }
+                            if ("C".equals(n)) {
+                                pf[x][y] = new Field(new Character(x, y));
+                                System.out.print("C");
                                 i++;
                             }
                         }

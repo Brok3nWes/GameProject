@@ -132,7 +132,7 @@ class gameComponents {
                     P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     System.out.println("PlayerSpawned!");
                 }
-                Tile tilee = PlayingField.getPf()[y][x].getTile();
+                Tile tilee = PlayingField.getPf()[x][y].getTile();
                 createTile(tilee);
 
             }
@@ -141,32 +141,39 @@ class gameComponents {
     }
 
     public JPanel createTile(Tile t) {
-
+layeredTile = new JLayeredPane();
+        layeredTile.setLayout(new BorderLayout(10, 5));
+        
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
+            tile = new JLabel(chosenTile);
         }
         if (t.Symbol.equals("B")) {
             chosenTile = barricade;
+            tile = new JLabel(chosenTile);
         }
         if (t.Symbol.equals("W")) {
             chosenTile = wall;
+            tile = new JLabel(chosenTile);
         }
         if (t.Symbol.equals("S")) {
             chosenTile = start;
+            tile = new JLabel(chosenTile);
         }
         if (t.Symbol.equals("E")) {
             chosenTile = end;
+            tile = new JLabel(chosenTile);
         }
         if (t.Symbol.equals("K")) {
             chosenTile = key;
+            tile = new JLabel(chosenTile);
+            
         }
         if (t.Symbol.equals("C")) {
             chosenTile = player;
+            tile = new JLabel(chosenTile);
         }
 
-        layeredTile = new JLayeredPane();
-        layeredTile.setLayout(new BorderLayout(10, 5));
-        tile = new JLabel(chosenTile);
         layeredTile.add(tile);
         TPanel.add(layeredTile);
         return TPanel;
@@ -201,40 +208,44 @@ class gameComponents {
         if (code != null) {
             switch (code) {
                 case UP:
-                    if (P.getPrevyCoordinate() > 0) {
+                    if (P.getyCoordinate() > 0) {
                         if (checkTile(0, -1)) {
                             P.setPrevPos();
                             P.up();
+                            System.out.println("UP WE GO");
                         }
                     }
-                    System.out.println("UP WE GO");
+                    
                     break;
                 case LEFT:
-                    if (P.getPrevxCoordinate() > 0) {
+                    if (P.getxCoordinate() > 0) {
                         if (checkTile(-1, 0)) {
                             P.setPrevPos();
                             P.left();
+                            System.out.println("LEFT WE GO");
                         }
                     }
-                    System.out.println("LEFT WE GO");
+                    
                     break;
                 case DOWN:
                     if (P.getPrevyCoordinate() < PlayingField.dimY - 1) {
                         if (checkTile(0, 1)) {
                             P.setPrevPos();
                             P.down();
+                            System.out.println("DOWN WE GO");
                         }
                     }
-                    System.out.println("DOWN WE GO");
+                    
                     break;
                 case RIGHT:
                     if (P.getPrevxCoordinate() < PlayingField.dimX - 1) {
                         if (checkTile(1, 0)) {
                             P.setPrevPos();
                             P.right();
+                            System.out.println("RIGHT WE GO");
                         }
                     }
-                    System.out.println("RIGHT WE GO");
+                    
                     break;
                 case ESCAPE:
 //                    menu.pauseGame();
@@ -259,7 +270,7 @@ class gameComponents {
         int nextY = P.getyCoordinate() + dy;
         Field[][] pf = PlayingField.getPf();
 
-        Field field = pf[nextX][nextY];
+        Field field = pf[nextY][nextX];
         if (field.getTile().Symbol.equalsIgnoreCase("O")) {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {

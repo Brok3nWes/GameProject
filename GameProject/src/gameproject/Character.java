@@ -18,7 +18,7 @@ public class Character extends Tile {
      */
     public Character(int x, int y) {
         super(x, y);
-        Symbol = "P";
+        Symbol = "C";
     }
 
     /**
