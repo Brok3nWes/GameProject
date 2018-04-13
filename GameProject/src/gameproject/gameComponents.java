@@ -278,7 +278,8 @@ class gameComponents {
                     }
                     break;
                 case ESCAPE:
-                    PauseMenu menu = new PauseMenu();
+//                    PauseMenu menuu = new PauseMenu();
+//                    menuu.pauseGame();
                     menu.pauseGame();
                     System.out.println("Pause da game?!!!!");
 //                    System.exit(0);
@@ -293,11 +294,13 @@ class gameComponents {
         LvlCells[x][y].remove(playerTile);
         System.out.println("RemovedPTile: x=" + P.getPrevxCoordinate() + " y=" + P.getPrevyCoordinate());
         LvlCells[x][y].revalidate();
+        LvlCells[x][y].repaint();
         y = P.getxCoordinate();
         x = P.getyCoordinate();
         LvlCells[x][y].add(playerTile);
         System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
         LvlCells[x][y].revalidate();
+        LvlCells[x][y].repaint();
     }
 
     /**
@@ -322,6 +325,7 @@ class gameComponents {
             LvlCells[nextX][nextY].removeAll();
             field.resetTile(nextX, nextY);
             LvlCells[nextX][nextY].revalidate();
+            LvlCells[nextX][nextY].repaint();
             return P.pickupKey(k);
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
@@ -335,7 +339,9 @@ class gameComponents {
                 Barricade b = (Barricade) field.getTile();
                 field.resetTile(nextX, nextY);
                 LvlCells[nextX][nextY].removeAll();
+                field.resetTile(nextX, nextY);
                 LvlCells[nextX][nextY].revalidate();
+                LvlCells[nextX][nextY].repaint();
                 return P.useKey(b);
 //                field.getTile() instanceof Barricade
 //                return P.useKey(b); //how to find the right Barricade?
