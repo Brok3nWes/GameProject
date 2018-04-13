@@ -8,9 +8,13 @@ import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
 import static java.awt.Color.GRAY;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -111,7 +115,8 @@ class gameComponents {
         GameFrame.add(buttonPanel);
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         TPanel = new JPanel();
-        TPanel.setLayout(new GridLayout(10, 10, 0, 0));
+        TPanel.setSize(600, 600);
+//        TPanel.setLayout(new GridLayout(10, 10, 0, 0));
 
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
@@ -123,6 +128,12 @@ class gameComponents {
         buttonPanel.setFocusable(true);
         gamePanel.addKeyListener(new GameKeyListener());
         buttonPanel.addKeyListener(new GameKeyListener());
+        layeredTile = new JLayeredPane();
+        layeredTile.setLayout(new GridLayout(10, 11, 0, 0));
+//        layeredTile.setLayout(new BorderLayout(0, 0));
+        Dimension layerD = new Dimension(600, 600);
+        layeredTile.setSize(layerD);
+        layeredTile.setPreferredSize(layerD);
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
                 if (x == 0 && y == 0) {
@@ -133,16 +144,17 @@ class gameComponents {
                     System.out.println("PlayerSpawned!");
                 }
                 Tile tilee = PlayingField.getPf()[x][y].getTile();
-                createTile(tilee);
-
+                JLabel tempTile = createTile(tilee, x, y);
+                layeredTile.add(tempTile, new Integer(2));
             }
         }
+        TPanel.add(layeredTile);
+
         GameFrame.pack();
     }
 
-    public JPanel createTile(Tile t) {
-        layeredTile = new JLayeredPane();
-        layeredTile.setLayout(new BorderLayout(0, 0));
+    public JLabel createTile(Tile t, int x, int y) {
+//        layeredTile.setLayout(new GridLayout(1, 1));
 
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
@@ -167,16 +179,59 @@ class gameComponents {
         if (t.Symbol.equals("K")) {
             chosenTile = key;
             tile = new JLabel(chosenTile);
-            JLabel code = new JLabel()
+            Key f = (Key) t;
+            String keyCode = String.valueOf(f.getCode());
+            JLabel code = new JLabel();
+            code.setText(keyCode);
+//            code.setBounds(x * 60, y * 60, 60, 60);
+//            code.setLocation(60 * x, 60 * y);
+            layeredTile.add(code, new Integer(1));
+//            layeredTile.moveToFront(code);
+//                return P.useKey((Barricade) field.getTile());
         }
         if (t.Symbol.equals("C")) {
             chosenTile = player;
             tile = new JLabel(chosenTile);
         }
+        tile.setBounds(60 * x, 60 * y, 60, 60);
 
-        layeredTile.add(tile, new Integer(1));
-        TPanel.add(layeredTile);
-        return TPanel;
+//        return TPanel;
+        return tile;
+    }
+
+    public class LayeredPaneLayout implements LayoutManager {
+
+        private final Container target;
+        private final Dimension preferredSize = new Dimension(500, 500);
+
+        public LayeredPaneLayout(final Container target) {
+            this.target = target;
+        }
+
+        @Override
+        public void addLayoutComponent(final String name, final Component comp) {
+        }
+
+        @Override
+        public void layoutContainer(final Container container) {
+            for (final Component component : container.getComponents()) {
+                component.setBounds(new Rectangle(0, 0, target.getWidth(), target.getHeight()));
+            }
+        }
+
+        @Override
+        public Dimension minimumLayoutSize(final Container parent) {
+            return preferredLayoutSize(parent);
+        }
+
+        @Override
+        public Dimension preferredLayoutSize(final Container parent) {
+            return preferredSize;
+        }
+
+        @Override
+        public void removeLayoutComponent(final Component comp) {
+        }
     }
 
     class GameKeyListener implements KeyListener {

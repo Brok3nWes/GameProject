@@ -21,6 +21,10 @@ public class Key extends Tile {
         Symbol = "K";
     }
 
+    public int getCode() {
+        return code;
+    }
+
     /**
      * Destroys the barricade
      *
