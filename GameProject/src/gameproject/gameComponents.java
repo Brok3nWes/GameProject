@@ -7,19 +7,24 @@ package gameproject;
 import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import static java.awt.Color.GRAY;
+import static java.awt.Color.GREEN;
+import static java.awt.Color.RED;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -27,10 +32,11 @@ import javax.swing.JPanel;
  * @author Bas
  */
 class gameComponents {
-
+StopWatch time = new StopWatch();
     String nr, gameTitle;
     JPanel buttonPanel, TPanel;
-    JLayeredPane gamePanel, layeredTile;
+    JLayeredPane gamePanel;
+    JPanel layeredTile;
     JLabel gamefield, tile;
     JButton showMenu, pauseButton, Retry, Reload, Finish;
     JFrame GameFrame;
@@ -49,8 +55,8 @@ class gameComponents {
     ImageIcon end = new ImageIcon(path + "end.png");
     ImageIcon key = new ImageIcon(path + "key.png");
     ImageIcon player = new ImageIcon(path + "player.png");
-
-    public gameComponents(String gameField) {
+    Color tileColor = Color.decode("#c5c5c5");
+    public gameComponents() {
         Menu menu = new Menu();
 
         GameFrame = new JFrame();
@@ -70,6 +76,7 @@ class gameComponents {
         Retry.setFont(Default);
         Retry.setPreferredSize(new Dimension(100, 60));
         Retry.addActionListener((ActionEvent r) -> {
+           quitGame();
             //character resetten
             //timer resetten
             //keys en barricades resetten
@@ -79,7 +86,7 @@ class gameComponents {
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
-            GameFrame.dispose();
+            
             createGameWindow(gameTitle, lvlINT);
         });
         //debug end button
@@ -88,11 +95,15 @@ class gameComponents {
 
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
+            time.stop();
+            System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             menu.endLvl();
+            
         });
     }
-
+    
     public void createGameWindow(String GameTitle, int lvlINT) {
+        
         System.out.println();
         GameFrame = new JFrame(GameTitle);
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,12 +149,14 @@ class gameComponents {
             }
         }
         GameFrame.pack();
+        time.start();
     }
 
     public JPanel createTile(Tile t) {
-        layeredTile = new JLayeredPane();
-        layeredTile.setLayout(new BorderLayout(0, 0));
-
+        layeredTile = new JPanel();
+        
+        layeredTile.setLayout(new GridLayout());
+        
         if (t.Symbol.equals("O")) {
             chosenTile = tileImage;
             tile = new JLabel(chosenTile);
@@ -157,8 +170,9 @@ class gameComponents {
             tile = new JLabel(chosenTile);
         }
         if (t.Symbol.equals("S")) {
-            chosenTile = start;
+            chosenTile = player;
             tile = new JLabel(chosenTile);
+            tile.setBackground(GREEN);
         }
         if (t.Symbol.equals("E")) {
             chosenTile = end;
@@ -167,14 +181,20 @@ class gameComponents {
         if (t.Symbol.equals("K")) {
             chosenTile = key;
             tile = new JLabel(chosenTile);
-            JLabel code = new JLabel()
+            tile.setBackground(tileColor);
+            JTextArea code = new JTextArea("poep");
+            
+            gamePanel.add(code);
+            //layeredTile.add(code);
         }
         if (t.Symbol.equals("C")) {
             chosenTile = player;
             tile = new JLabel(chosenTile);
+            tile.setBackground(tileColor);
+            
         }
-
-        layeredTile.add(tile, new Integer(1));
+        tile.setOpaque(true);
+        layeredTile.add(tile);
         TPanel.add(layeredTile);
         return TPanel;
     }
@@ -210,7 +230,7 @@ class gameComponents {
                 case UP:
                     if (P.getyCoordinate() > 0) {
                         if (checkTile(0, -1)) {
-                            P.setPrevPos();
+                            
                             P.up();
                             System.out.println("UP WE GO");
                         }
@@ -220,7 +240,7 @@ class gameComponents {
                 case LEFT:
                     if (P.getxCoordinate() > 0) {
                         if (checkTile(-1, 0)) {
-                            P.setPrevPos();
+                            
                             P.left();
                             System.out.println("LEFT WE GO");
                         }
@@ -230,7 +250,7 @@ class gameComponents {
                 case DOWN:
                     if (P.getPrevyCoordinate() < PlayingField.dimY - 1) {
                         if (checkTile(0, 1)) {
-                            P.setPrevPos();
+                           
                             P.down();
                             System.out.println("DOWN WE GO");
                         }
@@ -240,7 +260,7 @@ class gameComponents {
                 case RIGHT:
                     if (P.getPrevxCoordinate() < PlayingField.dimX - 1) {
                         if (checkTile(1, 0)) {
-                            P.setPrevPos();
+                            
                             P.right();
                             System.out.println("RIGHT WE GO");
                         }
@@ -248,7 +268,8 @@ class gameComponents {
 
                     break;
                 case ESCAPE:
-//                    menu.pauseGame();
+                    PauseMenu menu = new PauseMenu();
+                    menu.pauseGame();
                     System.out.println("Pause da game?!!!!");
 
 //                    System.exit(0);
@@ -291,5 +312,10 @@ class gameComponents {
             return field.getTile().Symbol.equalsIgnoreCase("E");
         }
         return false;
+    }
+   public void quitGame(){
+      
+        GameFrame.dispose();
+        
     }
 }

@@ -22,12 +22,13 @@ import javax.swing.border.TitledBorder;
 public class PauseMenu extends Menu {
 
     JFrame PauseMenu;
-    JButton Resume, showMenu;
+    JButton Resume, showMenu,Stop;
     Font MediumText, MediumTitle, Default;
 
     public PauseMenu() {
         Menu menu = new Menu();
-
+        StopWatch time = new StopWatch();
+        
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 25);
         MediumTitle = new Font("", Font.BOLD, 40);
@@ -51,12 +52,20 @@ public class PauseMenu extends Menu {
             hidePauseMenu();
         });
 
+        Stop = new JButton("Stop");
+        Stop.setFont(Default);
+        Stop.setPreferredSize(new Dimension(200, 45));
+        Stop.addActionListener((ActionEvent e) -> {
+            time.stop();
+            time.getElapsedTimeSecs();
+        });
         //pause menu
         JPanel pausePanel = new JPanel();
         PauseMenu.add(pausePanel);
         pausePanel.add(PauseTitle);
         pausePanel.add(Resume);
         pausePanel.add(showMenu);
+        pausePanel.add(Stop);
         pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 "Maze Game - Paused"));
 
@@ -70,6 +79,7 @@ public class PauseMenu extends Menu {
     }
 
     public void showPauseMenu() {
+        PauseMenu.setLocationRelativeTo(PauseMenu);
         PauseMenu.setVisible(true);
     }
 

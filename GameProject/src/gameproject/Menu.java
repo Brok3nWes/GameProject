@@ -18,11 +18,8 @@ class Menu {
     }
 
     public void exitToMainMenu() {
-//        PauseMenu pause = new PauseMenu();
-//        pause.hidePauseMenu();
-//        MainMenu mainMenu = new MainMenu();
-//        mainMenu.showMenu();
-//        EndOfLvlMenu EndMenu = new EndOfLvlMenu();
-//        EndMenu.hideEndMenu();
+       MainMenu menu = new MainMenu();
+       
+       menu.MainMenu();
     }
 }

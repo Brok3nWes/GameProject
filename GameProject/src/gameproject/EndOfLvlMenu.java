@@ -20,7 +20,10 @@ import javax.swing.border.TitledBorder;
  * @author baswo
  */
 class EndOfLvlMenu extends Menu {
-
+    gameComponents gameframe = new gameComponents();
+    Score Score = new Score();
+    long highscore, score;
+    MainMenu menu = new MainMenu();
     JFrame EndMenu;
     JButton showMenu2;
     Font MediumText, MediumTitle, Default;
@@ -30,14 +33,15 @@ class EndOfLvlMenu extends Menu {
         MediumText = new Font("", Font.PLAIN, 25);
         MediumTitle = new Font("", Font.BOLD, 40);
         EndMenu = new JFrame();
-
+        highscore = Score.getFastestTime();
+        score = Score.getScore();
         JLabel EndTitle = new JLabel("End Reached!");
         EndTitle.setFont(MediumTitle);
         //Highscore label
-        JLabel HS = new JLabel("Highscore: ");
+        JLabel HS = new JLabel("Highscore: " + highscore);
         HS.setFont(MediumText);
         //score after round
-        JLabel YS = new JLabel("Your Score: ");
+        JLabel YS = new JLabel("Your Score: " + score);
         YS.setFont(MediumText);
 
         //back to menu button from end menu
@@ -45,7 +49,9 @@ class EndOfLvlMenu extends Menu {
         showMenu2.setFont(Default);
         showMenu2.setPreferredSize(new Dimension(200, 45));
         showMenu2.addActionListener((ActionEvent e) -> {
+            gameframe.quitGame();
             EndMenu.dispose();
+            menu.MainMenu();
             
         });
 
@@ -70,6 +76,7 @@ class EndOfLvlMenu extends Menu {
     }
 
     public void showEndMenu() {
+        EndMenu.setLocationRelativeTo(EndMenu);
         EndMenu.setVisible(true);
     }
 }

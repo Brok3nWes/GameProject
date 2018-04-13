@@ -9,12 +9,12 @@ package gameproject;
  *
  * @author baswo
  */
-public class HighScore {
+public class Score {
+StopWatch time = new StopWatch();
+    private long FastestTime;
+    private long Score;
 
-    private int FastestTime;
-    private int Score;
-
-    public int getFastestTime() {
+    public long getFastestTime() {
         return FastestTime;
     }
 
@@ -22,7 +22,8 @@ public class HighScore {
         this.FastestTime = FastestTime;
     }
 
-    public int getScore() {
+    public long getScore() {
+        Score = time.getElapsedTimeSecs();
         return Score;
     }
 
@@ -30,4 +31,5 @@ public class HighScore {
         this.Score = Score;
     }
 
+    
 }

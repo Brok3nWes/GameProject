@@ -28,7 +28,7 @@ public class MainMenu extends Menu {
     Font Default, BigButton, BigTitle, MediumTitle, MediumText;
 
     public JFrame MainMenu() {
-        gameComponents game = new gameComponents(gameTitle);
+        gameComponents game = new gameComponents();
         gameTitle = "Maze Game - In-Game";
         MainMenu = new JFrame();
 
