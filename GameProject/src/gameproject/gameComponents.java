@@ -43,7 +43,7 @@ class gameComponents {
     JLabel gamefield, tile,info;
     JButton showMenu, pauseButton, Retry, Reload, Finish;
     JFrame GameFrame;
-    Font Default;
+    Font Default,MediumText;
 //    Menu menu;
     int lvlINT = 0;
     PlayingField PlayingField;
@@ -64,12 +64,12 @@ class gameComponents {
 
     public gameComponents() {
         menu = new Menu();
-        
+         //fonts
+        Default = new Font("", Font.BOLD, 17);
+        MediumText = new Font("", Font.PLAIN, 22);
         GameFrame = new JFrame();
         info = new JLabel();
-        //fonts
-        Default = new Font("", Font.BOLD, 17);
-
+        info.setFont(MediumText);
         //pause menu
         pauseButton = new JButton("Pause");
         pauseButton.setFont(Default);
@@ -320,6 +320,7 @@ class gameComponents {
         Field field = pf[nextY][nextX];
         if (field.getTile().Symbol.equalsIgnoreCase("O")) {
             playerTile.setLocation(60 * nextX, 60 * nextY);
+            info.setText("Moved Player to: x:" + nextX + " y:" + (9-nextY));
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
             Key k = (Key) field.getTile();
@@ -327,7 +328,7 @@ class gameComponents {
             field.resetTile(nextX, nextY);
             LvlCells[nextX][nextY].revalidate();
             LvlCells[nextX][nextY].repaint();
-            info.setText("Picked up key");
+            info.setText("Moved Player to: x:" + nextX + " y:" + (9-nextY) +"     Picked up key");
             return P.pickupKey(k);
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
@@ -345,12 +346,12 @@ class gameComponents {
                 field.resetTile(nextX, nextY);
                 LvlCells[nextY][nextX].revalidate();
                 LvlCells[nextY][nextX].repaint();
-                info.setText("Broke Barricade");
+                info.setText("Moved Player to: x:" + nextX + " y:" + (9-nextY) + "     Broke Barricade");
                 return P.useKey(b);
 //                field.getTile() instanceof Barricade
 //                return P.useKey(b); //how to find the right Barricade?
             } else {
-                info.setText("You dont have the right key");
+                info.setText("Moved Player to: x:" + nextX + " y:" + (9-nextY) + "      You dont have the right key!");
                 return false; //temp until right way found
             }
         } else {
