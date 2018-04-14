@@ -40,7 +40,7 @@ class gameComponents {
     JPanel buttonPanel, TPanel, LvlCells[][];
     JLayeredPane gamePanel;
     JPanel layeredTile;
-    JLabel gamefield, tile;
+    JLabel gamefield, tile,info;
     JButton showMenu, pauseButton, Retry, Reload, Finish;
     JFrame GameFrame;
     Font Default;
@@ -64,9 +64,9 @@ class gameComponents {
 
     public gameComponents() {
         menu = new Menu();
-
+        
         GameFrame = new JFrame();
-
+        info = new JLabel();
         //fonts
         Default = new Font("", Font.BOLD, 17);
 
@@ -129,7 +129,7 @@ class gameComponents {
         GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         TPanel = new JPanel();
         TPanel.setLayout(new GridLayout(10, 10, 0, 0));
-
+        gamePanel.add(info);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
@@ -142,6 +142,7 @@ class gameComponents {
         buttonPanel.addKeyListener(new GameKeyListener());
         CreateLvlCells();
         GameFrame.pack();
+        info.setText("Start!");
         time.start();
     }
 //
@@ -326,26 +327,30 @@ class gameComponents {
             field.resetTile(nextX, nextY);
             LvlCells[nextX][nextY].revalidate();
             LvlCells[nextX][nextY].repaint();
+            info.setText("Picked up key");
             return P.pickupKey(k);
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
             time.stop();
+            info.setText("End Reached! Well done!");
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             menu.endLvl();
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
                 Barricade b = (Barricade) field.getTile();
+                field.resetTile(nextY, nextX);
+                LvlCells[nextY][nextX].removeAll();
                 field.resetTile(nextX, nextY);
-                LvlCells[nextX][nextY].removeAll();
-                field.resetTile(nextX, nextY);
-                LvlCells[nextX][nextY].revalidate();
-                LvlCells[nextX][nextY].repaint();
+                LvlCells[nextY][nextX].revalidate();
+                LvlCells[nextY][nextX].repaint();
+                info.setText("Broke Barricade");
                 return P.useKey(b);
 //                field.getTile() instanceof Barricade
 //                return P.useKey(b); //how to find the right Barricade?
             } else {
+                info.setText("You dont have the right key");
                 return false; //temp until right way found
             }
         } else {
