@@ -334,7 +334,7 @@ class gameComponents {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
             time.stop();
-            info.setText("End Reached! Well done!");
+            info.setText("End Reached! Well done!    Your time is: " + time.getElapsedTimeSecs() + " seconds");
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             menu.endLvl();
             return true;
