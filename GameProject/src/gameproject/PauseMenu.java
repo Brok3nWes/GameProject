@@ -22,12 +22,12 @@ import javax.swing.border.TitledBorder;
 public class PauseMenu extends Menu {
 
     JFrame PauseMenu;
-    JButton Resume, showMenu,Stop;
+    JButton Resume, showMenu, Stop;
     Font MediumText, MediumTitle, Default;
 
     public PauseMenu() {
+//        menu = new Menu();
         Menu menu = new Menu();
-        StopWatch time = new StopWatch();
         
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 25);
@@ -41,7 +41,7 @@ public class PauseMenu extends Menu {
         showMenu.setFont(Default);
         showMenu.setPreferredSize(new Dimension(200, 45));
         showMenu.addActionListener((ActionEvent e) -> {
-            menu.exitToMainMenu();
+            menu.showMM();
         });
 
         //resume
@@ -49,15 +49,14 @@ public class PauseMenu extends Menu {
         Resume.setFont(Default);
         Resume.setPreferredSize(new Dimension(200, 45));
         Resume.addActionListener((ActionEvent e) -> {
-            hidePauseMenu();
+            removePauseMenu();
         });
 
         Stop = new JButton("Stop");
         Stop.setFont(Default);
         Stop.setPreferredSize(new Dimension(200, 45));
         Stop.addActionListener((ActionEvent e) -> {
-            time.stop();
-            time.getElapsedTimeSecs();
+            removePauseMenu();
         });
         //pause menu
         JPanel pausePanel = new JPanel();
@@ -83,7 +82,7 @@ public class PauseMenu extends Menu {
         PauseMenu.setVisible(true);
     }
 
-    public void hidePauseMenu() {
-        PauseMenu.setVisible(false);
+    public void removePauseMenu() {
+        this.PauseMenu.dispose();
     }
 }

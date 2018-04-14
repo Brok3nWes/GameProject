@@ -6,20 +6,34 @@ package gameproject;
  */
 class Menu {
 
-    public void pauseGame() {
-        PauseMenu pause = new PauseMenu();
-        pause.showPauseMenu();
+    public MainMenu Mmenu;
+    PauseMenu pause;
+    EndOfLvlMenu endMenu;
 
+    public Menu() {
+    }
+    public Menu(int i) {
+        Mmenu = new MainMenu();
+    }
+
+    public void pauseGame() {
+        pause = new PauseMenu();
+        pause.showPauseMenu();
     }
 
     public void endLvl() {
-        EndOfLvlMenu endMenu = new EndOfLvlMenu();
+        endMenu = new EndOfLvlMenu();
         endMenu.showEndMenu();
     }
 
-    public void exitToMainMenu() {
-       MainMenu menu = new MainMenu();
-       
-       menu.MainMenu();
+    public void showMM() {
+        System.out.println(this.Mmenu.toString());
+        this.Mmenu.showMenu();
+    }
+
+    public void exit2MM() {
+        pause.removePauseMenu();
+        Mmenu.showMenu();
+
     }
 }

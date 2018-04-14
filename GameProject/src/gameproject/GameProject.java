@@ -16,8 +16,6 @@ public class GameProject {
     public static void main(String[] args) {
         
         //create the initial components and show main menu
-        
-        MainMenu menu = new MainMenu();
-        menu.MainMenu();
+        Menu m = new Menu(1);
     }
 }

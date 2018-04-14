@@ -76,6 +76,7 @@ class gameComponents {
         pauseButton.setPreferredSize(new Dimension(100, 60));
         pauseButton.addActionListener((ActionEvent e) -> {
             menu.pauseGame();
+            time.stop();
         });
 
         Retry = new JButton("Retry");
