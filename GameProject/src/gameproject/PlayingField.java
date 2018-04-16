@@ -56,21 +56,21 @@ class PlayingField {
         customLevel1 = new String[]{
             "T", "B", "T", "W", "T", "K", "W", "T", "T", "T",
             "T", "T", "K", "W", "T", "T", "W", "W", "W", "W",
-            "T", "T", "T", "W", "T", "T", "B", "W", "T", "T",
-            "W", "W", "B", "W", "W", "B", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "@", "W", "T", "T",
+            "W", "W", "B", "W", "W", "@", "T", "T", "T", "T",
             "T", "T", "T", "@", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "@", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "W", "T", "K", "T", "T", "T", "T",
-            "T", "T", "T", "W", "T", "K", "T", "T", "T", "T",
-            "T", "T", "!", "W", "W", "W", "B", "W", "B", "W",
-            "T", "T", "T", "W", "T", "T", "T", "W", "T", "E", ""};
+            "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "W", "T", "T", "T", "W", "B", "W",
+            "T", "T", "!", "W", "W", "W", "B", "W", "@", "W",
+            "T", "T", "T", "W", "!", "T", "T", "W", "T", "E", ""};
 
         customLevel2 = new String[]{
             "S", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "T", "T", "B", "T", "T", "T", "T",
+            "T", "T", "T", "!", "@", "B", "K", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "T", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "T", "T", "T", "T", "T",
@@ -105,7 +105,7 @@ class PlayingField {
                         } else {
 
                             Random rnd = new Random();
-                            int n = rnd.nextInt(10);
+                            int n = rnd.nextInt(12);
                             if (n >= 0 && n <= 4) {
                                 pf[x][y] = new Field(new EmptyTile(x, y));
                                 System.out.print("O");
@@ -121,6 +121,14 @@ class PlayingField {
                             if (n == 9) {
                                 pf[x][y] = new Field(new Key(x, y, 100));
                                 System.out.print("K");
+                            }
+                            if (n == 10) {
+                                pf[x][y] = new Field(new Key(x, y, 100));
+                                System.out.print("!");
+                            }
+                            if (n == 11) {
+                                pf[x][y] = new Field(new Key(x, y, 100));
+                                System.out.print("@");
                             }
                         }
                     }

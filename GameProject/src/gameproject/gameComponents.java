@@ -45,7 +45,7 @@ class gameComponents {
     JFrame GameFrame;
     Font Default, MediumText;
 //    Menu menu;
-    int lvlINT = 0;
+    int lvlINT;
     PlayingField PlayingField;
     Character P;
     Menu menu;
