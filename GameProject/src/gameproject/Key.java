@@ -27,7 +27,7 @@ public class Key extends Tile {
         } else {
             this.icon = new ImageIcon(path + "key100.png");
         }
-        
+
         Symbol = "K";
     }
 

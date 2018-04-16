@@ -37,7 +37,7 @@ public class Barricade extends Tile {
         } else {
             this.icon = new ImageIcon(path + "barricade100.png");
         }
-        
+
         Symbol = "B";
     }
 

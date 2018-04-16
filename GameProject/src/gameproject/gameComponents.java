@@ -68,8 +68,6 @@ class gameComponents {
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 22);
         GameFrame = new JFrame();
-        info = new JLabel();
-        info.setFont(MediumText);
         //pause menu
         pauseButton = new JButton("Pause");
         pauseButton.setFont(Default);
@@ -82,9 +80,9 @@ class gameComponents {
         Retry.setFont(Default);
         Retry.setPreferredSize(new Dimension(100, 60));
         Retry.addActionListener((ActionEvent r) -> {
-            quitGame();
+            time.restart();
+            resetLvl();
             //character resetten
-            //timer resetten
             //keys en barricades resetten
 
         });
@@ -92,7 +90,7 @@ class gameComponents {
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
-            GameFrame.dispose();
+            quitGame();
             createGameWindow(gameTitle, lvlINT);
         });
         //debug end button
@@ -108,99 +106,120 @@ class gameComponents {
         });
     }
 
+    /**
+     * Method for creating the full game window
+     *
+     * @param GameTitle to set the title of the window
+     * @param lvlINT to generate the level selected
+     */
     public void createGameWindow(String GameTitle, int lvlINT) {
-
         System.out.println();
-        GameFrame = new JFrame(GameTitle);
-        GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameTitle = GameTitle;
+        //PlayingField
+        PlayingField = new PlayingField();
+        PlayingField.setLvl(lvlINT);
+        buildPanels();
+        LvlCells = new JPanel[dimX][dimY];
+        createJPanelCells();
+        createLvlCells();
+        GameFrame.pack();
+        time.start();
+    }
+
+    /**
+     * Method to create the gamePanel and the buttonPanel
+     */
+
+    private void buildPanels() {
+        TPanel = new JPanel();
+        TPanel.setLayout(new GridLayout(10, 10, 0, 0));
+        //buttonPanel
         buttonPanel = new JPanel();
-        GameFrame.setSize(700, 650);
-        GameFrame.setResizable(false);
-        GameFrame.setLayout(new BorderLayout());
-        gamePanel = new JLayeredPane();
-        gamePanel.setLayout(new BorderLayout(10, 5));
         buttonPanel.add(pauseButton);
         buttonPanel.add(Retry);
         buttonPanel.add(Reload);
         buttonPanel.add(Finish);
         buttonPanel.setBackground(GRAY);
+        buttonPanel.setFocusable(true);
+        buttonPanel.addKeyListener(new GameKeyListener());
+        info = new JLabel();
+        info.setFont(MediumText);
+        info.setText("Start!");
+        //gamePanel
+        gamePanel = new JLayeredPane();
+        gamePanel.setLayout(new BorderLayout(10, 5));
         gamePanel.setBackground(GRAY);
-        GameFrame.add(buttonPanel);
-        GameFrame.add(gamePanel, BorderLayout.PAGE_END);
-        TPanel = new JPanel();
-        TPanel.setLayout(new GridLayout(10, 10, 0, 0));
+        gamePanel.addKeyListener(new GameKeyListener());
+        gamePanel.setFocusable(true);
         gamePanel.add(info);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
+        //GameFrame
+        GameFrame = new JFrame(gameTitle);
+        GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GameFrame.setSize(700, 650);
+        GameFrame.setResizable(false);
+        GameFrame.setLayout(new BorderLayout());
+        GameFrame.add(buttonPanel);
+        GameFrame.add(gamePanel, BorderLayout.PAGE_END);
         GameFrame.setLocationRelativeTo(GameFrame);
         GameFrame.setVisible(true);
         GameFrame.setEnabled(true);
-        PlayingField = new PlayingField();
-        PlayingField.setLvl(lvlINT);
-        gamePanel.setFocusable(true);
-        buttonPanel.setFocusable(true);
-        gamePanel.addKeyListener(new GameKeyListener());
-        buttonPanel.addKeyListener(new GameKeyListener());
-        CreateLvlCells();
-        info.setText("Start!");
-        GameFrame.pack();
-        time.start();
     }
-//
-//    public JPanel createTile(Tile t) {
-//        layeredTile = new JPanel();
-//
-//        layeredTile.setLayout(new GridLayout());
-//
-//        if (t.Symbol.equals("O")) {
-//            chosenTile = tileImage;
-//            tile = new JLabel(chosenTile);
-//        }
-//        if (t.Symbol.equals("B")) {
-//            chosenTile = barricade;
-//            tile = new JLabel(chosenTile);
-//        }
-//        if (t.Symbol.equals("W")) {
-//            chosenTile = wall;
-//            tile = new JLabel(chosenTile);
-//        }
-//        if (t.Symbol.equals("S")) {
-//            tile = playerTile;
-//            tile.setBackground(GREEN);
-//        }
-//        if (t.Symbol.equals("E")) {
-//            chosenTile = end;
-//            tile = new JLabel(chosenTile);
-//        }
-//        if (t.Symbol.equals("K")) {
-//            chosenTile = key;
-//            tile = new JLabel(chosenTile);
-//            tile.setBackground(tileColor);
-//            JTextArea code = new JTextArea("poep");
-//
-//            gamePanel.add(code);
-//            //layeredTile.add(code);
-//        }
-//        if (t.Symbol.equals("C")) {
-//            chosenTile = player;
-//            tile = new JLabel(chosenTile);
-//            tile.setBackground(tileColor);
-//
-//        }
-//        tile.setOpaque(true);
-//        layeredTile.add(tile);
-//        TPanel.add(layeredTile);
-////        layeredTile.remove(tile);
-//        return TPanel;
-//    }
 
-    private void CreateLvlCells() {
-        LvlCells = new JPanel[dimX][dimY];
+    /**
+     * ResetLvl (not 100% working)
+     */
+
+    private void resetLvl() {
+        removeAllCells();
+        repaintAllCells();
+        createLvlCells();
+        repaintAllCells();
+        info.setText("Start!");
+    }
+
+    /**
+     * Loop to remove everything in the JPanels in the 2d array LvlCells
+     */
+    private void removeAllCells() {
+        for (int x = 0; x < dimX; x++) {
+            for (int y = 0; y < dimY; y++) {
+                LvlCells[x][y].removeAll();
+            }
+        }
+    }
+
+    /**
+     * Loop to validate and repaint the JPanels in the 2d array LvlCells
+     */
+    private void repaintAllCells() {
+        for (int x = 0; x < dimX; x++) {
+            for (int y = 0; y < dimY; y++) {
+                LvlCells[x][y].validate();
+                LvlCells[x][y].repaint();
+            }
+        }
+    }
+
+    /**
+     * Loop to create the JPanels in the 2d array LvlCells
+     */
+    private void createJPanelCells() {
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
                 LvlCells[x][y] = new JPanel();
                 LvlCells[x][y].setLayout(new OverlayLayout(LvlCells[x][y]));
+            }
+        }
+    }
+
+    /**
+     * Create lvl cells from PlayingField input
+     */
+    private void createLvlCells() {
+        for (int x = 0; x < dimX; x++) {
+            for (int y = 0; y < dimY; y++) {
                 if (x == 0 && y == 0) {
-                    //TPanel.add(playerP, new Integer(0));
                     P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     playerTile = new JLabel(P.getIcon());
                     LvlCells[x][y].add(playerTile);
@@ -212,8 +231,13 @@ class gameComponents {
 
             }
         }
+
+        System.out.println("you... SHITE!");
     }
 
+    /**
+     * GameKeyListenerClass to listen to specific keycodes
+     */
     class GameKeyListener implements KeyListener {
 
         @Override
@@ -279,29 +303,35 @@ class gameComponents {
                     }
                     break;
                 case ESCAPE:
-//                    PauseMenu menuu = new PauseMenu();
-//                    menuu.pauseGame();
                     menu.pauseGame();
                     System.out.println("Pause da game?!!!!");
-//                    System.exit(0);
                     break;
             }
         }
     }
 
+    /**
+     * Repaint one specific cell
+     */
+    private void repaintCell(int x, int y) {
+        LvlCells[x][y].revalidate();
+        LvlCells[x][y].repaint();
+    }
+
+    /**
+     * Update the player tile
+     */
     public void updatePlayer() {
         int y = P.getPrevxCoordinate();
         int x = P.getPrevyCoordinate();
         LvlCells[x][y].remove(playerTile);
         System.out.println("RemovedPTile: x=" + P.getPrevxCoordinate() + " y=" + P.getPrevyCoordinate());
-        LvlCells[x][y].revalidate();
-        LvlCells[x][y].repaint();
+        repaintCell(x, y);
         y = P.getxCoordinate();
         x = P.getyCoordinate();
         LvlCells[x][y].add(playerTile);
         System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
-        LvlCells[x][y].revalidate();
-        LvlCells[x][y].repaint();
+        repaintCell(x, y);
     }
 
     /**
@@ -326,8 +356,7 @@ class gameComponents {
             Key k = (Key) field.getTile();
             LvlCells[nextY][nextX].removeAll();
             field.resetTile(nextX, nextY);
-            LvlCells[nextY][nextX].revalidate();
-            LvlCells[nextY][nextX].repaint();
+            repaintCell(nextY, nextX);
             info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Picked up key | code: " + k.getCode());
             return P.pickupKey(k);
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
@@ -345,16 +374,13 @@ class gameComponents {
                 if (checkKey) {
                     LvlCells[nextY][nextX].removeAll();
                     field.resetTile(nextX, nextY);
-                    LvlCells[nextY][nextX].revalidate();
-                    LvlCells[nextY][nextX].repaint();
+                    repaintCell(nextY, nextX);
                     info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Broke Barricade | code: " + b.getCode());
                 }
                 return checkKey;
-//                field.getTile() instanceof Barricade
-//                return P.useKey(b); //how to find the right Barricade?
             } else {
                 info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "      You dont have the right key!");
-                return false; //temp until right way found
+                return false;
             }
         } else {
             return field.getTile().Symbol.equalsIgnoreCase("E");
@@ -362,7 +388,6 @@ class gameComponents {
     }
 
     public void quitGame() {
-
         GameFrame.dispose();
 
     }

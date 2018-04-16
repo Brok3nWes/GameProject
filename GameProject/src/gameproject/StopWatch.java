@@ -24,6 +24,20 @@ public class StopWatch {
         this.running = true;
     }
 
+    /**
+     * Restart timer no matter if it is running or not
+     */
+    public void restart() {
+        // reset everything
+        this.running = false;
+        this.startTime = 0;
+        this.stopTime = 0;
+        this.beforePauseTime = 0;
+        // start timer again
+        this.startTime = System.currentTimeMillis();
+        this.running = true;
+    }
+
     public void stop() {
         this.stopTime = System.currentTimeMillis();
         this.running = false;
