@@ -92,7 +92,7 @@ class gameComponents {
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
-
+            GameFrame.dispose();
             createGameWindow(gameTitle, lvlINT);
         });
         //debug end button
@@ -141,8 +141,8 @@ class gameComponents {
         gamePanel.addKeyListener(new GameKeyListener());
         buttonPanel.addKeyListener(new GameKeyListener());
         CreateLvlCells();
-        GameFrame.pack();
         info.setText("Start!");
+        GameFrame.pack();
         time.start();
     }
 //
@@ -324,12 +324,11 @@ class gameComponents {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
             Key k = (Key) field.getTile();
-            field.resetTile(nextY, nextX);
             LvlCells[nextY][nextX].removeAll();
             field.resetTile(nextX, nextY);
             LvlCells[nextY][nextX].revalidate();
             LvlCells[nextY][nextX].repaint();
-            info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Picked up key");
+            info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Picked up key | code: " + k.getCode());
             return P.pickupKey(k);
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
@@ -342,13 +341,15 @@ class gameComponents {
         } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
                 Barricade b = (Barricade) field.getTile();
-                field.resetTile(nextY, nextX);
-                LvlCells[nextY][nextX].removeAll();
-                field.resetTile(nextX, nextY);
-                LvlCells[nextY][nextX].revalidate();
-                LvlCells[nextY][nextX].repaint();
-                info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Broke Barricade");
-                return P.useKey(b);
+                boolean checkKey = P.useKey(b);
+                if (checkKey) {
+                    LvlCells[nextY][nextX].removeAll();
+                    field.resetTile(nextX, nextY);
+                    LvlCells[nextY][nextX].revalidate();
+                    LvlCells[nextY][nextX].repaint();
+                    info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Broke Barricade | code: " + b.getCode());
+                }
+                return checkKey;
 //                field.getTile() instanceof Barricade
 //                return P.useKey(b); //how to find the right Barricade?
             } else {

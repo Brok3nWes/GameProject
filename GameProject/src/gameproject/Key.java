@@ -21,9 +21,18 @@ public class Key extends Tile {
      */
     public Key(int x, int y, int code) {
         super(x, y);
-        this.icon = new ImageIcon(path + "key.png");
         this.code = code;
+        if (code == 200) {
+            this.icon = new ImageIcon(path + "key200.png");
+        } else {
+            this.icon = new ImageIcon(path + "key100.png");
+        }
+        
         Symbol = "K";
+    }
+
+    public int getCode() {
+        return code;
     }
 
     @Override

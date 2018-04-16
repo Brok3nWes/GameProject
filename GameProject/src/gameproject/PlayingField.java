@@ -58,11 +58,11 @@ class PlayingField {
             "T", "T", "K", "W", "T", "T", "W", "W", "W", "W",
             "T", "T", "T", "W", "T", "T", "B", "W", "T", "T",
             "W", "W", "B", "W", "W", "B", "T", "T", "T", "T",
-            "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
-            "T", "T", "T", "B", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "@", "T", "T", "T", "T", "T", "T",
+            "T", "T", "T", "@", "T", "T", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "K", "T", "T", "T", "T",
             "T", "T", "T", "W", "T", "K", "T", "T", "T", "T",
-            "T", "T", "T", "W", "W", "W", "B", "W", "B", "W",
+            "T", "T", "!", "W", "W", "W", "B", "W", "B", "W",
             "T", "T", "T", "W", "T", "T", "T", "W", "T", "E", ""};
 
         customLevel2 = new String[]{
@@ -105,18 +105,22 @@ class PlayingField {
                         } else {
 
                             Random rnd = new Random();
-                            int n = rnd.nextInt(4);
-                            if (n == 0 || n == 1) {
+                            int n = rnd.nextInt(10);
+                            if (n >= 0 && n <= 4) {
                                 pf[x][y] = new Field(new EmptyTile(x, y));
                                 System.out.print("O");
                             }
-                            if (n == 2) {
+                            if (n == 5 || n == 6) {
                                 pf[x][y] = new Field(new Barricade(x, y, 100));
                                 System.out.print("B");
                             }
-                            if (n == 3) {
+                            if (n == 7 || n == 8) {
                                 pf[x][y] = new Field(new Wall(x, y));
                                 System.out.print("W");
+                            }
+                            if (n == 9) {
+                                pf[x][y] = new Field(new Key(x, y, 100));
+                                System.out.print("K");
                             }
                         }
                     }
@@ -160,6 +164,11 @@ class PlayingField {
                                 System.out.print("B");
                                 i++;
                             }
+                            if ("@".equals(n)) {
+                                pf[x][y] = new Field(new Barricade(x, y, 200));
+                                System.out.print("@");
+                                i++;
+                            }
                             if ("W".equals(n)) {
                                 pf[x][y] = new Field(new Wall(x, y));
                                 System.out.print("W");
@@ -168,6 +177,11 @@ class PlayingField {
                             if ("K".equals(n)) {
                                 pf[x][y] = new Field(new Key(x, y,100));
                                 System.out.print("K");
+                                i++;
+                            }
+                            if ("!".equals(n)) {
+                                pf[x][y] = new Field(new Key(x, y,200));
+                                System.out.print("!");
                                 i++;
                             }
                             if ("C".equals(n)) {

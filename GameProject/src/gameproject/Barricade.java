@@ -31,8 +31,13 @@ public class Barricade extends Tile {
      */
     public Barricade(int x, int y, int code) {
         super(x, y);
-        this.icon = new ImageIcon(path + "barricade.png");
         this.code = code;
+        if (code == 200) {
+            this.icon = new ImageIcon(path + "barricade200.png");
+        } else {
+            this.icon = new ImageIcon(path + "barricade100.png");
+        }
+        
         Symbol = "B";
     }
 
