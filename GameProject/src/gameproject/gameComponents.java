@@ -43,7 +43,7 @@ class gameComponents {
     JLabel gamefield, tile, info;
     JButton showMenu, pauseButton, Retry, Reload, Finish;
     JFrame GameFrame;
-    Font Default, MediumText;
+    Font Default, MediumText, BigText;
 //    Menu menu;
     int lvlINT;
     PlayingField PlayingField;
@@ -67,6 +67,7 @@ class gameComponents {
         //fonts
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 22);
+        BigText = new Font("", Font.BOLD,30);
         GameFrame = new JFrame();
         //pause menu
         pauseButton = new JButton("Pause");
@@ -99,7 +100,7 @@ class gameComponents {
 
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
-            time.stop();
+           // time.stop();
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             menu.endLvl();
 
@@ -362,9 +363,11 @@ class gameComponents {
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
-            time.stop();
-            info.setText("End Reached! Well done!    Your time is: " + time.getElapsedTimeSecs() + " seconds");
+            //time.stop();
+            info.setFont(BigText);
+            info.setText("End Reached!         Time: " + time.getElapsedTimeSecs() + " sec");
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
+            //menu.endLvl();
             menu.endLvl();
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {

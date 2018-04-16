@@ -50,6 +50,7 @@ public class PauseMenu extends Menu {
         Resume.setPreferredSize(new Dimension(200, 45));
         Resume.addActionListener((ActionEvent e) -> {
             hidePauseMenu();
+            time.start();
         });
 
         Stop = new JButton("Stop");
