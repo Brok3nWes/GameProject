@@ -41,8 +41,10 @@ class gameComponents extends Menu {
     private Character P;
     protected MainMenu mm;
     private final GameKeyListener GKL = new GameKeyListener();
+
     /**
      * constructor for gameComponents
+     *
      * @param mainMenu for making the MainMenu accessible
      */
     public gameComponents(MainMenu mainMenu) {
@@ -134,6 +136,7 @@ class gameComponents extends Menu {
         MainFrame.add(buttonPanel);
         MainFrame.add(gamePanel, BorderLayout.PAGE_END);
         MainFrame.setLocationRelativeTo(MainFrame);
+        MainFrame.addKeyListener(GKL);
         MainFrame.setVisible(true);
         MainFrame.setEnabled(true);
         this.setFocus();
@@ -207,8 +210,6 @@ class gameComponents extends Menu {
 
             }
         }
-
-        System.out.println("you... SHITE!");
     }
 
     /**
@@ -306,6 +307,9 @@ class gameComponents extends Menu {
                     pauseGame();
                     System.out.println("Pause da game?!!!!");
                     break;
+                case RESET:
+                    resetLvl();
+                    break;
             }
         }
     }
@@ -378,7 +382,6 @@ class gameComponents extends Menu {
      * Add Keylistener and setFocusable to true
      */
     public void setFocus() {
-        MainFrame.addKeyListener(GKL);
         MainFrame.setFocusable(true);
     }
 
@@ -390,7 +393,7 @@ class gameComponents extends Menu {
         PauseMenu pause = new PauseMenu(mm, this, time);
         pause.showMenu();
     }
-    
+
     /**
      * End the level
      */

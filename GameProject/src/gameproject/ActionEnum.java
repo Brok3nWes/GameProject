@@ -17,7 +17,8 @@ public enum ActionEnum {
     DOWN(KeyEvent.VK_DOWN),
     LEFT(KeyEvent.VK_LEFT),
     RIGHT(KeyEvent.VK_RIGHT),
-    ESCAPE(KeyEvent.VK_ESCAPE);
+    ESCAPE(KeyEvent.VK_ESCAPE),
+    RESET(KeyEvent.VK_R);
 
     private final int EnumCode;
 

@@ -8,7 +8,6 @@ package gameproject;
 import static java.awt.Color.WHITE;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,15 +25,7 @@ public class MainMenu extends Menu {
     private final JButton exitGame, playButton, Level1, Level2, Level3, Random;
 
     public MainMenu() {
-        gameComponents game = new gameComponents(this);
         gameTitle = "Maze Game - In-Game";
-
-        Default = new Font("", Font.BOLD, 17);
-        BigButton = new Font("", Font.BOLD, 75);
-        BigTitle = new Font("", Font.BOLD, 65);
-        MediumTitle = new Font("", Font.BOLD, 40);
-        MediumText = new Font("", Font.PLAIN, 25);
-
         JLabel selected = new JLabel("Selected:                                      Random");
         selected.setFont(Default);
 
@@ -44,6 +35,7 @@ public class MainMenu extends Menu {
         playButton.setPreferredSize(new Dimension(300, 100));
         //the button initializes the game level
         playButton.addActionListener((ActionEvent e) -> {
+            gameComponents game = new gameComponents(this);
             game.createGameWindow(gameTitle, lvlINT);
             this.hideMenu();
 

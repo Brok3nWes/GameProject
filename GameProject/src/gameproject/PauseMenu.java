@@ -45,7 +45,7 @@ class PauseMenu extends Menu {
             this.removeMenu();
 //            MainFrame.setAlwaysOnTop(false);
             time.start();
-            gf.setFocus();
+//            gf.setFocus();
         });
 
         //stop button
@@ -60,20 +60,25 @@ class PauseMenu extends Menu {
 
         //pause menu
         JPanel pausePanel = new JPanel();
-        MainFrame.add(pausePanel);
         pausePanel.add(PauseTitle);
         pausePanel.add(Resume);
         pausePanel.add(showMenu);
         pausePanel.add(Stop);
         pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 "Maze Game - Paused"));
+        MainFrame.add(pausePanel);
         //Pause Menu settings
         MainFrame.setSize(300, 350);
         MainFrame.setTitle("Maze Game - Paused");
         MainFrame.setResizable(false);
         MainFrame.setUndecorated(true);
-//        MainFrame.setAlwaysOnTop(true);
         MainFrame.setLocationRelativeTo(gf.MainFrame);
         MainFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    @Override
+    public void showMenu() {
+        this.MainFrame.setVisible(true);
+        this.MainFrame.setAlwaysOnTop(true);
     }
 }
