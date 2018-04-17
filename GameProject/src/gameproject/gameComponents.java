@@ -34,7 +34,7 @@ class gameComponents extends Menu {
     private String gameTitle;
     private JPanel buttonPanel, TPanel, LvlCells[][];
     private JLayeredPane gamePanel;
-    private JLabel info, playerTile;
+    private JLabel info, playerTile, esc, R;
     private final JButton pauseButton, Retry, Reload;
     private int lvlINT;
     private PlayingField PlayingField;
@@ -74,7 +74,12 @@ class gameComponents extends Menu {
             this.removeMenu();
             this.createGameWindow(gameTitle, lvlINT);
         });
-
+        esc = new JLabel();
+        esc.setText("esc to pause");
+        R = new JLabel();
+        R.setText("R to reset the level");
+        esc.setFont(Default);
+        R.setFont(Default);
     }
 
     /**
@@ -105,9 +110,11 @@ class gameComponents extends Menu {
         TPanel.setLayout(new GridLayout(10, 10, 0, 0));
         //buttonPanel
         buttonPanel = new JPanel();
+        buttonPanel.add(esc);
         buttonPanel.add(pauseButton);
         buttonPanel.add(Retry);
         buttonPanel.add(Reload);
+        buttonPanel.add(R);
         buttonPanel.setBackground(GRAY);
         info = new JLabel();
         info.setFont(MediumText);
