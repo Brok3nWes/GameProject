@@ -187,11 +187,6 @@ class PlayingField {
                                 System.out.print("!");
                                 i++;
                             }
-                            if ("C".equals(n)) {
-                                pf[x][y] = new Field(new Character(x, y));
-                                System.out.print("C");
-                                i++;
-                            }
                         }
                     }
                 }

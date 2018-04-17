@@ -51,8 +51,6 @@ class PauseMenu extends Menu {
         Stop.setFont(Default);
         Stop.setPreferredSize(new Dimension(200, 45));
         Stop.addActionListener((ActionEvent e) -> {
-            this.removeMenu();
-            gf.removeMenu();
             System.exit(0);
         });
 

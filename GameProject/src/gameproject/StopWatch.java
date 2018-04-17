@@ -72,7 +72,7 @@ public class StopWatch {
         } else {
             elapsed = (stopTime - startTime);
         }
-        return elapsed;
+        return elapsed + beforePauseTime;
     }
 
     /**
@@ -81,15 +81,7 @@ public class StopWatch {
      * @return elapsed seconds
      */
     public long getElapsedTimeSecs() {
-        long elapsed;
-        beforePauseTime = checkPauseTime() / 1000;
-        if (running) {
-            elapsed = ((System.currentTimeMillis() - startTime) / 1000);
-        } else {
-            elapsed = ((stopTime - startTime) / 1000);
-        }
-
-        return elapsed + beforePauseTime;
+        return this.getElapsedTime() / 1000;
     }
 
     /**
