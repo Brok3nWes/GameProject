@@ -30,6 +30,11 @@ public class Key extends Tile {
         Symbol = "K";
     }
 
+    /**
+     * Getter for code of the Key
+     *
+     * @return code
+     */
     public int getCode() {
         return code;
     }

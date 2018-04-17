@@ -9,6 +9,7 @@ import javax.swing.JFrame;
  */
 class Menu {
 
+    //set the fonts for all the menu's
     protected Font Default = new Font("", Font.BOLD, 17);
     protected Font MediumText = new Font("", Font.PLAIN, 25);
     protected Font MediumTitle = new Font("", Font.BOLD, 40);

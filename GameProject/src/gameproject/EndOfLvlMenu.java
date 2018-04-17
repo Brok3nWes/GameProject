@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
  * @author baswo
  */
 class EndOfLvlMenu extends Menu {
+
     private final JButton showMenu2;
     private final JLabel EndTitle, Time;
 
@@ -26,7 +27,7 @@ class EndOfLvlMenu extends Menu {
         EndTitle = new JLabel("End Reached!");
         EndTitle.setFont(MediumTitle);
         Time = new JLabel("You did it in " + time + " seconds!");
-        Time.setFont(Default);        
+        Time.setFont(Default);
         //back to menu button from end menu
         showMenu2 = new JButton("Back to main menu");
         showMenu2.setFont(Default);

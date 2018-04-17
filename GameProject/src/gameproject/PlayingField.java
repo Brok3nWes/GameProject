@@ -10,7 +10,7 @@ class PlayingField {
 
     public static int dimX = 10;
     public static int dimY = 10;
-    private Field[][] pf;
+    private final Field[][] pf;
     private String[] customLevel1, customLevel2, customLevel3;
     public boolean lvlOver;
     private StartTile ST;

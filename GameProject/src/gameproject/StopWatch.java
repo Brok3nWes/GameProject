@@ -23,13 +23,11 @@ public class StopWatch {
     public void start() {
         if (this.startTime != 0) {
             pauseTimes.add((stopTime - startTime));
-//            System.out.println("pauseTimes: " + pauseTimes.toString());
             this.startTime = System.currentTimeMillis();
         } else {
             this.startTime = System.currentTimeMillis();
         }
         this.running = true;
-//        System.out.println("Started!");
     }
 
     /**
@@ -40,14 +38,12 @@ public class StopWatch {
         // start timer again
         this.startTime = System.currentTimeMillis();
         this.running = true;
-//        System.out.println("Restarted!");
     }
 
     /**
-     * Reset timer
+     * Reset all variables to initial values
      */
     public void reset() {
-        // reset everything
         this.running = false;
         this.startTime = 0;
         this.stopTime = 0;
@@ -61,7 +57,6 @@ public class StopWatch {
     public void stop() {
         this.stopTime = System.currentTimeMillis();
         this.running = false;
-//        System.out.println("Stopped!");
     }
 
     /**
@@ -107,7 +102,6 @@ public class StopWatch {
             for (Long time : pauseTimes) {
                 beforePauseTime += time;
             }
-//            System.out.println("Checked!");
             return beforePauseTime;
         } else {
             return 0;

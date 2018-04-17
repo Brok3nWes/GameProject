@@ -10,8 +10,8 @@ import java.awt.BorderLayout;
 import static java.awt.Color.GREEN;
 import static java.awt.Color.RED;
 import static java.awt.Color.GRAY;
+import static java.awt.Color.LIGHT_GRAY;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -67,9 +67,9 @@ class gameComponents extends Menu {
             //keys en barricades resetten
 
         });
-        Reload = new JButton("↺");
+        Reload = new JButton("RandomLvl");
         Reload.setFont(Default);
-        Reload.setPreferredSize(new Dimension(60, 60));
+        Reload.setPreferredSize(new Dimension(130, 60));
         Reload.addActionListener((ActionEvent rl) -> {
             this.removeMenu();
             this.createGameWindow(gameTitle, lvlINT);
@@ -120,9 +120,11 @@ class gameComponents extends Menu {
         info = new JLabel();
         info.setFont(MediumText);
         info.setText("Start!");
+        info.setOpaque(true);
+        info.setBackground(LIGHT_GRAY);
         //gamePanel
         gamePanel = new JLayeredPane();
-        gamePanel.setLayout(new BorderLayout(10, 5));
+        gamePanel.setLayout(new BorderLayout(10, 0));
         gamePanel.setBackground(GRAY);
         gamePanel.add(info);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
@@ -143,7 +145,8 @@ class gameComponents extends Menu {
     }
 
     /**
-     * ResetLvl (not 100% working)
+     * Method for resetting the current level even if it's a randomly generated
+     * level
      */
     private void resetLvl() {
         removeAllCells();
@@ -206,6 +209,7 @@ class gameComponents extends Menu {
                 if (x == 9 && y == 9) {
                     LvlCells[x][y].setBackground(RED);
                 }
+                LvlCells[x][y].setName(tilee.Symbol);
                 TPanel.add(LvlCells[x][y]);
 
             }
@@ -234,6 +238,13 @@ class gameComponents extends Menu {
         LvlCells[x][y].add(playerTile);
         System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
         repaintCell(x, y);
+    }
+
+    private void setEmptyCell(int nextY, int nextX) {
+        JLabel cell = new JLabel();
+        cell.setName("O");
+        cell.setVisible(false);
+        LvlCells[nextY][nextX].add(cell);
     }
 
     /**
@@ -325,23 +336,25 @@ class gameComponents extends Menu {
     private boolean checkTile(int dx, int dy) {
         int nextX = P.getxCoordinate() + dx;
         int nextY = P.getyCoordinate() + dy;
+
         Field[][] pf = PlayingField.getPf();
 
         Field field = pf[nextY][nextX];
-        if (field.getTile().Symbol.equalsIgnoreCase("O")) {
+        String Symbol = LvlCells[nextY][nextX].getName();
+        if (Symbol.equalsIgnoreCase("O")) {
             playerTile.setLocation(60 * nextX, 60 * nextY);
             info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY));
             return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("K")) {
+        } else if (Symbol.equalsIgnoreCase("K")) {
             Key k = (Key) field.getTile();
             LvlCells[nextY][nextX].removeAll();
-            field.resetTile(nextX, nextY);
+            LvlCells[nextY][nextX].setName("O");
             repaintCell(nextY, nextX);
             info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Picked up key | code: " + k.getCode());
             return P.pickupKey(k);
-        } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
+        } else if (Symbol.equalsIgnoreCase("S")) {
             return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
+        } else if (Symbol.equalsIgnoreCase("E")) {
             time.stop();
             info.setFont(BigText);
             info.setText("End Reached!         Time: " + time.getElapsedTimeSecs() + " sec");
@@ -349,13 +362,13 @@ class gameComponents extends Menu {
             EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
             endMenu.showMenu();
             return true;
-        } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
+        } else if (Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
                 Barricade b = (Barricade) field.getTile();
                 boolean checkKey = P.useKey(b);
                 if (checkKey) {
                     LvlCells[nextY][nextX].removeAll();
-                    field.resetTile(nextX, nextY);
+                    LvlCells[nextY][nextX].setName("O");
                     repaintCell(nextY, nextX);
                     info.setText("Moved Player to: x:" + nextX + " y:" + (9 - nextY) + "     Broke Barricade | code: " + b.getCode());
                 }
@@ -365,7 +378,7 @@ class gameComponents extends Menu {
                 return false;
             }
         } else {
-            return field.getTile().Symbol.equalsIgnoreCase("E");
+            return false;
         }
     }
 
@@ -379,7 +392,7 @@ class gameComponents extends Menu {
     }
 
     /**
-     * Add Keylistener and setFocusable to true
+     * setFocusable to true
      */
     public void setFocus() {
         MainFrame.setFocusable(true);

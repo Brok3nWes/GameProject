@@ -28,24 +28,6 @@ public class Character extends Tile {
     /**
      * Getter for the x Coordinate
      *
-     * @param x get coordinate
-     */
-    public void setxCoordinate(int x) {
-        this.xCoordinate = x;
-    }
-
-    /**
-     * Getter for the y Coordinate
-     *
-     * @param y get coordinate
-     */
-    public void setyCoordinate(int y) {
-        this.yCoordinate = y;
-    }
-
-    /**
-     * Getter for the x Coordinate
-     *
      * @return previousY
      */
     public int getPrevyCoordinate() {

@@ -22,14 +22,30 @@ public enum ActionEnum {
 
     private final int EnumCode;
 
+    /**
+     * Constructor for the EnumCodes
+     *
+     * @param EnumCode
+     */
     ActionEnum(int EnumCode) {
         this.EnumCode = EnumCode;
     }
 
+    /**
+     * Getter for the EnumCodes
+     *
+     * @return EnumCode
+     */
     public int getEnumCode() {
         return EnumCode;
     }
 
+    /**
+     * Check if the inputCode is in the EnumCodes
+     *
+     * @param EnumCode to check
+     * @return
+     */
     public static ActionEnum getEnumName(int EnumCode) {
         for (ActionEnum c : values()) { //enhanced forloop for checking if the code is in the values
             if (c.getEnumCode() == EnumCode) {

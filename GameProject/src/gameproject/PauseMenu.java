@@ -43,9 +43,7 @@ class PauseMenu extends Menu {
         Resume.setPreferredSize(new Dimension(200, 45));
         Resume.addActionListener((ActionEvent e) -> {
             this.removeMenu();
-//            MainFrame.setAlwaysOnTop(false);
             time.start();
-//            gf.setFocus();
         });
 
         //stop button
@@ -76,6 +74,9 @@ class PauseMenu extends Menu {
         MainFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
+    /**
+     * Override method to make sure that the menu will always be on top
+     */
     @Override
     public void showMenu() {
         this.MainFrame.setVisible(true);
