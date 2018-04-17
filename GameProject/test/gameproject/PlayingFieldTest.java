@@ -104,20 +104,31 @@ public class PlayingFieldTest {
         int lvl = 0;
         PlayingField instance = new PlayingField();
         instance.setLvl(lvl);
-        boolean[] result = new boolean[6];
+        boolean[] result = new boolean[8];
         result[0] = "S".equals(instance.getPf()[0][0].getTile().Symbol);
         result[1] = "E".equals(instance.getPf()[9][9].getTile().Symbol);
+        lvl = 1;
+        instance = new PlayingField();
+        instance.setLvl(lvl);
         result[2] = "S".equals(instance.getPf()[0][0].getTile().Symbol);
         result[3] = "E".equals(instance.getPf()[9][9].getTile().Symbol);
+        lvl = 2;instance = new PlayingField();
+        instance.setLvl(lvl);
         result[4] = "S".equals(instance.getPf()[0][0].getTile().Symbol);
         result[5] = "E".equals(instance.getPf()[9][9].getTile().Symbol);
-        boolean[] expResult = new boolean[6];
+        lvl = 3;instance = new PlayingField();
+        instance.setLvl(lvl);
+        result[6] = "S".equals(instance.getPf()[0][0].getTile().Symbol);
+        result[7] = "E".equals(instance.getPf()[9][9].getTile().Symbol);
+        boolean[] expResult = new boolean[8];
         expResult[0] = true;
         expResult[1] = true;
         expResult[2] = true;
         expResult[3] = true;
         expResult[4] = true;
         expResult[5] = true;
+        expResult[6] = true;
+        expResult[7] = true;
         Assert.assertArrayEquals(expResult, result);
     }
 //

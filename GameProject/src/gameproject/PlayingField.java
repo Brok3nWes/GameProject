@@ -51,9 +51,10 @@ class PlayingField {
     public void setLvl(int lvl) {
         LvlInt = lvl;
 
-        // T = normal tile, B = barricade, W = wall
+        // T = normal tile, B = barricade100, W = wall, @ = barricade200
+        // K = key100, ! = key200, E = end, S = start
         customLevel1 = new String[]{
-            "T", "B", "T", "W", "T", "K", "W", "T", "T", "T",
+            "S", "B", "T", "W", "T", "K", "W", "T", "T", "T",
             "T", "T", "K", "W", "T", "T", "W", "W", "W", "W",
             "T", "T", "T", "W", "T", "T", "@", "W", "T", "T",
             "W", "W", "B", "W", "W", "@", "T", "T", "T", "T",
