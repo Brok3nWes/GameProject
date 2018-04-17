@@ -74,7 +74,7 @@ class gameComponents extends Menu {
             this.removeMenu();
             this.createGameWindow(gameTitle, lvlINT);
         });
-       
+
     }
 
     /**
@@ -89,10 +89,10 @@ class gameComponents extends Menu {
         //PlayingField
         PlayingField = new PlayingField();
         PlayingField.setLvl(lvlINT);
-        buildPanels();
         LvlCells = new JPanel[dimX][dimY];
-        createJPanelCells();
-        createLvlCells();
+        this.buildPanels();
+        this.createJPanelCells();
+        this.createLvlCells();
         MainFrame.pack();
         time.start();
     }
@@ -141,10 +141,10 @@ class gameComponents extends Menu {
      * level
      */
     private void resetLvl() {
-        removeAllCells();
-        repaintAllCells();
-        createLvlCells();
-        repaintAllCells();
+        this.removeAllCells();
+        this.repaintAllCells();
+        this.createLvlCells();
+        this.repaintAllCells();
         info.setText("Start!");
     }
 
@@ -189,7 +189,7 @@ class gameComponents extends Menu {
     private void createLvlCells() {
         for (int x = 0; x < dimX; x++) {
             for (int y = 0; y < dimY; y++) {
-                if (x == 0 && y == 0) {
+                if (x == 0 && y == 0) {//startTile
                     P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     playerTile = new JLabel(P.getIcon());
                     LvlCells[x][y].add(playerTile);
@@ -198,12 +198,11 @@ class gameComponents extends Menu {
                 }
                 Tile tilee = PlayingField.getPf()[x][y].getTile();
                 LvlCells[x][y].add(new JLabel(tilee.getIcon()));
-                if (x == 9 && y == 9) {
+                if (x == 9 && y == 9) {//endTile
                     LvlCells[x][y].setBackground(RED);
                 }
                 LvlCells[x][y].setName(tilee.Symbol);
                 TPanel.add(LvlCells[x][y]);
-
             }
         }
     }
@@ -230,13 +229,6 @@ class gameComponents extends Menu {
         LvlCells[x][y].add(playerTile);
         System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
         repaintCell(x, y);
-    }
-
-    private void setEmptyCell(int nextY, int nextX) {
-        JLabel cell = new JLabel();
-        cell.setName("O");
-        cell.setVisible(false);
-        LvlCells[nextY][nextX].add(cell);
     }
 
     /**
@@ -347,12 +339,7 @@ class gameComponents extends Menu {
         } else if (Symbol.equalsIgnoreCase("S")) {
             return true;
         } else if (Symbol.equalsIgnoreCase("E")) {
-            time.stop();
-            info.setFont(BigText);
-            info.setText("End Reached!         Time: " + time.getElapsedTimeSecs() + " sec");
-            System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
-            EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
-            endMenu.showMenu();
+            endLvl();
             return true;
         } else if (Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
@@ -403,6 +390,9 @@ class gameComponents extends Menu {
      * End the level
      */
     private void endLvl() {
+        time.stop();
+        info.setFont(BigText);
+        info.setText("End Reached!         Time: " + time.getElapsedTimeSecs() + " sec");
         System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
         EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
         endMenu.showMenu();
