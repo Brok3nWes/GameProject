@@ -6,7 +6,6 @@
 package gameproject;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,51 +19,40 @@ import javax.swing.border.TitledBorder;
  * @author baswo
  */
 class EndOfLvlMenu extends Menu {
-    gameComponents gameframe = new gameComponents();
-    MainMenu menu = new MainMenu();
-    JFrame EndMenu;
-    JButton showMenu2;
-    Font MediumText, MediumTitle, Default;
+    private final JButton showMenu2;
+    private final JLabel EndTitle, Time;
 
-    public EndOfLvlMenu() {
-        Default = new Font("", Font.BOLD, 17);
-        MediumText = new Font("", Font.PLAIN, 25);
-        MediumTitle = new Font("", Font.BOLD, 40);
-        EndMenu = new JFrame();
-        JLabel EndTitle = new JLabel("End Reached!");
+    public EndOfLvlMenu(MainMenu mm, gameComponents gf, String time) {
+        EndTitle = new JLabel("End Reached!");
         EndTitle.setFont(MediumTitle);
-       
+        Time = new JLabel("You did it in " + time + " seconds!");
+        Time.setFont(Default);        
         //back to menu button from end menu
         showMenu2 = new JButton("Back to main menu");
         showMenu2.setFont(Default);
         showMenu2.setPreferredSize(new Dimension(200, 45));
         showMenu2.addActionListener((ActionEvent e) -> {
-            gameframe.quitGame();
-            EndMenu.dispose();
-            menu.MainMenu();
-            
+            gf.removeMenu();
+            MainFrame.dispose();
+            mm.showMenu();
         });
 
         //end of level menu
         JPanel endPanel = new JPanel();
         endPanel.add(EndTitle);
+        endPanel.add(Time);
         endPanel.add(showMenu2);
-        EndMenu.add(endPanel);
         endPanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 "Maze Game - End of Level"));
+        MainFrame.add(endPanel);
 
         //End Menu settings
-        EndMenu.setSize(300, 350);
-        EndMenu.setTitle("Maze Game - End of Level");
-        EndMenu.setResizable(false);
-        EndMenu.setUndecorated(true);
+        MainFrame.setSize(300, 350);
+        MainFrame.setTitle("Maze Game - End of Level");
+        MainFrame.setResizable(false);
+        MainFrame.setUndecorated(true);
+        MainFrame.setLocationRelativeTo(MainFrame);
+        MainFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        EndMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-    }
-
-    public void showEndMenu() {
-        EndMenu.setLocationRelativeTo(EndMenu);
-        EndMenu.setVisible(true);
     }
 }

@@ -26,37 +26,29 @@ import javax.swing.OverlayLayout;
  * @author Wessel
  * @author Bas
  */
-class gameComponents {
+class gameComponents extends Menu {
 
-    StopWatch time = new StopWatch();
-    String nr, gameTitle;
-    JPanel buttonPanel, TPanel, LvlCells[][];
-    JLayeredPane gamePanel;
-    JPanel layeredTile;
-    JLabel gamefield, tile, info;
-    JButton showMenu, pauseButton, Retry, Reload, Finish;
-    JFrame GameFrame;
-    Font Default, MediumText, BigText;
-//    Menu menu;
-    int lvlINT;
-    PlayingField PlayingField;
-    Character P;
-    Menu menu;
-    private JLabel playerTile;
+    private StopWatch time = new StopWatch();
+    private String gameTitle;
+    private JPanel buttonPanel, TPanel, LvlCells[][];
+    private JLayeredPane gamePanel;
+    private JLabel info, playerTile;
+    private final JButton pauseButton, Retry, Reload, Finish;
+    private int lvlINT;
+    private PlayingField PlayingField;
+    private Character P;
+    protected MainMenu mm;
 
-    public gameComponents() {
-        menu = new Menu();
-        //fonts
-        Default = new Font("", Font.BOLD, 17);
-        MediumText = new Font("", Font.PLAIN, 22);
-        BigText = new Font("", Font.BOLD, 30);
-        GameFrame = new JFrame();
+    public gameComponents(MainMenu mainMenu) {
+        mm = mainMenu;
         //pause menu
         pauseButton = new JButton("Pause");
         pauseButton.setFont(Default);
         pauseButton.setPreferredSize(new Dimension(100, 60));
         pauseButton.addActionListener((ActionEvent e) -> {
-            menu.pauseGame();
+            time.stop();
+            PauseMenu pause = new PauseMenu(mm, this, time);
+            pause.showMenu();
         });
 
         Retry = new JButton("Retry");
@@ -64,7 +56,7 @@ class gameComponents {
         Retry.setPreferredSize(new Dimension(100, 60));
         Retry.addActionListener((ActionEvent r) -> {
             time.restart();
-            resetLvl();
+            this.resetLvl();
             //character resetten
             //keys en barricades resetten
 
@@ -73,19 +65,18 @@ class gameComponents {
         Reload.setFont(Default);
         Reload.setPreferredSize(new Dimension(60, 60));
         Reload.addActionListener((ActionEvent rl) -> {
-            quitGame();
-            createGameWindow(gameTitle, lvlINT);
+            this.removeMenu();
+            this.createGameWindow(gameTitle, lvlINT);
         });
         //debug end button
         Finish = new JButton("debug");
         Finish.setFont(Default);
-
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
             // time.stop();
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
-            menu.endLvl();
-
+            EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
+            endMenu.showMenu();
         });
     }
 
@@ -105,7 +96,7 @@ class gameComponents {
         LvlCells = new JPanel[dimX][dimY];
         createJPanelCells();
         createLvlCells();
-        GameFrame.pack();
+        MainFrame.pack();
         time.start();
     }
 
@@ -136,16 +127,16 @@ class gameComponents {
         gamePanel.add(info);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         //GameFrame
-        GameFrame = new JFrame(gameTitle);
-        GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GameFrame.setSize(700, 650);
-        GameFrame.setResizable(false);
-        GameFrame.setLayout(new BorderLayout());
-        GameFrame.add(buttonPanel);
-        GameFrame.add(gamePanel, BorderLayout.PAGE_END);
-        GameFrame.setLocationRelativeTo(GameFrame);
-        GameFrame.setVisible(true);
-        GameFrame.setEnabled(true);
+        MainFrame = new JFrame(gameTitle);
+        MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        MainFrame.setSize(700, 650);
+        MainFrame.setResizable(false);
+        MainFrame.setLayout(new BorderLayout());
+        MainFrame.add(buttonPanel);
+        MainFrame.add(gamePanel, BorderLayout.PAGE_END);
+        MainFrame.setLocationRelativeTo(MainFrame);
+        MainFrame.setVisible(true);
+        MainFrame.setEnabled(true);
     }
 
     /**
@@ -284,7 +275,8 @@ class gameComponents {
                     }
                     break;
                 case ESCAPE:
-                    menu.pauseGame();
+                    PauseMenu pause = new PauseMenu(mm, this, time);
+                    pause.showMenu();
                     System.out.println("Pause da game?!!!!");
                     break;
             }
@@ -348,7 +340,8 @@ class gameComponents {
             info.setText("End Reached!         Time: " + time.getElapsedTimeSecs() + " sec");
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             //menu.endLvl();
-            menu.endLvl();
+            EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
+            endMenu.showMenu();
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("B")) {
             if (P.getKeyInPocket() != null) {
@@ -370,8 +363,9 @@ class gameComponents {
         }
     }
 
-    public void quitGame() {
-        GameFrame.dispose();
-
+    @Override
+    public void removeMenu() {
+        this.MainFrame.dispose();
+        time.stop();
     }
 }

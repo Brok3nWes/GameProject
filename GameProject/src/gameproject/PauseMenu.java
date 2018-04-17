@@ -6,7 +6,6 @@
 package gameproject;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,72 +18,58 @@ import javax.swing.border.TitledBorder;
  *
  * @author baswo
  */
-public class PauseMenu extends Menu {
+class PauseMenu extends Menu {
 
-    JFrame PauseMenu;
-    JButton Resume, showMenu,Stop;
-    Font MediumText, MediumTitle, Default;
+    private final JButton Resume, showMenu, Stop;
 
-    public PauseMenu() {
-        Menu menu = new Menu();
-        StopWatch time = new StopWatch();
-        
-        Default = new Font("", Font.BOLD, 17);
-        MediumText = new Font("", Font.PLAIN, 25);
-        MediumTitle = new Font("", Font.BOLD, 40);
-        PauseMenu = new JFrame();
+    public PauseMenu(MainMenu mm, gameComponents gf, StopWatch time) {
         //pause menu title
         JLabel PauseTitle = new JLabel("Paused");
         PauseTitle.setFont(MediumTitle);
-        //back to menu button from pause menu
+
+        //back to menu button
         showMenu = new JButton("Back to main menu");
         showMenu.setFont(Default);
         showMenu.setPreferredSize(new Dimension(200, 45));
         showMenu.addActionListener((ActionEvent e) -> {
-            menu.exitToMainMenu();
+            this.removeMenu();
+            gf.removeMenu();
+            mm.showMenu();
         });
 
-        //resume
+        //resume button
         Resume = new JButton("Resume");
         Resume.setFont(Default);
         Resume.setPreferredSize(new Dimension(200, 45));
         Resume.addActionListener((ActionEvent e) -> {
-            hidePauseMenu();
+            this.removeMenu();
             time.start();
         });
 
+        //stop button
         Stop = new JButton("Stop");
         Stop.setFont(Default);
         Stop.setPreferredSize(new Dimension(200, 45));
         Stop.addActionListener((ActionEvent e) -> {
-            time.stop();
-            time.getElapsedTimeSecs();
+            this.removeMenu();
+            gf.removeMenu();
         });
+
         //pause menu
         JPanel pausePanel = new JPanel();
-        PauseMenu.add(pausePanel);
+        MainFrame.add(pausePanel);
         pausePanel.add(PauseTitle);
         pausePanel.add(Resume);
         pausePanel.add(showMenu);
         pausePanel.add(Stop);
         pausePanel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED),
                 "Maze Game - Paused"));
-
         //Pause Menu settings
-        PauseMenu.setSize(300, 350);
-        PauseMenu.setTitle("Maze Game - Paused");
-        PauseMenu.setResizable(false);
-        PauseMenu.setUndecorated(true);
-        PauseMenu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-    }
-
-    public void showPauseMenu() {
-        PauseMenu.setLocationRelativeTo(PauseMenu);
-        PauseMenu.setVisible(true);
-    }
-
-    public void hidePauseMenu() {
-        PauseMenu.setVisible(false);
+        MainFrame.setSize(300, 350);
+        MainFrame.setTitle("Maze Game - Paused");
+        MainFrame.setResizable(false);
+        MainFrame.setUndecorated(true);
+        MainFrame.setLocationRelativeTo(MainFrame);
+        MainFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 }
