@@ -23,7 +23,7 @@ public class EmptyTile extends Tile {
      */
     public EmptyTile(int x, int y) {
         super(x, y);
-        this.icon = new ImageIcon(path + "tile.png");
+//        this.icon = new ImageIcon(path + "tile.png");
         Symbol = "O";
     }
 

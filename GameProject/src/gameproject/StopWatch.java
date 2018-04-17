@@ -8,7 +8,7 @@ public class StopWatch {
     private long stopTime = 0;
     private long beforePauseTime;
     private boolean running = false;
-    private ArrayList<Long> pauseTimes;
+    private final ArrayList<Long> pauseTimes;
 
     /**
      * Constructor for StopWatch
@@ -22,26 +22,37 @@ public class StopWatch {
      */
     public void start() {
         if (this.startTime != 0) {
-            pauseTimes.add((System.currentTimeMillis() - startTime));
+            pauseTimes.add((stopTime - startTime));
+//            System.out.println("pauseTimes: " + pauseTimes.toString());
             this.startTime = System.currentTimeMillis();
         } else {
             this.startTime = System.currentTimeMillis();
         }
         this.running = true;
+//        System.out.println("Started!");
     }
 
     /**
      * Restart timer no matter if it is running or not
      */
     public void restart() {
+        reset();
+        // start timer again
+        this.startTime = System.currentTimeMillis();
+        this.running = true;
+//        System.out.println("Restarted!");
+    }
+
+    /**
+     * Reset timer
+     */
+    public void reset() {
         // reset everything
         this.running = false;
         this.startTime = 0;
         this.stopTime = 0;
         this.beforePauseTime = 0;
-        // start timer again
-        this.startTime = System.currentTimeMillis();
-        this.running = true;
+        this.pauseTimes.clear();
     }
 
     /**
@@ -50,6 +61,7 @@ public class StopWatch {
     public void stop() {
         this.stopTime = System.currentTimeMillis();
         this.running = false;
+//        System.out.println("Stopped!");
     }
 
     /**
@@ -95,6 +107,7 @@ public class StopWatch {
             for (Long time : pauseTimes) {
                 beforePauseTime += time;
             }
+//            System.out.println("Checked!");
             return beforePauseTime;
         } else {
             return 0;

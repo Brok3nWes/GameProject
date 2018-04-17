@@ -43,7 +43,9 @@ class PauseMenu extends Menu {
         Resume.setPreferredSize(new Dimension(200, 45));
         Resume.addActionListener((ActionEvent e) -> {
             this.removeMenu();
+//            MainFrame.setAlwaysOnTop(false);
             time.start();
+            gf.setFocus();
         });
 
         //stop button
@@ -53,6 +55,7 @@ class PauseMenu extends Menu {
         Stop.addActionListener((ActionEvent e) -> {
             this.removeMenu();
             gf.removeMenu();
+            System.exit(0);
         });
 
         //pause menu
@@ -69,7 +72,8 @@ class PauseMenu extends Menu {
         MainFrame.setTitle("Maze Game - Paused");
         MainFrame.setResizable(false);
         MainFrame.setUndecorated(true);
-        MainFrame.setLocationRelativeTo(MainFrame);
+//        MainFrame.setAlwaysOnTop(true);
+        MainFrame.setLocationRelativeTo(gf.MainFrame);
         MainFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 }

@@ -23,7 +23,7 @@ public class EndTile extends Tile {
      */
     public EndTile(int x, int y) {
         super(x, y);
-        this.icon = new ImageIcon(path + "end.png");
+//        this.icon = new ImageIcon(path + "end.png");
         Symbol = "E";
     }
 }

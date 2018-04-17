@@ -7,6 +7,8 @@ package gameproject;
 import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
+import static java.awt.Color.GREEN;
+import static java.awt.Color.RED;
 import static java.awt.Color.GRAY;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,7 +40,11 @@ class gameComponents extends Menu {
     private PlayingField PlayingField;
     private Character P;
     protected MainMenu mm;
-
+    private final GameKeyListener GKL = new GameKeyListener();
+    /**
+     * constructor for gameComponents
+     * @param mainMenu for making the MainMenu accessible
+     */
     public gameComponents(MainMenu mainMenu) {
         mm = mainMenu;
         //pause menu
@@ -46,9 +52,7 @@ class gameComponents extends Menu {
         pauseButton.setFont(Default);
         pauseButton.setPreferredSize(new Dimension(100, 60));
         pauseButton.addActionListener((ActionEvent e) -> {
-            time.stop();
-            PauseMenu pause = new PauseMenu(mm, this, time);
-            pause.showMenu();
+            pauseGame();
         });
 
         Retry = new JButton("Retry");
@@ -74,9 +78,7 @@ class gameComponents extends Menu {
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
             // time.stop();
-            System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
-            EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
-            endMenu.showMenu();
+            endLvl();
         });
     }
 
@@ -113,8 +115,6 @@ class gameComponents extends Menu {
         buttonPanel.add(Reload);
         buttonPanel.add(Finish);
         buttonPanel.setBackground(GRAY);
-        buttonPanel.setFocusable(true);
-        buttonPanel.addKeyListener(new GameKeyListener());
         info = new JLabel();
         info.setFont(MediumText);
         info.setText("Start!");
@@ -122,12 +122,11 @@ class gameComponents extends Menu {
         gamePanel = new JLayeredPane();
         gamePanel.setLayout(new BorderLayout(10, 5));
         gamePanel.setBackground(GRAY);
-        gamePanel.addKeyListener(new GameKeyListener());
-        gamePanel.setFocusable(true);
         gamePanel.add(info);
         gamePanel.add(TPanel, BorderLayout.PAGE_END);
         //GameFrame
         MainFrame = new JFrame(gameTitle);
+        MainFrame.setAutoRequestFocus(true);
         MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MainFrame.setSize(700, 650);
         MainFrame.setResizable(false);
@@ -137,6 +136,7 @@ class gameComponents extends Menu {
         MainFrame.setLocationRelativeTo(MainFrame);
         MainFrame.setVisible(true);
         MainFrame.setEnabled(true);
+        this.setFocus();
     }
 
     /**
@@ -195,16 +195,44 @@ class gameComponents extends Menu {
                     P = PlayingField.getStartTile().spawnPlayer(PlayingField.getPf());
                     playerTile = new JLabel(P.getIcon());
                     LvlCells[x][y].add(playerTile);
+                    LvlCells[x][y].setBackground(GREEN);
                     System.out.println("PlayerSpawned!");
                 }
                 Tile tilee = PlayingField.getPf()[x][y].getTile();
                 LvlCells[x][y].add(new JLabel(tilee.getIcon()));
+                if (x == 9 && y == 9) {
+                    LvlCells[x][y].setBackground(RED);
+                }
                 TPanel.add(LvlCells[x][y]);
 
             }
         }
 
         System.out.println("you... SHITE!");
+    }
+
+    /**
+     * Repaint one specific cell
+     */
+    private void repaintCell(int x, int y) {
+        LvlCells[x][y].revalidate();
+        LvlCells[x][y].repaint();
+    }
+
+    /**
+     * Update the player tile
+     */
+    public void updatePlayer() {
+        int y = P.getPrevxCoordinate();
+        int x = P.getPrevyCoordinate();
+        LvlCells[x][y].remove(playerTile);
+        System.out.println("RemovedPTile: x=" + P.getPrevxCoordinate() + " y=" + P.getPrevyCoordinate());
+        repaintCell(x, y);
+        y = P.getxCoordinate();
+        x = P.getyCoordinate();
+        LvlCells[x][y].add(playerTile);
+        System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
+        repaintCell(x, y);
     }
 
     /**
@@ -275,36 +303,11 @@ class gameComponents extends Menu {
                     }
                     break;
                 case ESCAPE:
-                    PauseMenu pause = new PauseMenu(mm, this, time);
-                    pause.showMenu();
+                    pauseGame();
                     System.out.println("Pause da game?!!!!");
                     break;
             }
         }
-    }
-
-    /**
-     * Repaint one specific cell
-     */
-    private void repaintCell(int x, int y) {
-        LvlCells[x][y].revalidate();
-        LvlCells[x][y].repaint();
-    }
-
-    /**
-     * Update the player tile
-     */
-    public void updatePlayer() {
-        int y = P.getPrevxCoordinate();
-        int x = P.getPrevyCoordinate();
-        LvlCells[x][y].remove(playerTile);
-        System.out.println("RemovedPTile: x=" + P.getPrevxCoordinate() + " y=" + P.getPrevyCoordinate());
-        repaintCell(x, y);
-        y = P.getxCoordinate();
-        x = P.getyCoordinate();
-        LvlCells[x][y].add(playerTile);
-        System.out.println("AddedPTile: x=" + P.getxCoordinate() + " y=" + P.getyCoordinate());
-        repaintCell(x, y);
     }
 
     /**
@@ -335,11 +338,10 @@ class gameComponents extends Menu {
         } else if (field.getTile().Symbol.equalsIgnoreCase("S")) {
             return true;
         } else if (field.getTile().Symbol.equalsIgnoreCase("E")) {
-            //time.stop();
+            time.stop();
             info.setFont(BigText);
             info.setText("End Reached!         Time: " + time.getElapsedTimeSecs() + " sec");
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
-            //menu.endLvl();
             EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
             endMenu.showMenu();
             return true;
@@ -363,9 +365,39 @@ class gameComponents extends Menu {
         }
     }
 
+    /**
+     * When remove method is called, also reset time
+     */
     @Override
     public void removeMenu() {
         this.MainFrame.dispose();
+        time.reset();
+    }
+
+    /**
+     * Add Keylistener and setFocusable to true
+     */
+    public void setFocus() {
+        MainFrame.addKeyListener(GKL);
+        MainFrame.setFocusable(true);
+    }
+
+    /**
+     * Pause the game
+     */
+    private void pauseGame() {
         time.stop();
+        PauseMenu pause = new PauseMenu(mm, this, time);
+        pause.showMenu();
+    }
+    
+    /**
+     * End the level
+     */
+    private void endLvl() {
+        System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
+        EndOfLvlMenu endMenu = new EndOfLvlMenu(mm, this, Long.toString(time.getElapsedTimeSecs()));
+        endMenu.showMenu();
+        time.reset();
     }
 }

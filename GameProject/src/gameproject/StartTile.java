@@ -19,7 +19,7 @@ class StartTile extends Tile {
      */
     public StartTile(int x, int y) {
         super(x, y);
-        this.icon = new ImageIcon(path + "start.png");
+//        this.icon = new ImageIcon(path + "start.png");
         Symbol = "S";
     }
 
