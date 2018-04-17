@@ -10,7 +10,6 @@ public class Key extends Tile {
 
     private final int code;
     private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
-    private ImageIcon icon;
 
     /**
      * Constructor for the Key
@@ -33,11 +32,6 @@ public class Key extends Tile {
 
     public int getCode() {
         return code;
-    }
-
-    @Override
-    public ImageIcon getIcon() {
-        return icon;
     }
 
     /**

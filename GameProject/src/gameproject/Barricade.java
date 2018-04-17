@@ -13,14 +13,8 @@ import javax.swing.ImageIcon;
  */
 public class Barricade extends Tile {
 
-    private int code;
+    private final int code;
     private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
-    private ImageIcon icon;
-
-    @Override
-    public ImageIcon getIcon() {
-        return icon;
-    }
 
     /**
      * Constructor for the Barricade

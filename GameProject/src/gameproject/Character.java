@@ -9,8 +9,6 @@ import javax.swing.ImageIcon;
 public class Character extends Tile {
 
     private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
-    private ImageIcon icon;
-
     private int prevyCoordinate;
     private int prevxCoordinate;
     private Key KeyInPocket;
@@ -25,11 +23,6 @@ public class Character extends Tile {
         super(x, y);
         this.icon = new ImageIcon(path + "player.png");
         Symbol = "C";
-    }
-
-    @Override
-    public ImageIcon getIcon() {
-        return icon;
     }
 
     /**
@@ -71,7 +64,8 @@ public class Character extends Tile {
     /**
      * Setter for the Key
      *
-     * @param k
+     * @param k key to pickup
+     * @return boolean true when key is picked up
      */
     public boolean pickupKey(Key k) {
         KeyInPocket = k;
@@ -85,22 +79,13 @@ public class Character extends Tile {
     /**
      * Remove barricade b when called
      *
-     * @param b
+     * @param b barricade to destroy
+     * @return boolean true if barricade is destroyed
      */
     public boolean useKey(Barricade b) {
         return KeyInPocket.destroyBarricade(b);
     }
 
-//    
-//    private boolean checkNextTile(int[][] pf){
-//        if (pf[xCoordinate][yCoordinate].isEqualsTo("O")){
-//
-//        }
-//        return false;
-//    }
-//    private boolean checkTransparency(Tile t){
-//        return t.Transparent;
-//    }
     /**
      * Movement UP
      */
@@ -155,4 +140,3 @@ public class Character extends Tile {
         System.out.println("New coordinates = " + "x:" + xCoordinate + "y:" + yCoordinate);
     }
 }
-//getKey(xCoordinate, yCoordinate)

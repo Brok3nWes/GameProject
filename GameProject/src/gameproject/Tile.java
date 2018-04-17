@@ -11,14 +11,8 @@ public class Tile extends JLabel {
 
     int xCoordinate;
     int yCoordinate;
-    public boolean Transparent;
     public String Symbol;
     ImageIcon icon;
-
-    @Override
-    public ImageIcon getIcon() {
-        return icon;
-    }
 
     /**
      * Constructor for a Tile
@@ -29,8 +23,17 @@ public class Tile extends JLabel {
     Tile(int x, int y) {
         this.xCoordinate = x;
         this.yCoordinate = y;
-        Transparent = false;
         Symbol = "O";
+    }
+
+    /**
+     * Getter for Icon
+     *
+     * @return icon
+     */
+    @Override
+    public ImageIcon getIcon() {
+        return icon;
     }
 
     /**

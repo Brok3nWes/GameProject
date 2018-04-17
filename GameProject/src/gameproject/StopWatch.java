@@ -10,10 +10,16 @@ public class StopWatch {
     private boolean running = false;
     private ArrayList<Long> pauseTimes;
 
+    /**
+     * Constructor for StopWatch
+     */
     public StopWatch() {
         this.pauseTimes = new ArrayList<>();
     }
 
+    /**
+     * Start timer (also use this if stopwatch was stopped)
+     */
     public void start() {
         if (this.startTime != 0) {
             pauseTimes.add((System.currentTimeMillis() - startTime));
@@ -38,12 +44,19 @@ public class StopWatch {
         this.running = true;
     }
 
+    /**
+     * Stop stopwatch
+     */
     public void stop() {
         this.stopTime = System.currentTimeMillis();
         this.running = false;
     }
 
-    //elaspsed time in milliseconds
+    /**
+     * Getter for elapsedTime in milliseconds
+     *
+     * @return elapsed milliseconds
+     */
     public long getElapsedTime() {
         long elapsed;
         beforePauseTime = checkPauseTime();
@@ -55,7 +68,11 @@ public class StopWatch {
         return elapsed;
     }
 
-    //elaspsed time in seconds
+    /**
+     * Getter for elapsedTime in seconds
+     *
+     * @return elapsed seconds
+     */
     public long getElapsedTimeSecs() {
         long elapsed;
         beforePauseTime = checkPauseTime() / 1000;
@@ -68,6 +85,11 @@ public class StopWatch {
         return elapsed + beforePauseTime;
     }
 
+    /**
+     * Checking how much time was spent in the pause screen
+     *
+     * @return 0 if no pause time else total pauseTime
+     */
     private long checkPauseTime() {
         if (!pauseTimes.isEmpty()) {
             for (Long time : pauseTimes) {

@@ -14,12 +14,6 @@ import javax.swing.ImageIcon;
 public class EndTile extends Tile {
 
     private final String path = System.getProperty("user.dir") + "\\src\\Images\\";
-    private ImageIcon icon;
-
-    @Override
-    public ImageIcon getIcon() {
-        return icon;
-    }
 
     /**
      * Constructor for an EndTile
@@ -30,19 +24,6 @@ public class EndTile extends Tile {
     public EndTile(int x, int y) {
         super(x, y);
         this.icon = new ImageIcon(path + "end.png");
-        Transparent = true;
         Symbol = "E";
     }
-
-    public void setHighScore() {
-    }
-
-    public void showHighScore() {
-        System.out.println("Ya highscore = amazing BOI");
-    }
-
-    public void endLvl() {
-
-    }
-
 }

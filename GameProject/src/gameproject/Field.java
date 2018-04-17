@@ -36,21 +36,4 @@ public class Field {
     public Tile getTile() {
         return tile;
     }
-//
-//    /**
-//     * 
-//     * @param tile
-//     */
-//    public void setTile(Tile tile) {
-//        this.tile = tile;
-//    }
-
-    /**
-     * Check if tile is transparent or not
-     *
-     * @return boolean
-     */
-    public boolean isTransparent() {
-        return tile.Transparent;
-    }
 }

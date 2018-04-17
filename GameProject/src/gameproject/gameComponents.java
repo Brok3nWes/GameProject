@@ -7,25 +7,18 @@ package gameproject;
 import static gameproject.PlayingField.dimX;
 import static gameproject.PlayingField.dimY;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import static java.awt.Color.GRAY;
-import static java.awt.Color.GREEN;
-import static java.awt.Color.RED;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
 
 /**
@@ -49,17 +42,6 @@ class gameComponents {
     PlayingField PlayingField;
     Character P;
     Menu menu;
-
-//    String path = System.getProperty("user.dir") + "\\src\\Images\\";
-//    ImageIcon chosenTile = null;
-//    ImageIcon tileImage = new ImageIcon(path + "tile.png");
-//    ImageIcon barricade = new ImageIcon(path + "barricade.png");
-//    ImageIcon wall = new ImageIcon(path + "wall.png");
-//    ImageIcon start = new ImageIcon(path + "start.png");
-//    ImageIcon end = new ImageIcon(path + "end.png");
-//    ImageIcon key = new ImageIcon(path + "key.png");
-//    ImageIcon player = new ImageIcon(path + "player.png");
-//    Color tileColor = Color.decode("#c5c5c5");
     private JLabel playerTile;
 
     public gameComponents() {
@@ -67,7 +49,7 @@ class gameComponents {
         //fonts
         Default = new Font("", Font.BOLD, 17);
         MediumText = new Font("", Font.PLAIN, 22);
-        BigText = new Font("", Font.BOLD,30);
+        BigText = new Font("", Font.BOLD, 30);
         GameFrame = new JFrame();
         //pause menu
         pauseButton = new JButton("Pause");
@@ -100,7 +82,7 @@ class gameComponents {
 
         Finish.setPreferredSize(new Dimension(90, 50));
         Finish.addActionListener((ActionEvent f) -> {
-           // time.stop();
+            // time.stop();
             System.out.println("Your Time is: " + time.getElapsedTimeSecs() + " seconds");
             menu.endLvl();
 
@@ -130,7 +112,6 @@ class gameComponents {
     /**
      * Method to create the gamePanel and the buttonPanel
      */
-
     private void buildPanels() {
         TPanel = new JPanel();
         TPanel.setLayout(new GridLayout(10, 10, 0, 0));
@@ -170,7 +151,6 @@ class gameComponents {
     /**
      * ResetLvl (not 100% working)
      */
-
     private void resetLvl() {
         removeAllCells();
         repaintAllCells();

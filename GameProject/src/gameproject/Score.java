@@ -10,26 +10,36 @@ package gameproject;
  * @author baswo
  */
 public class Score {
-StopWatch time = new StopWatch();
+
     private long FastestTime;
     private long Score;
 
+    /**
+     * Getter for FastestTime
+     *
+     * @return FastestTime
+     */
     public long getFastestTime() {
         return FastestTime;
     }
 
+    /**
+     * Setter for FastestTime
+     *
+     * @param FastestTime time to set
+     */
     public void setFastestTime(int FastestTime) {
         this.FastestTime = FastestTime;
     }
 
-    public long getScore() {
+    /**
+     * Getter for Score
+     *
+     * @param time
+     * @return
+     */
+    public long getScore(StopWatch time) {
         Score = time.getElapsedTimeSecs();
         return Score;
     }
-
-    public void setScore(int Score) {
-        this.Score = Score;
-    }
-
-    
 }
